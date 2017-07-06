@@ -35,14 +35,16 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
   end
 
   # admin_group = 'azg-devops-admins'
-  developer_group = 'trekdevs'
+  # developer_group = 'trekdevs'
 
 else
 
   # admin_group = 'trekweb\\azg-devops-admins'
-  developer_group = 'trekdevs'
+  # developer_group = 'trekdevs'
 
 end
+
+developer_group = 'trekdevs'
 
 directories = %w(/opt /opt/sumologs /mnt /mnt/resource /mnt/resource/sumologs)
 
