@@ -40,7 +40,7 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
 else
 
   # admin_group = 'trekweb\\azg-devops-admins'
-  developer_group = 'trekweb\\trekdevs'
+  developer_group = 'trekdevs'
 
 end
 
