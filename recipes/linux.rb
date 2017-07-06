@@ -34,6 +34,7 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
     end
   end
 
+  # These acrobatics are not necessary to set the group which is all we need.
   # admin_group = 'azg-devops-admins'
   # developer_group = 'trekdevs'
 
@@ -47,10 +48,6 @@ end
 developer_group = 'trekdevs'
 
 directories = %w(/opt /opt/sumologs /mnt /mnt/resource /mnt/resource/sumologs)
-
-service 'collector' do
-  action :nothing
-end
 
 if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
   directories << '/mnt/resource/sumologs/apache'
@@ -90,16 +87,20 @@ end
 rpm_package 'sumocollector' do
   source "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
   action :upgrade
-  notifies :enable, 'service[collector]', :immediately
-  notifies :start, 'service[collector]', :delayed
+end
+
+service 'collector' do
+  action [:enable, :restart]
 end
 
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'
+  notifies :restart, 'service[collector]', :immediately
 end
 
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
+  notifies :restart, 'service[collector]', :immediately
 end
