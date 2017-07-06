@@ -67,7 +67,7 @@ directories.each do |path|
 end
 
 %w(apache hybris).each do |directory|
-  if File.directory?('/mnt/resource/sumologs/' + directory)
+  if File.directory?('/mnt/resource/sumologs/' + directory) # rubocop:disable Style/Next
     link '/opt/sumologs/' + directory do
       to '/mnt/resource/sumologs/' + directory
       link_type :symbolic
