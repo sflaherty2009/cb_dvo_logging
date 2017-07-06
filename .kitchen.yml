@@ -1,26 +1,79 @@
----
 driver:
   name: vagrant
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  always_update_cookbooks: true
 
 verifier:
   name: inspec
 
-platforms:
-  - name: ubuntu-16.04
+# To make Windows work, need to install vagrant windows plugin, first
+# vagrant plugin install vagrant-winrm
+# See: https://github.com/criteo/vagrant-winrm
+
+platforms: 
+
+  - name: trek/Windows2012R2
+    os_type: windows
+    shell_type: powershell
+    communicator: winrm
+    transport:
+      name: winrm
+      username: vagrant
+      password: vagrant
+    driver:
+      box: trek/windows2012r2
+      box_url: https://aztrksaslh00public01.blob.core.windows.net/vagrant/windows/2012r2/windows2012r2min-virtualbox.box
+      network:
+        - ['private_network', {ip: '192.168.57.12'}]
+
+  - name: mwrock/Windows2016
+    os_type: windows
+    shell_type: powershell
+    communicator: winrm
+    transport:
+      name: winrm
+      username: vagrant
+      password: vagrant
+    driver:
+      box: mwrock/Windows2016
+      box_url: https://atlas.hashicorp.com/mwrock/boxes/Windows2016
+      network:
+        - ['private_network', {ip: '192.168.57.11'}]
+
+  - name: centos-7.2
+    transport:
+      name: ssh
+      username: vagrant
+      password: vagrant
+    driver:
+      box: bento/centos-7.2
+      network:
+        - ['private_network', {ip: '192.168.56.13'}]
+
   - name: centos-7.3
+    transport:
+      name: ssh
+      username: vagrant
+      password: vagrant
+    driver:
+      box: bento/centos-7.3
+      network:
+        - ['private_network', {ip: '192.168.56.14'}]
 
 suites:
   - name: default
     run_list:
       - recipe[cb_dvo_logging::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/default
     attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "docker hybrisFrontEndWebServer hybrisBackEndWebServer hybris linux"
+        ALM_environment: "prod" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+        memory: 1024
+        cpus: 1

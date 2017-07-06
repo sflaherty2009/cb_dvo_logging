@@ -2,4 +2,17 @@
 # Cookbook:: cb_dvo_logging
 # Recipe:: default
 #
-# Copyright:: 2017, The Authors, All Rights Reserved.
+# Copyright (c) 2017 Trek Bikes, Ray Crawford, All Rights Reserved.
+
+Chef::Log.warn "Mandatory attribute: cloud service provider name = #{node['dvo']['cloud_service_provider']['name']}"
+Chef::Log.warn "Mandatory attribute: ALM Environment = #{node['dvo_user']['ALM_environment']}"
+Chef::Log.warn "Mandatory attribute: VM use = #{node['dvo_user']['use']}"
+
+case node['os']
+when 'linux'
+  include_recipe 'cb_dvo_logging::linux'
+when 'windows'
+  include_recipe 'cb_dvo_logging::windows'
+else
+  raise 'Cannot determine platform in default recipe.'
+end

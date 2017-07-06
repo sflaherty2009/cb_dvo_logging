@@ -1,20 +1,13 @@
 name 'cb_dvo_logging'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Ray Crawford'
+maintainer_email 'ray_crawford@trekbikes.com'
 license 'All Rights Reserved'
 description 'Installs/Configures cb_dvo_logging'
 long_description 'Installs/Configures cb_dvo_logging'
 version '0.1.0'
+
+source_url 'https://bitbucket.org/trekbikes/cb_dvo_logging'
+issues_url 'https://bitbucket.org/trekbikes/cb_dvo_logging/issues?status=new&status=open'
+
 chef_version '>= 12.1' if respond_to?(:chef_version)
-
-# The `issues_url` points to the location where issues for this cookbook are
-# tracked.  A `View Issues` link will be displayed on this cookbook's page when
-# uploaded to a Supermarket.
-#
-# issues_url 'https://github.com/<insert_org_here>/cb_dvo_logging/issues'
-
-# The `source_url` points to the development reposiory for this cookbook.  A
-# `View Source` link will be displayed on this cookbook's page when uploaded to
-# a Supermarket.
-#
-# source_url 'https://github.com/<insert_org_here>/cb_dvo_logging'
+supports 'centos'

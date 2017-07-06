@@ -1,0 +1,5 @@
+# For information about how to include/exclude cops, please see: 
+# http://www.rubydoc.info/gems/rubocop/0.16.0
+
+LineLength:
+  Enabled: false

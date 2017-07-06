@@ -1,0 +1,508 @@
+{
+    "api.version": "v1",
+    "sources": [<% 
+matched = false
+if node['dvo_user']['use'].match(/\bdocker\b/)
+    matched = true
+-%>
+        {
+            "name": "Docker STDOUT Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/docker/application",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":false,
+            "useAutolineMatching":false,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "pathExpression":"/data/docker/containers/*/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<%
+end
+if node['dvo_user']['use'].match(/\bhybrisFrontEndWebServer\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Apache Access Log",
+            "description": "Apache Access Log",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/opt/sumologs/apache/access_log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Apache Error Log",
+            "description": "Apache Error Log",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/opt/sumologs/apache/error_log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
+if node['dvo_user']['use'].match(/\bhybrisBackEndWebServer\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Back Office Access Log",
+            "description": "Back Office Access Log",
+            "category": "backoffice.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/apache/bo_access_log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Back Office Error Log",
+            "description":"Backoffice Error Log",
+            "category":"backoffice.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/apache/bo_error_log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% 
+end
+if node['dvo_user']['use'].match(/\bhybris\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+%>
+    {
+        "name":"Hybris BiDataImport",
+        "description":"Log for the Hybris BI import process nightly",
+        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/bidataimport",
+        "hostName":"",
+        "automaticDateParsing":true,
+        "multilineProcessingEnabled":true,
+        "useAutolineMatching":true,
+        "forceTimeZone":false,
+        "filters":[],
+        "cutoffTimestamp":1487052000000,
+        "encoding":"UTF-8",
+        "pathExpression":"/opt/sumologs/hybris/trek/biDataImport/*.log",
+        "blacklist":[],
+        "sourceType":"LocalFile"
+    },
+    {
+        "name":"Hybris CustomContentSyncJob",
+        "description":"This is the catalog sync job that runs in hybris",
+        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/customcontentsyncjob",
+        "hostName":"",
+        "automaticDateParsing":true,
+        "multilineProcessingEnabled":true,
+        "useAutolineMatching":true,
+        "forceTimeZone":false,
+        "filters":[],
+        "cutoffTimestamp":1487052000000,
+        "encoding":"UTF-8",
+        "pathExpression":"/opt/sumologs/hybris/trek/sync/*.log",
+        "blacklist":[],
+        "sourceType":"LocalFile"
+    },
+    {
+        "name":"Hybris JDBC Log",
+        "description":"Log for Hybris jdbc connections",
+        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/jdbc",
+        "hostName":"",
+        "automaticDateParsing":true,
+        "multilineProcessingEnabled":true,
+        "useAutolineMatching":true,
+        "forceTimeZone":false,
+        "filters":[],
+        "cutoffTimestamp":1487052000000,
+        "encoding":"UTF-8",
+        "pathExpression":"/opt/sumologs/hybris/jdbc.log",
+        "blacklist":[],
+        "sourceType":"LocalFile"
+    },
+    {
+        "name":"Hybris SolrIndexJob",
+        "description":"The solr indexing processes inside hybris",
+        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/solrindexjob",
+        "hostName":"",
+        "automaticDateParsing":true,
+        "multilineProcessingEnabled":true,
+        "useAutolineMatching":true,
+        "forceTimeZone":false,
+        "filters":[],
+        "cutoffTimestamp":1487052000000,
+        "encoding":"UTF-8",
+        "pathExpression":"/opt/sumologs/hybris/trek/solr/*.log",
+        "blacklist":[],
+        "sourceType":"LocalFile"
+    },
+    {
+        "name":"Hybris UserLocales",
+        "description":"Says how the locale served to the cliend was determined, url, cookie, geoip",
+        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/userlocales",
+        "hostName":"",
+        "automaticDateParsing":true,
+        "multilineProcessingEnabled":true,
+        "useAutolineMatching":true,
+        "forceTimeZone":false,
+        "filters":[],
+        "cutoffTimestamp":1487052000000,
+        "encoding":"UTF-8",
+        "pathExpression":"/opt/sumologs/hybris/trek/userLocales/*.log",
+        "blacklist":[],
+        "sourceType":"LocalFile"
+    },
+    {
+        "name":"Hybris Tomcat Log",
+        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/tomcat/application",
+        "hostName":"",
+        "automaticDateParsing":true,
+        "multilineProcessingEnabled":true,
+        "useAutolineMatching":true,
+        "forceTimeZone":false,
+        "filters":[],
+        "cutoffTimestamp":1487052000000,
+        "encoding":"UTF-8",
+        "pathExpression":"/opt/sumologs/hybris/tomcat/*.log",
+        "blacklist":[],
+        "sourceType":"LocalFile"
+  }<%
+end
+if node['dvo_user']['use'].match(/.\blinux\b/)
+    if matched
+-%>,<%
+    end
+    matched = true 
+-%>
+        {  
+            "name":"System Audit Logs",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/audit",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/audit/*.log*",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"System Security Logs",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/security",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/secure*",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"System Bash History",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/bash_history",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/messages*",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"Azure Logs",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/azure",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/azure/*/*/*.log",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"Linux Boot Log",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/boot",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/boot.log*",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"Linux Cron Log",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/cron",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/cron",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"Linux SSSD Log",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/sssd",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/sssd/*.log",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"Linux yum Log",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/yum",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/yum.log",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        },
+        {  
+            "name":"Linux WPA Supplicant Log",
+            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/wpa",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{  
+                "resources":[  
+                {  
+                    "serviceType":"Linux",
+                    "path":{  
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{  
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/wpa_supplicant.log",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        }<% 
+end
+unless matched
+     raise "Unknown system use; no case with input #{node['dvo_user']['use']} in sources.json.erb."
+end
+-%>
+    ]
+}
