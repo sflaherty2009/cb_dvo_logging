@@ -99,5 +99,5 @@ template '/opt/SumoCollector/config/sources.json' do
 end
 
 service 'collector' do
-  action [:enable, :restart]
+  action [:enable, :start]
 end
