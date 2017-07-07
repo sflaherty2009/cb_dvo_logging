@@ -19,7 +19,7 @@ control 'SumoLogic_sources.json' do
     its('content') { should match 'Apache' }
   end
   describe file('/opt/SumoCollector/config/sources.json') do
-    its('content') { should match 'Linux' }
+    its('content') { should_not match 'Linux' }
   end
   describe file('/opt/SumoCollector/config/sources.json') do
     its('content') { should_not match 'Docker' }
