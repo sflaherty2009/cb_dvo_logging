@@ -22,9 +22,9 @@ control 'SumoLogic_sources.json' do
     describe file('/opt/SumoCollector/config/sources.json') do
       its('content') { should match 'Linux' }
     end
-    describe file('/opt/SumoCollector/config/sources.json') do
-      its('content') { should match 'Docker' }
-    end
+    # describe file('/opt/SumoCollector/config/sources.json') do
+    #   its('content') { should match 'Docker' }
+    # end
   end
 end
 

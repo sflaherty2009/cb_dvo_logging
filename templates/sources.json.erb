@@ -2,24 +2,26 @@
     "api.version": "v1",
     "sources": [<% 
 matched = false
-if node['dvo_user']['use'].match(/\bdocker\b/)
-    matched = true
--%>
-        {
-            "name": "Docker STDOUT Logs",
-            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/docker/application",
-            "automaticDateParsing":true,
-            "multilineProcessingEnabled":false,
-            "useAutolineMatching":false,
-            "forceTimeZone":false,
-            "filters":[],
-            "cutoffTimestamp":1447135200000,
-            "encoding":"UTF-8",
-            "pathExpression":"/data/docker/containers/*/*.log",
-            "blacklist":[],
-            "sourceType":"LocalFile"
-        }<%
-end
+# Not necessary because Hybris (tomcat) info ends up in 
+# /var/opt/hybris/log/tomcat and Docker daemon logs end up in /var/log/messages
+# if node['dvo_user']['use'].match(/\bdocker\b/)
+#    matched = true
+#-%>
+#        {
+#            "name": "Docker STDOUT Logs",
+#            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/docker/application",
+#            "automaticDateParsing":true,
+#            "multilineProcessingEnabled":false,
+#            "useAutolineMatching":false,
+#            "forceTimeZone":false,
+#            "filters":[],
+#            "cutoffTimestamp":1447135200000,
+#            "encoding":"UTF-8",
+#            "pathExpression":"/data/docker/containers/*/*.log",
+#            "blacklist":[],
+#            "sourceType":"LocalFile"
+#        }<%
+#end
 if node['dvo_user']['use'].match(/\bhybrisFrontEndWebServer\b/)
     if matched
 -%>,<%

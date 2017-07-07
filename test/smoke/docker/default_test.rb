@@ -21,9 +21,9 @@ control 'SumoLogic_sources.json' do
   describe file('/opt/SumoCollector/config/sources.json') do
     its('content') { should_not match 'Linux' }
   end
-  describe file('/opt/SumoCollector/config/sources.json') do
-    its('content') { should match 'Docker' }
-  end
+#   describe file('/opt/SumoCollector/config/sources.json') do
+#     its('content') { should match 'Docker' }
+#   end
 end
 
 control 'SumoLogic_user.properties' do

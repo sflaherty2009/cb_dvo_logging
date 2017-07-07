@@ -91,11 +91,13 @@ end
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'
+  notifies :restart, 'service[collector]', :delayed
 end
 
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
+  notifies :restart, 'service[collector]', :delayed
 end
 
 service 'collector' do
