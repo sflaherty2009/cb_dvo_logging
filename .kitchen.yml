@@ -65,15 +65,100 @@ suites:
   - name: default
     run_list:
       - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
     attributes:
       bbUserName: "<%= ENV['bbUserName'] %>"
       bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
-        use: "docker hybrisFrontEndWebServer hybrisBackEndWebServer hybris linux"
+        use: "hybris hybrisFrontEndWebServer hybrisBackEndWebServer linux docker"
         ALM_environment: "prod" 
       dvo:
         cloud_service_provider:
           name: "local"
     driver:
-        memory: 1024
-        cpus: 1
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.15'}]
+  - name: hybrisWebServer
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/hybrisWebServer
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "hybrisFrontEndWebServer hybrisBackEndWebServer"
+        ALM_environment: "prod" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.16'}]
+  - name: hybris
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/hybris
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "hybris"
+        ALM_environment: "prod" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.17'}]
+  - name: linux
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/linux
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "linux"
+        ALM_environment: "prod" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.18'}]
+  - name: docker
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/docker
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "docker"
+        ALM_environment: "prod" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.19'}]

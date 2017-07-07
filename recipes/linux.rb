@@ -66,11 +66,10 @@ directories.each do |path|
 end
 
 %w(apache hybris).each do |directory|
-  if lazy { File.directory?('/mnt/resource/sumologs/' + directory) } # rubocop:disable Style/Next
-    link '/opt/sumologs/' + directory do
-      to '/mnt/resource/sumologs/' + directory
-      link_type :symbolic
-    end
+  link '/opt/sumologs/' + directory do # ~FC022
+    to '/mnt/resource/sumologs/' + directory
+    link_type :symbolic
+    only_if { File.directory?('/mnt/resource/sumologs/' + directory) }
   end
 end
 
@@ -89,18 +88,16 @@ rpm_package 'sumocollector' do
   action :upgrade
 end
 
-service 'collector' do
-  action [:enable, :restart]
-end
-
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'
-  notifies :restart, 'service[collector]', :immediately
 end
 
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
-  notifies :restart, 'service[collector]', :immediately
+end
+
+service 'collector' do
+  action [:enable, :restart]
 end
