@@ -73,7 +73,7 @@ suites:
       bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "hybris hybrisFrontEndWebServer hybrisBackEndWebServer linux docker"
-        ALM_environment: "prod" 
+        ALM_environment: "local" 
       dvo:
         cloud_service_provider:
           name: "local"
@@ -93,7 +93,7 @@ suites:
       bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "hybrisFrontEndWebServer hybrisBackEndWebServer"
-        ALM_environment: "prod" 
+        ALM_environment: "local" 
       dvo:
         cloud_service_provider:
           name: "local"
@@ -113,7 +113,7 @@ suites:
       bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "hybris"
-        ALM_environment: "prod" 
+        ALM_environment: "local" 
       dvo:
         cloud_service_provider:
           name: "local"
@@ -133,7 +133,7 @@ suites:
       bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "linux"
-        ALM_environment: "prod" 
+        ALM_environment: "local" 
       dvo:
         cloud_service_provider:
           name: "local"
@@ -153,7 +153,7 @@ suites:
       bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "docker"
-        ALM_environment: "prod" 
+        ALM_environment: "local" 
       dvo:
         cloud_service_provider:
           name: "local"
