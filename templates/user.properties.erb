@@ -39,7 +39,14 @@ accesskey = YokTvVDFGMMMvfUWqnPXfZfSAEV5BpI9GjT6F8BnlZvClz6PoD2GbQLZ3xGNiNfT
 syncSources = /opt/SumoCollector/config/sources.json
 name = <%= my_hostname %>
 <% 
+   elsif my_hostname.include? '-geoip-'
+-%>
+accessid = suTqpnMJg0K9ey
+accesskey = mE9PuqHxkUV4VzRpGDlaZPAuqMw88Pr6qeLFOQyUHgdKigOWNNPHKhNzkPe90Q7o
+syncSources = /opt/SumoCollector/config/sources.json
+name = <%= my_hostname %>
+<% 
   else 
-    raise 'Unknown infrastructure found for hostname #{my_hostname} in user.properties.erb'
+    raise "Unknown infrastructure found for hostname #{my_hostname} in user.properties.erb"
 end 
 -%>
