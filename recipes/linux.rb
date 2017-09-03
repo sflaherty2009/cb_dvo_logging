@@ -73,7 +73,7 @@ end
   end
 end
 
-remote_file "SumoLogic Collector" do
+remote_file 'SumoLogic Collector' do
   source node['dvo_user']['sumologic']['url']
   path "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
   owner 'root'
