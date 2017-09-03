@@ -9,9 +9,9 @@ As an FYI, Docker drops logs to `/opt/sumologs/` apache or hybris directories.  
 
 # Environment Pinning
 
-* production: 1.0.5
-* staging: 1.0.5
-* testing: 1.0.5
+* production: 1.0.7
+* staging: 1.0.7
+* testing: 1.0.7
 * development: latest
 
 # Requirements

@@ -1,3 +1,15 @@
+# 1.0.7
+**Data: 9/2/2017**
+
+* Added user.properties entry for '-prd-'
+* Added user.properties entry for '-tst-'
+* Added user.properties entry for '-ssn-'
+* Added user.properties entry for '-tf-'
+* Added user.properties entry for '-mdn-'
+* Added user.properties entry for '-dmn-'
+* Removed issue with RPM checksum...
+  * Since I can't specify the version I want from Sumo, when a new one, with a new checksum is released, it broke the script.  Since updates are low impact, removed checksum.  Can be added again if we leverage a artifactory to deliver assets such as these.
+
 # 1.0.6
 **Data: 8/15/2017**
 
