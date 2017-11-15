@@ -1,0 +1,47 @@
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+# To make Windows work, need to install vagrant windows plugin, first
+# vagrant plugin install vagrant-winrm
+# See: https://github.com/criteo/vagrant-winrm
+
+platforms: 
+
+  - name: mwrock/Windows2012R2
+    os_type: windows
+    shell_type: powershell
+    communicator: winrm
+    transport:
+      name: winrm
+      username: vagrant
+      password: vagrant
+    driver:
+      box: mwrock/Windows2012R2
+      box_url: https://atlas.hashicorp.com/mwrock/boxes/Windows2012R2
+      network:
+        - ['private_network', {ip: '192.168.57.12'}]
+
+  - name: centos-7.4
+    transport:
+      name: ssh
+      username: vagrant
+      password: vagrant
+    driver:
+      box: bento/centos-7.4
+      network:
+        - ['private_network', {ip: '192.168.56.13'}]
+          
+suites:
+  - name: default
+    run_list:
+      - recipe[cb_dvo_addStorage::default]
+    attributes:
+    driver:
+        memory: 1024
+        cpus: 1
