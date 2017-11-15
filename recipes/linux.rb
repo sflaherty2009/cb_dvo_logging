@@ -7,7 +7,7 @@
 # For local testing and such
 
 if node['dvo']['cloud_service_provider']['name'] == 'local'
-  admin_users = %w(rcrawford nlocke adexter)
+  admin_users = %w(rcrawford nlocke deasland)
   developer_users = %w(developer)
   all_users = admin_users + developer_users
   admin = %w(local_admin)
@@ -34,59 +34,70 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
     end
   end
 
-  # These acrobatics are not necessary to set the group which is all we need.
-  # admin_group = 'azg-devops-admins'
-  # developer_group = 'trekdevs'
-
-  # else
-
-  # admin_group = 'trekweb\\azg-devops-admins'
-  # developer_group = 'trekdevs'
+  %w(/premium /standard /opt).each do |this_directory|
+    directory this_directory do
+      owner 'root'
+      group 'root'
+      mode '0755'
+      action :create
+    end
+  end
 
 end
 
-developer_group = 'trekdevs'
+# Guard in case Sumologic has already been set up
+# This is also provides a way to upgrade SumoLogic;
+#  just delete the link and it should recreate it
+#  & upgrade if one exists
+unless File.exist?('/opt/sumologs')
+  developer_group = 'trekdevs'
 
-directories = %w(/opt /opt/sumologs /mnt /mnt/resource /mnt/resource/sumologs)
-
-if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
-  directories << '/mnt/resource/sumologs/apache'
-end
-
-if node['dvo_user']['use'] =~ /\bhybris\b/
-  directories << '/mnt/resource/sumologs/hybris'
-end
-
-directories.each do |path|
-  directory path do
+  directory '/standard/sumologs' do
     group developer_group
     user 'root'
     mode '02755'
   end
-end
 
-%w(apache hybris).each do |directory|
-  link '/opt/sumologs/' + directory do # ~FC022
-    to '/mnt/resource/sumologs/' + directory
-    link_type :symbolic
-    only_if { File.directory?('/mnt/resource/sumologs/' + directory) }
+  link '/opt/sumologs' do
+    to '/standard/sumologs'
+  end
+
+  directories = %w(/standard/sumologs)
+
+  if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
+    directories << "#{directories[0]}/apache"
+  end
+
+  if node['dvo_user']['use'] =~ /\bhybris\b/
+    directories << "#{directories[0]}/hybris"
+  end
+
+  directories.each do |path|
+    directory path do
+      group developer_group
+      user 'root'
+      mode '02755'
+    end
+  end
+
+  remote_file 'SumoLogic Collector' do
+    source node['dvo_user']['sumologic']['url']
+    path "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
+    owner 'root'
+    group 'root'
+    mode '0600'
+  end
+
+  rpm_package 'sumocollector' do
+    source "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
+    action :upgrade
+    notifies :restart, 'service[collector]', :delayed
   end
 end
 
-remote_file 'SumoLogic Collector' do
-  source node['dvo_user']['sumologic']['url']
-  path "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
-  owner 'root'
-  group 'root'
-  mode '0600'
-  action :create
-end
-
-rpm_package 'sumocollector' do
-  source "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
-  action :upgrade
-end
-
+# This is not in 'unless' because we want to check for 
+#  template updates despite whether SumoLogic was just 
+#  installed or not.
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'

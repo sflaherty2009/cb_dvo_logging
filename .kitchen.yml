@@ -61,6 +61,16 @@ platforms:
       network:
         - ['private_network', {ip: '192.168.56.14'}]
 
+  - name: centos-7.4
+    transport:
+      name: ssh
+      username: vagrant
+      password: vagrant
+    driver:
+      box: bento/centos-7.4
+      network:
+        - ['private_network', {ip: '192.168.56.14'}]
+
 suites:
   - name: default
     run_list:

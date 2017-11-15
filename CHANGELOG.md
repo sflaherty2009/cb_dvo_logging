@@ -1,5 +1,11 @@
+# 2.0.0
+**Date: 11/15/2017**
+**Contributor: Ray Crawford**
+
+* Refactored to place logs on /standard in Linux
+
 # 1.0.7
-**Data: 9/2/2017**
+**Date: 9/2/2017**
 
 * Added user.properties entry for '-prd-'
 * Added user.properties entry for '-tst-'
