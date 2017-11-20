@@ -95,8 +95,8 @@ unless File.exist?('/opt/sumologs')
   end
 end
 
-# This is not in 'unless' because we want to check for 
-#  template updates despite whether SumoLogic was just 
+# This is not in 'unless' because we want to check for
+#  template updates despite whether SumoLogic was just
 #  installed or not.
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
