@@ -179,6 +179,28 @@ if node['dvo_user']['use'].match(/\bhybris\b/)
         "sourceType":"LocalFile"
   }<%
 end
+if node['dvo_user']['use'].match(/\bsolr\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Docker STDOUT Logs",
+            "description": "Solr Log",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/solr",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/var/lib/docker/containers/*/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
 if node['dvo_user']['use'].match(/\blinux\b/)
     if matched
 -%>,<%
