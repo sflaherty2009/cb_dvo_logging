@@ -49,6 +49,17 @@ end
 # This is also provides a way to upgrade SumoLogic;
 #  just delete the link and it should recreate it
 #  & upgrade if one exists
+# MDO 2017-12-02: added execution time guard on trekdevs group
+#  and added logic to allow for execution time guard on /opt/sumologs
+#  in case needed in the future
+
+ruby_block 'Check for run conditions' do
+  block do
+    node.run_state['trekdevs_exists'] = !shell_out('getent group trekdevs').error?
+    node.run_state['opt_sumologs_exists'] = ::File.exist?('/opt/sumologs')
+  end
+end
+
 unless File.exist?('/opt/sumologs')
   developer_group = 'trekdevs'
 
@@ -56,10 +67,12 @@ unless File.exist?('/opt/sumologs')
     group developer_group
     user 'root'
     mode '02755'
+    only_if { node.run_state['trekdevs_exists'] }
   end
 
   link '/opt/sumologs' do
     to '/standard/sumologs'
+    only_if { node.run_state['trekdevs_exists'] }
   end
 
   directories = %w(/standard/sumologs)
@@ -77,6 +90,7 @@ unless File.exist?('/opt/sumologs')
       group developer_group
       user 'root'
       mode '02755'
+      only_if { node.run_state['trekdevs_exists'] }
     end
   end
 
@@ -86,12 +100,14 @@ unless File.exist?('/opt/sumologs')
     owner 'root'
     group 'root'
     mode '0600'
+    only_if { node.run_state['trekdevs_exists'] }
   end
 
   rpm_package 'sumocollector' do
     source "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
     action :upgrade
     notifies :restart, 'service[collector]', :delayed
+    only_if { node.run_state['trekdevs_exists'] }
   end
 end
 
@@ -102,14 +118,17 @@ template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'
   notifies :restart, 'service[collector]', :delayed
+  only_if { node.run_state['opt_sumologs_exists'] }
 end
 
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
   notifies :restart, 'service[collector]', :delayed
+  only_if { node.run_state['opt_sumologs_exists'] }
 end
 
 service 'collector' do
   action [:enable, :start]
+  only_if { node.run_state['opt_sumologs_exists'] }
 end

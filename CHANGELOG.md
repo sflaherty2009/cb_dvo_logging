@@ -1,3 +1,9 @@
+# 2.0.2
+**Date: 12/02/2017**
+**Contributor: Matt Oleksowicz**
+
+* Added guard against 'trekdevs' group missing
+
 # 2.0.0
 **Date: 11/15/2017**
 **Contributor: Ray Crawford**
