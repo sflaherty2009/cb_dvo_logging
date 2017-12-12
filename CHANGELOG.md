@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 # 2.0.4
 **Date: 12/12/2017**
 
 * Added rules for Translations logging sources
+=======
+# 2.0.3
+**Date: 12/12/2017**
+
+* Removed Docker STDOUT logging
+>>>>>>> origin/master
 
 # 2.0.2
 **Date: 12/02/2017**
