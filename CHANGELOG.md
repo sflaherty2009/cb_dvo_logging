@@ -1,3 +1,8 @@
+# 2.0.3
+**Date: 12/12/2017**
+
+* Removed Docker STDOUT logging
+
 # 2.0.2
 **Date: 12/02/2017**
 **Contributor: Matt Oleksowicz**
