@@ -1,3 +1,8 @@
+# 2.0.6
+**Date: 12/12/2017**
+
+* Added rules for Apache logs
+
 # 2.0.5
 **Date: 12/12/2017**
 

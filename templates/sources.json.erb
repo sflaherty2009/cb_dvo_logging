@@ -809,6 +809,36 @@ if node['dvo_user']['use'].match(/\bPD\b/)
             "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations PD Apache Access Logs",
+            "description": "Translations PD Apache Access Logs",
+            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/var/log/httpd/access_log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations PD Apache Error Logs",
+            "description": "Translations PD Apache Error Logs",
+            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/pd/error",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/var/log/httpd/error_log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
         }<%
 end
 if node['dvo_user']['use'].match(/\bTSO\b/)
