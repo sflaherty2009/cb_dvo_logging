@@ -9,8 +9,8 @@ Docker mounts use-specific external volumes `/opt/sumologs/apache` or `/opt/sumo
 
 # Environment Pinning
 
-* production: 2.0.1
-* staging: 2.0.1
+* production: 2.0.4
+* staging: 2.0.4
 * testing: latest
 * development: latest
 
