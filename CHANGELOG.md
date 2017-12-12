@@ -1,3 +1,8 @@
+# 2.0.5
+**Date: 12/12/2017**
+
+* Updated source category naming
+
 # 2.0.4
 **Date: 12/12/2017**
 
