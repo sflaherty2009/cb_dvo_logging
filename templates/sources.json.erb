@@ -483,6 +483,356 @@ if node['dvo_user']['use'].match(/\blinux\b/)
             "sourceType":"LocalFile"
         }<% 
 end
+if node['dvo_user']['use'].match(/\bTMGR\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Translations TMGR Tomcat Catalina Logs",
+            "description": "Translations TMGR Tomcat Catalina Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/catalina",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations TMGR Access Logs",
+            "description": "Translations TMGR Access Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations TMGR App Logs",
+            "description": "Translations TMGR App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
+if node['dvo_user']['use'].match(/\bTSR\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Translations TSR App Logs",
+            "description": "Translations TSR App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/TSR/gtk/full-*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
+if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
+    if matched
+-%>,<%
+    end
+    matched = true
+    batchServerName = matches[0].upcase!
+-%>
+        {
+            "name": "Translations <%= batchServerName %> Tomcat Catalina Logs",
+            "description": "Translations <%= batchServerName %> Tomcat Catalina Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/catalina",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations <%= batchServerName %> Access Logs",
+            "description": "Translations <%= batchServerName %> Access Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations <%= batchServerName %> App Logs",
+            "description": "Translations <%= batchServerName %> App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
+if node['dvo_user']['use'].match(/\bActiveMQ\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Translations AMQ Tomcat Catalina Logs",
+            "description": "Translations AMQ Tomcat Catalina Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/catalina",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.out",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations AMQ Access Logs",
+            "description": "Translations AMQ Access Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations AMQ App Logs",
+            "description": "Translations AMQ App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations SOLR Tomcat Catalina Logs",
+            "description": "Translations SOLR Tomcat Catalina Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/catalina",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.out",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations SOLR Access Logs",
+            "description": "Translations SOLR Access Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations SOLR App Logs",
+            "description": "Translations SOLR App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
+if node['dvo_user']['use'].match(/\bTMS\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Translations TMS Tomcat Catalina Logs",
+            "description": "Translations TMS Tomcat Catalina Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/catalina",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations TMS Access Logs",
+            "description": "Translations TMS Access Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations TMS App Logs",
+            "description": "Translations TMS App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
+if node['dvo_user']['use'].match(/\bPD\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Translations PD Tomcat Catalina Logs",
+            "description": "Translations PD Tomcat Catalina Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/catalina",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations PD Access Logs",
+            "description": "Translations PD Access Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations PD App Logs",
+            "description": "Translations PD App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
+if node['dvo_user']['use'].match(/\bTSO\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>
+        {
+            "name": "Translations TSO App Logs",
+            "description": "Translations TSO App Logs",
+            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/translations/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/TSO/gtk/full-*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<%
+end
 unless matched
      raise "Unknown system use; no case with input #{node['dvo_user']['use']} in sources.json.erb."
 end

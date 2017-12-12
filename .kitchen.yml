@@ -172,3 +172,21 @@ suites:
       cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.19'}]
+  - name: PD
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/linux
+    attributes:
+      dvo_user:
+        use: "PD"
+        ALM_environment: "local" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.20'}]
