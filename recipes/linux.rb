@@ -53,10 +53,9 @@ end
 #  and added logic to allow for execution time guard on /opt/sumologs
 #  in case needed in the future
 
-ruby_block 'Check for run conditions' do
+ruby_block 'Check for group run condition' do
   block do
     node.run_state['trekdevs_exists'] = !shell_out('getent group trekdevs').error?
-    node.run_state['opt_sumologs_exists'] = ::File.exist?('/opt/sumologs')
   end
 end
 
@@ -114,6 +113,12 @@ end
 # This is not in 'unless' because we want to check for
 #  template updates despite whether SumoLogic was just
 #  installed or not.
+ruby_block 'Check for dir run condition' do
+  block do
+    node.run_state['opt_sumologs_exists'] = ::File.exist?('/opt/sumologs')
+  end
+end
+
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'

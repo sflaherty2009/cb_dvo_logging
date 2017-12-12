@@ -1,3 +1,8 @@
+# 2.0.4
+**Date: 12/12/2017**
+
+* Added rules for Translations logging sources
+
 # 2.0.3
 **Date: 12/12/2017**
 
