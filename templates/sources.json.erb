@@ -3,6 +3,11 @@
     "sources": [<% 
 matched = false
 
+rootCategory = 'www.trekbikes.com'
+if node['dvo_user']['use'].match(/\btranslations\b/)
+  rootCategory = 'translations.com'
+end
+
 if node['dvo_user']['use'].match(/\bhybrisFrontEndWebServer\b/)
     if matched
 -%>,<%
@@ -12,7 +17,7 @@ if node['dvo_user']['use'].match(/\bhybrisFrontEndWebServer\b/)
         {
             "name": "Apache Access Log",
             "description": "Apache Access Log",
-            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -27,7 +32,7 @@ if node['dvo_user']['use'].match(/\bhybrisFrontEndWebServer\b/)
         {
             "name": "Apache Error Log",
             "description": "Apache Error Log",
-            "category": "www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -86,7 +91,7 @@ if node['dvo_user']['use'].match(/\bhybris\b/)
     {
         "name":"Hybris BiDataImport",
         "description":"Log for the Hybris BI import process nightly",
-        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/bidataimport",
+        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/bidataimport",
         "hostName":"",
         "automaticDateParsing":true,
         "multilineProcessingEnabled":true,
@@ -102,7 +107,7 @@ if node['dvo_user']['use'].match(/\bhybris\b/)
     {
         "name":"Hybris CustomContentSyncJob",
         "description":"This is the catalog sync job that runs in hybris",
-        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/customcontentsyncjob",
+        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/customcontentsyncjob",
         "hostName":"",
         "automaticDateParsing":true,
         "multilineProcessingEnabled":true,
@@ -118,7 +123,7 @@ if node['dvo_user']['use'].match(/\bhybris\b/)
     {
         "name":"Hybris JDBC Log",
         "description":"Log for Hybris jdbc connections",
-        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/jdbc",
+        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/jdbc",
         "hostName":"",
         "automaticDateParsing":true,
         "multilineProcessingEnabled":true,
@@ -134,7 +139,7 @@ if node['dvo_user']['use'].match(/\bhybris\b/)
     {
         "name":"Hybris SolrIndexJob",
         "description":"The solr indexing processes inside hybris",
-        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/solrindexjob",
+        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/solrindexjob",
         "hostName":"",
         "automaticDateParsing":true,
         "multilineProcessingEnabled":true,
@@ -150,7 +155,7 @@ if node['dvo_user']['use'].match(/\bhybris\b/)
     {
         "name":"Hybris UserLocales",
         "description":"Says how the locale served to the cliend was determined, url, cookie, geoip",
-        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/hybris/userlocales",
+        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/userlocales",
         "hostName":"",
         "automaticDateParsing":true,
         "multilineProcessingEnabled":true,
@@ -165,7 +170,7 @@ if node['dvo_user']['use'].match(/\bhybris\b/)
     },
     {
         "name":"Hybris Tomcat Log",
-        "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/tomcat/application",
+        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tomcat/application",
         "hostName":"",
         "automaticDateParsing":true,
         "multilineProcessingEnabled":true,
@@ -187,7 +192,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
 -%>
         {  
             "name":"System Audit Logs",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/audit",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/audit",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -220,7 +225,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"System Security Logs",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/security",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/security",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -253,7 +258,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"System Bash History",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/bash_history",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/bash_history",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -286,7 +291,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"Azure Logs",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/azure",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/azure",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -319,7 +324,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"Linux Boot Log",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/boot",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/boot",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -352,7 +357,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"Linux Cron Log",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/cron",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/cron",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -385,7 +390,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"Linux SSSD Log",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/sssd",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/sssd",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -418,7 +423,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"Linux yum Log",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/yum",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/yum",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -451,7 +456,7 @@ if node['dvo_user']['use'].match(/\blinux\b/)
         },
         {  
             "name":"Linux WPA Supplicant Log",
-            "category":"www.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/linux/wpa",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/wpa",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -492,7 +497,7 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
         {
             "name": "Translations TMGR Tomcat Catalina Logs",
             "description": "Translations TMGR Tomcat Catalina Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tmgr/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tmgr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -507,7 +512,7 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
         {
             "name": "Translations TMGR Access Logs",
             "description": "Translations TMGR Access Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tmgr/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tmgr/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -522,7 +527,7 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
         {
             "name": "Translations TMGR App Logs",
             "description": "Translations TMGR App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tmgr/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tmgr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -544,7 +549,7 @@ if node['dvo_user']['use'].match(/\bTSR\b/)
         {
             "name": "Translations TSR App Logs",
             "description": "Translations TSR App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tsr/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tsr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -567,7 +572,7 @@ if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
         {
             "name": "Translations <%= batchServerName %> Tomcat Catalina Logs",
             "description": "Translations <%= batchServerName %> Tomcat Catalina Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/batch/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/batch/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -582,7 +587,7 @@ if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
         {
             "name": "Translations <%= batchServerName %> Access Logs",
             "description": "Translations <%= batchServerName %> Access Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/batch/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/batch/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -597,7 +602,7 @@ if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
         {
             "name": "Translations <%= batchServerName %> App Logs",
             "description": "Translations <%= batchServerName %> App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/batch/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/batch/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -619,7 +624,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
         {
             "name": "Translations AMQ Tomcat Catalina Logs",
             "description": "Translations AMQ Tomcat Catalina Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -634,7 +639,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
         {
             "name": "Translations AMQ Access Logs",
             "description": "Translations AMQ Access Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/amq/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -649,7 +654,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
         {
             "name": "Translations AMQ App Logs",
             "description": "Translations AMQ App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -664,7 +669,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
         {
             "name": "Translations SOLR Tomcat Catalina Logs",
             "description": "Translations SOLR Tomcat Catalina Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -679,7 +684,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
         {
             "name": "Translations SOLR Access Logs",
             "description": "Translations SOLR Access Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/solr/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -694,7 +699,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
         {
             "name": "Translations SOLR App Logs",
             "description": "Translations SOLR App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -716,7 +721,7 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
         {
             "name": "Translations TMS Tomcat Catalina Logs",
             "description": "Translations TMS Tomcat Catalina Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tms/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tms/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -731,7 +736,7 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
         {
             "name": "Translations TMS Access Logs",
             "description": "Translations TMS Access Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tms/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tms/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -746,7 +751,7 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
         {
             "name": "Translations TMS App Logs",
             "description": "Translations TMS App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tms/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tms/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -768,7 +773,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
         {
             "name": "Translations PD Tomcat Catalina Logs",
             "description": "Translations PD Tomcat Catalina Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/pd/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -783,7 +788,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
         {
             "name": "Translations PD Access Logs",
             "description": "Translations PD Access Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -798,7 +803,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
         {
             "name": "Translations PD App Logs",
             "description": "Translations PD App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/pd/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -813,7 +818,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
         {
             "name": "Translations PD Apache Access Logs",
             "description": "Translations PD Apache Access Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -828,7 +833,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
         {
             "name": "Translations PD Apache Error Logs",
             "description": "Translations PD Apache Error Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/pd/error",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/error",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -850,7 +855,7 @@ if node['dvo_user']['use'].match(/\bTSO\b/)
         {
             "name": "Translations TSO App Logs",
             "description": "Translations TSO App Logs",
-            "category": "translations.com/<%= node['dvo_user']['ALM_environment'] %>/tso/application",
+            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tso/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,

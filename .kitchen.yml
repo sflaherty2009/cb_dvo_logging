@@ -180,7 +180,7 @@ suites:
         - test/smoke/linux
     attributes:
       dvo_user:
-        use: "PD"
+        use: "translations PD linux"
         ALM_environment: "local" 
       dvo:
         cloud_service_provider:
