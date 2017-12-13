@@ -1,3 +1,8 @@
+# 2.0.7
+**Date: 12/13/2017**
+
+* Added logic to parameterize the root category based on 'use' attribute values. Uses www.trekbikes.com by default.
+
 # 2.0.6
 **Date: 12/12/2017**
 
