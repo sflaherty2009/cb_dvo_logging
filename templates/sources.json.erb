@@ -868,6 +868,286 @@ if node['dvo_user']['use'].match(/\bTSO\b/)
             "sourceType": "LocalFile"
         }<%
 end
+if node['dvo_user']['use'].match(/\bsolr\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>     
+        { 
+            "name":"Solr Log",
+            "description":"Solr Tomcat logs",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/eventlog",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/solr/solr.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Solr GC Log",
+            "description":"Garbage collection logs from Solr",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/gc_log",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/solr/solr_gc.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"System Audit Logs",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/audit",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                    "type":"NoAuthentication"
+                    }
+                }]
+            },
+            "pathExpression":"/var/log/audit/*.log*",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"System Security Logs",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/security",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                "path":{
+                "type":"NoPathExpression"
+                },
+                "authentication":{
+                "type":"NoAuthentication"
+                }
+            }]
+            },
+            "pathExpression":"/var/log/secure*",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"System Bash History",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/bash_history",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                "path":{
+                "type":"NoPathExpression"
+                },
+                "authentication":{
+                "type":"NoAuthentication"
+                }
+            }]
+            },
+            "pathExpression":"/var/log/messages*",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+		},
+        {
+            "name":"Azure Logs",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/azure",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                    "type":"NoAuthentication"
+                    }
+                }]
+            },
+            "pathExpression":"/var/log/azure/*/*/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Linux Boot Log",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/boot",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                    "type":"NoAuthentication"
+                    }
+                }]
+            },
+            "pathExpression":"/var/log/boot.log*",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Linux Cron Log",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/cron",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                    "type":"NoAuthentication"
+                    }
+                }]
+            },
+            "pathExpression":"/var/log/cron",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Linux SSSD Log",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/sssd",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                    "type":"NoAuthentication"
+                    }
+                }]
+            },
+            "pathExpression":"/var/log/sssd/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Linux yum Log",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/yum",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                    "type":"NoAuthentication"
+                    }
+                }]
+            },
+            "pathExpression":"/var/log/yum.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Linux WPA Supplicant Log",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/wpa",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+            "resources":[{
+                "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                    "type":"NoAuthentication"
+                    }
+                }]
+            },
+            "pathExpression":"/var/log/wpa_supplicant.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<%
+end
 unless matched
      raise "Unknown system use; no case with input #{node['dvo_user']['use']} in sources.json.erb."
 end
