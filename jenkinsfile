@@ -2,8 +2,10 @@ node{
     stage ("Repo Pull"){
         if (fileExists("/data/cookbooks/${env.JOB_NAME}")) {
             sh "cd /data/cookbooks/${env.JOB_NAME}; git pull"
+            sh "berks update"
         } else {
             sh "git clone https://TrekDevOps:WQrULM66cGyPyB@bitbucket.org/trekbikes/${env.JOB_NAME}.git /data/cookbooks/${env.JOB_NAME}"
+            sh "cd /data/cookbooks/${env.JOB_NAME}; berks install"
         }
     }
     stage("lint testing"){
