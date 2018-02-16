@@ -5,7 +5,7 @@
 * Places environment-specific user.properties with keys
 * Places use-specific sources.json files
 
-Docker mounts use-specific external volumes `/opt/sumologs/apache` or `/opt/sumologs/hybris` based upon the VM hostname (which determines what kind of Docker container is placed on the VM).  In this implementation, `/opt/sumologs` is a symbolic link to `/standard/sumologs`.  For details about what this filesystem is, see cb_dvo_addStorage.
+Docker mounts use-specific external volumes `/opt/sumologs/solr`, `/opt/sumologs/apache` or `/opt/sumologs/hybris` based upon the VM hostname (which determines what kind of Docker container is placed on the VM).  In this implementation, `/opt/sumologs` is a symbolic link to `/standard/sumologs`.  For details about what this filesystem is, see cb_dvo_addStorage.
 
 # Environment Pinning
 
@@ -38,7 +38,7 @@ A space delimited set of VM uses.  Anything can be in the list, but it must have
 * hybris
 * linux
 
-This attribute is used in two places.  First, if it contains `\bhybris\b` or `\bhybris\S*WebServer\b` the appropriate `/standard/sumologs/` directories will be created.  This must be done ***before*** the wcp_deploy.sh script is run if Docker is used on the VM.  The second place it is used is to select what part(s) of the sources.json.erb template are dropped.
+This attribute is used in two places.  First, if it contains `\bsolr\b`,`\bhybris\b` or `\bhybris\S*WebServer\b` the appropriate `/standard/sumologs/` directories will be created.  This must be done ***before*** the wcp_deploy.sh script is run if Docker is used on the VM.  The second place it is used is to select what part(s) of the sources.json.erb template are dropped.
 
 ### node['dvo_user']['ALM_environment']
 

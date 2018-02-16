@@ -7,7 +7,7 @@
 # For local testing and such
 
 if node['dvo']['cloud_service_provider']['name'] == 'local'
-  admin_users = %w(rcrawford nlocke deasland)
+  admin_users = %w(rcrawford nlocke deasland sflaherty)
   developer_users = %w(developer)
   all_users = admin_users + developer_users
   admin = %w(local_admin)
@@ -82,6 +82,10 @@ unless File.exist?('/opt/sumologs')
 
   if node['dvo_user']['use'] =~ /\bhybris\b/
     directories << "#{directories[0]}/hybris"
+  end
+
+  if node['dvo_user']['use'] =~ /\bsolr\b/
+    directories << "#{directories[0]}/solr"
   end
 
   directories.each do |path|
