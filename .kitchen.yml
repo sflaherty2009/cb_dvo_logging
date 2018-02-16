@@ -31,6 +31,12 @@
     - name: default
       data_bags_path: "test/integration/data_bags" 
       run_list:
-        - recipe[cd_dvo_logging::default]
+        - recipe[cb_dvo_logging::default]
       attributes:
+        dvo_user:
+          use: 'solr'
+          ALM_environment: 'prod'
+        dvo:
+          cloud_service_provider:
+            name: 'azure'
   
