@@ -1,3 +1,10 @@
+# 2.0.8
+**Date: 2/20/2018**
+**Change by: Ray Crawford**
+**Feature branch: DVO-2775**
+
+* Updated so /standard/sumologs/solr is owned by solr and readable by developers
+
 # 2.0.7
 **Date: 12/13/2017**
 
