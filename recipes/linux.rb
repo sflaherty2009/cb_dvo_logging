@@ -85,7 +85,12 @@ unless File.exist?('/opt/sumologs')
   end
 
   if node['dvo_user']['use'] =~ /\bsolr\b/
-    directories << "#{directories[0]}/solr"
+    directory "#{directories[0]}/solr" do
+      group developer_group
+      user 'solr'
+      mode '02755'
+      only_if { node.run_state['trekdevs_exists'] }
+    end    
   end
 
   directories.each do |path|
