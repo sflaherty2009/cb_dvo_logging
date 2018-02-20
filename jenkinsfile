@@ -1,7 +1,7 @@
 node{
     stage ("Repo Pull"){
         if (fileExists("/data/cookbooks/${env.JOB_NAME}")) {
-            sh "cd /data/cookbooks/${env.JOB_NAME}; git pull --rebase"
+            sh "cd /data/cookbooks/${env.JOB_NAME}; git pull"
             sh """
                 source /etc/profile
                 cd /data/cookbooks/${env.JOB_NAME}
