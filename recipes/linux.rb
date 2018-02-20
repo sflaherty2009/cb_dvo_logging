@@ -90,7 +90,7 @@ unless File.exist?('/opt/sumologs')
       user 'solr'
       mode '02755'
       only_if { node.run_state['trekdevs_exists'] }
-    end    
+    end
   end
 
   directories.each do |path|
