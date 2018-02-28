@@ -1,3 +1,8 @@
+# 2.0.8
+**Date: 2/27/2017**
+
+* Configured to use storage class attributes
+
 # 2.0.7
 **Date: 12/13/2017**
 

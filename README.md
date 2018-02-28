@@ -50,6 +50,10 @@ A short representation of the environment used to configure the _sourceCategory 
 * local = local host testing
 * ...
 
+### node['dvo_user']['sumologic']['storage_class']
+
+Define to use 'standard' or 'premium' storage. Generally this should always be 'standard' for this cookbook.
+
 ## Attributes (others)
 
 ### default['sumologic']['url']

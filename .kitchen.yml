@@ -24,10 +24,27 @@ platforms:
     driver:
       box: trek/windows2012r2
       box_url: https://aztrksaslh00public01.blob.core.windows.net/vagrant/windows/2012r2/windows2012r2min-virtualbox.box
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: IDE Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: IDE Controller
+            port: 1
+            device: 1
+            type: hdd
+            medium: disk2.vdi
       network:
         - ['private_network', {ip: '192.168.57.12'}]
 
-  - name: mwrock/Windows2016
+  - name: trek/Windows2016
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -36,8 +53,25 @@ platforms:
       username: vagrant
       password: vagrant
     driver:
-      box: mwrock/Windows2016
-      box_url: https://atlas.hashicorp.com/mwrock/boxes/Windows2016
+      box: trek/Windows2016
+      box_url: https://aztrksaslh00public01.blob.core.windows.net/vagrant/windows/2016/windows2016min-virtualbox.box
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: IDE Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: IDE Controller
+            port: 1
+            device: 1
+            type: hdd
+            medium: disk2.vdi
       network:
         - ['private_network', {ip: '192.168.57.11'}]
 
@@ -48,6 +82,23 @@ platforms:
       password: vagrant
     driver:
       box: bento/centos-7.2
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: SATA Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: SATA Controller
+            port: 2
+            device: 0
+            type: hdd
+            medium: disk2.vdi
       network:
         - ['private_network', {ip: '192.168.56.13'}]
 
@@ -58,6 +109,23 @@ platforms:
       password: vagrant
     driver:
       box: bento/centos-7.3
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: SATA Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: SATA Controller
+            port: 2
+            device: 0
+            type: hdd
+            medium: disk2.vdi
       network:
         - ['private_network', {ip: '192.168.56.14'}]
 
@@ -68,6 +136,23 @@ platforms:
       password: vagrant
     driver:
       box: bento/centos-7.4
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: SATA Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: SATA Controller
+            port: 2
+            device: 0
+            type: hdd
+            medium: disk2.vdi
       network:
         - ['private_network', {ip: '192.168.56.14'}]
 

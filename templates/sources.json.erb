@@ -505,7 +505,7 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "pathExpression": "/<%= node['dvo_user']['translations']['tmgr']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -520,7 +520,7 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "pathExpression": "/<%= node['dvo_user']['translations']['tmgr']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -535,7 +535,7 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['tmgr']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         }<%
@@ -557,7 +557,7 @@ if node['dvo_user']['use'].match(/\bTSR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/TSR/gtk/full-*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['tsr']['storage_class'] %>/TSR/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         }<%
@@ -580,7 +580,7 @@ if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "pathExpression": "/<%= node['dvo_user']['translations']['batch']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -595,7 +595,7 @@ if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "pathExpression": "/<%= node['dvo_user']['translations']['batch']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -610,7 +610,7 @@ if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['batch']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         }<%
@@ -632,7 +632,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.out",
+            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-AMQ/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -647,7 +647,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
+            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -662,7 +662,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-AMQ/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -677,7 +677,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.out",
+            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-SOLR/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -692,7 +692,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
+            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -707,7 +707,7 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-SOLR/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         }<%
@@ -729,7 +729,7 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "pathExpression": "/<%= node['dvo_user']['translations']['tms']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -744,7 +744,7 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "pathExpression": "/<%= node['dvo_user']['translations']['tms']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -759,7 +759,7 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['tms']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         }<%
@@ -781,7 +781,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
+            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -796,7 +796,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -811,7 +811,7 @@ if node['dvo_user']['use'].match(/\bPD\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
@@ -863,7 +863,7 @@ if node['dvo_user']['use'].match(/\bTSO\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/standard/TSO/gtk/full-*.log",
+            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/TSO/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
         }<%

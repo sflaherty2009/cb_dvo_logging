@@ -40,7 +40,7 @@ when 'windows'
     when /Microsoft Windows Server 2012 R2.*/
       Chef::Log.info('###=>INFO: Setting up drives attached to a Windows 2012 R2 VM.')
       include_recipe 'cb_dvo_addStorage::windows2012r2'
-    when /Microsoft Windows Server 2016 R2.*/
+    when /Microsoft Windows Server 2016.*/
       Chef::Log.info('###=>INFO: Setting up drives attached to a Windows 2016 R2 VM.')
       include_recipe 'cb_dvo_addStorage::windows2012r2'
     else
