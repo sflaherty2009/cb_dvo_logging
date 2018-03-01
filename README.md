@@ -9,8 +9,8 @@ Docker mounts use-specific external volumes `/opt/sumologs/solr`, `/opt/sumologs
 
 # Environment Pinning
 
-* production: 2.0.4
-* staging: 2.0.4
+* production: 2.0.10
+* staging: 2.0.10
 * testing: latest
 * development: latest
 
