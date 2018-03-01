@@ -1,42 +1,310 @@
----
-  # Make sure VPN is turned on before running kitchen or SSH connection will fail.
-  driver:
-    name: azurerm
-    
-  # Production subscription ID. Credentials for this subscriptionj need to be established in your .azure/credentials file.
-  driver_config:
-    subscription_id: '9fbf7025-df40-4908-b7fb-a3a2144cee91'
-    location: East US 2
-    machine_size: Standard_D1
-  
-  transport:
-    ssh_key: ~/.ssh/id_rsa
-  
-  provisioner:
-    name: chef_zero
-  
-  platforms:
-    - name: centos-7.3
-      driver_config:
-        image_urn: OpenLogic:CentOS:7.3:latest
-        # vnet and subnet id will work in web technology prod only. Disable otherwise.
-        vnet_id: /subscriptions/9fbf7025-df40-4908-b7fb-a3a2144cee91/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-02
-        subnet_id: AZ-SN-dvo
-        vm_name: test-kitchen
-        vm_tags:
-          ostype: linux
-          distro: centos
-  
-  suites:
-    - name: default
-      data_bags_path: "test/integration/data_bags" 
-      run_list:
-        - recipe[cb_dvo_logging::default]
-      attributes:
-        dvo_user:
-          use: 'solr'
-          ALM_environment: 'prod'
-        dvo:
-          cloud_service_provider:
-            name: 'azure'
-  
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+# To make Windows work, need to install vagrant windows plugin, first
+# vagrant plugin install vagrant-winrm
+# See: https://github.com/criteo/vagrant-winrm
+
+# Make sure VPN is turned on before running azure kitchen or SSH connection will fail.
+platforms: 
+  - name: centos-7.3-azure
+    transport:
+      ssh_key: ~/.ssh/id_rsa
+    driver:
+      name: azurerm
+    attributes:
+      dvo:
+        cloud_service_provider:
+          name: 'azure'
+    driver_config:
+      subscription_id: '9fbf7025-df40-4908-b7fb-a3a2144cee91'
+      location: East US 2
+      machine_size: Standard_D1
+      image_urn: OpenLogic:CentOS:7.3:latest
+      data_disks:
+        - lun: 0
+          disk_size_gb: 979
+        - lun: 1
+          disk_size_gb: 50
+      # vnet and subnet id will work in web technology prod only. Disable otherwise.
+      vnet_id: /subscriptions/9fbf7025-df40-4908-b7fb-a3a2144cee91/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-02
+      subnet_id: AZ-SN-dvo
+      vm_name: test-kitchen
+      vm_tags:
+        ostype: linux
+        distro: cento
+
+  - name: trek/Windows2012R2
+    os_type: windows
+    shell_type: powershell
+    communicator: winrm
+    transport:
+      name: winrm
+      username: vagrant
+      password: vagrant
+    driver:
+      box: trek/windows2012r2
+      box_url: https://aztrksaslh00public01.blob.core.windows.net/vagrant/windows/2012r2/windows2012r2min-virtualbox.box
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: IDE Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: IDE Controller
+            port: 1
+            device: 1
+            type: hdd
+            medium: disk2.vdi
+      network:
+        - ['private_network', {ip: '192.168.57.12'}]
+
+  - name: trek/Windows2016
+    os_type: windows
+    shell_type: powershell
+    communicator: winrm
+    transport:
+      name: winrm
+      username: vagrant
+      password: vagrant
+    driver:
+      box: trek/Windows2016
+      box_url: https://aztrksaslh00public01.blob.core.windows.net/vagrant/windows/2016/windows2016min-virtualbox.box
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: IDE Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: IDE Controller
+            port: 1
+            device: 1
+            type: hdd
+            medium: disk2.vdi
+      network:
+        - ['private_network', {ip: '192.168.57.11'}]
+
+  - name: centos-7.2
+    transport:
+      name: ssh
+      username: vagrant
+      password: vagrant
+    driver:
+      box: bento/centos-7.2
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: SATA Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: SATA Controller
+            port: 2
+            device: 0
+            type: hdd
+            medium: disk2.vdi
+      network:
+        - ['private_network', {ip: '192.168.56.13'}]
+
+  - name: centos-7.3
+    transport:
+      name: ssh
+      username: vagrant
+      password: vagrant
+    driver:
+      box: bento/centos-7.3
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: SATA Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: SATA Controller
+            port: 2
+            device: 0
+            type: hdd
+            medium: disk2.vdi
+      network:
+        - ['private_network', {ip: '192.168.56.14'}]
+
+  - name: centos-7.4
+    transport:
+      name: ssh
+      username: vagrant
+      password: vagrant
+    driver:
+      box: bento/centos-7.4
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: SATA Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: SATA Controller
+            port: 2
+            device: 0
+            type: hdd
+            medium: disk2.vdi
+      network:
+        - ['private_network', {ip: '192.168.56.14'}]
+
+suites:
+  - name: default
+    data_bags_path: "test/integration/data_bags"
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "hybris hybrisFrontEndWebServer hybrisBackEndWebServer linux docker"
+        ALM_environment: "local" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.15'}]
+  - name: hybrisWebServer
+    data_bags_path: "test/integration/data_bags"
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/hybrisWebServer
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "hybrisFrontEndWebServer hybrisBackEndWebServer"
+        ALM_environment: "local" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.16'}]
+  - name: hybris
+    data_bags_path: "test/integration/data_bags"
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/hybris
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "hybris"
+        ALM_environment: "local" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.17'}]
+  - name: solr
+    data_bags_path: "test/integration/data_bags"
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/hybris
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "solr"
+        ALM_environment: "local" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.18'}]
+  - name: linux
+    data_bags_path: "test/integration/data_bags"
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/linux
+    attributes:
+      bbUserName: "<%= ENV['bbUserName'] %>"
+      bbPassword: "<%= ENV['bbPassword'] %>"
+      dvo_user:
+        use: "linux"
+        ALM_environment: "local" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.19'}]
+  - name: PD
+    data_bags_path: "test/integration/data_bags"
+    run_list:
+      - recipe[cb_dvo_logging::default]
+    verifier:
+      inspec_tests:
+        - test/smoke/linux
+    attributes:
+      dvo_user:
+        use: "translations PD linux"
+        ALM_environment: "local" 
+      dvo:
+        cloud_service_provider:
+          name: "local"
+    driver:
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.20'}]

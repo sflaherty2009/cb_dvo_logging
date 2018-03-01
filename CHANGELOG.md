@@ -1,3 +1,8 @@
+# 2.0.10
+**Date: 2/27/2017**
+
+* Configured to use storage class attributes
+
 # 2.0.8
 **Date: 2/20/2018**
 **Change by: Ray Crawford**

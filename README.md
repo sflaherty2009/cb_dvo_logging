@@ -9,8 +9,8 @@ Docker mounts use-specific external volumes `/opt/sumologs/solr`, `/opt/sumologs
 
 # Environment Pinning
 
-* production: 2.0.4
-* staging: 2.0.4
+* production: 2.0.10
+* staging: 2.0.10
 * testing: latest
 * development: latest
 
@@ -49,6 +49,10 @@ A short representation of the environment used to configure the _sourceCategory 
 * e2e = End to End testing environment
 * local = local host testing
 * ...
+
+### node['dvo_user']['sumologic']['storage_class']
+
+Define to use 'standard' or 'premium' storage. Generally this should always be 'standard' for this cookbook.
 
 ## Attributes (others)
 

@@ -1,4 +1,20 @@
-# 2.0.1
+# 2.0.4
+## Date: 2/23/2018
+
+Added storage class availability attributes.
+
+# 2.0.3 master
+## Date: 11/21/2017
+**Engineer:** Ray Crawford
+
+Tweaked the powershell in the Windows recipe because of differences between how 2012 (Storage Spaces on <HOSTNAME>) and 2016 (Windows Storage on <HOSTNAME>) name their storage spaces.  Instead of searching on "*Spaces*" we're now searching on "*Storage*" which matches for both platforms.
+
+# 2.0.2 master
+## Date: 11/21/2017
+
+Tweaked Windows 2016 regex in default.rb because it was wrong.
+
+# 2.0.1 DVO-2320
 ## Date: 11/10/2017
 
 Update to make new devices writable by all who have account-level access to that VM.
