@@ -3,6 +3,7 @@
 
 * Configured to use storage class attributes
 
+# 2.0.8
 **Date: 2/20/2018**
 **Change by: Ray Crawford**
 **Feature branch: DVO-2775**
