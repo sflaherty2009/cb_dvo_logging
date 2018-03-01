@@ -19,9 +19,6 @@ platforms:
     driver:
       name: azurerm
     attributes:
-      dvo_user:
-        use: 'solr'
-        ALM_environment: 'prod'
       dvo:
         cloud_service_provider:
           name: 'azure'
