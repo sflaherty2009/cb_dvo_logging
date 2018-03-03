@@ -1,3 +1,8 @@
+# 2.0.5
+## Date: 3/02/2018
+
+Modified to handle all storage class attribute assignments so it is no longer necessary to have any logic within individual cookbooks.
+
 # 2.0.4
 ## Date: 2/23/2018
 

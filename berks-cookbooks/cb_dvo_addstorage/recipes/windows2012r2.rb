@@ -36,7 +36,7 @@ powershell_script 'add-drives' do
     $premiumDrives = (Get-PhysicalDisk | Where-Object -FilterScript {($_.CanPool -eq $true) -and ($_.Size -ne 1051193245696)})
 
     if ($premiumDrives) {
-      New-StoragePool -FriendlyName "Premium_SP" -StorageSubSystemUniqueId (Get-StorageSubSystem -FriendlyName "*Space*").uniqueID -PhysicalDisks $premiumDrives
+      New-StoragePool -FriendlyName "Premium_SP" -StorageSubSystemUniqueId (Get-StorageSubSystem -FriendlyName "*Storage*").uniqueID -PhysicalDisks $premiumDrives
       New-VirtualDisk -FriendlyName "Premium_VD" -StoragePoolFriendlyName "Premium_SP" -UseMaximumSize -ResiliencySettingName Simple
       Initialize-Disk -Number (Get-VirtualDisk -FriendlyName "Premium_VD" | Get-Disk).Number
       New-Partition -DiskNumber (Get-VirtualDisk -FriendlyName "Premium_VD" | Get-Disk).Number -UseMaximumSize -DriveLetter P
@@ -53,12 +53,4 @@ powershell_script 'add-drives' do
   }
   EOH
   not_if '(Test-Path S:) -or (Test-Path P:)'
-end
-
-ruby_block 'Set storage class attributes' do
-  block do
-    node.normal['dvo']['storage']['standard_available'] = Dir.exist?('S:/')
-    node.normal['dvo']['storage']['premium_available'] = Dir.exist?('P:/')
-  end
-  not_if { node.normal['dvo']['storage'].attribute?('standard_available') || node.normal['dvo']['storage'].attribute?('premium_available') }
 end

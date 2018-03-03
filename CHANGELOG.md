@@ -1,3 +1,8 @@
+# 2.0.11
+**Date: 3/02/2017**
+
+* Refactored to remove storage class attribute logic now in cb_dvo_addStorage
+
 # 2.0.10
 **Date: 2/27/2017**
 

@@ -51,3 +51,63 @@ when 'windows'
 else
   raise "no #{node['platform_family']} support"
 end
+
+# Set storage available if not already
+ruby_block 'Set storage class attributes' do
+  block do
+    case node['os']
+    when 'linux'
+      dir_check_standard = '/standard'
+      dir_check_premium = '/premium'
+    when 'windows'
+      dir_check_standard = 'S'
+      dir_check_premium = 'P'
+    end
+
+    node.normal['dvo']['storage']['standard_available'] = Dir.exist?(dir_check_standard)
+    node.normal['dvo']['storage']['premium_available'] = Dir.exist?(dir_check_premium)
+  end
+  not_if { node.normal['dvo']['storage'].attribute?('standard_available') || node.normal['dvo']['storage'].attribute?('premium_available') }
+end
+
+# Set storage use for all appropriate attributes
+ruby_block 'Check storage class availabilities' do
+  block do
+    # Library proc. Gets all unassigned storage classes and puts them in node.run-state['storage_class_attributes']
+    # You might not want to look at it
+    select_unassigned_storage_classes
+
+    node.run_state['storage_class_attributes'].each do |_key, value|
+      if value['storage_class'] != 'standard' && value['storage_class'] != 'premium'
+        raise 'Invalid storage class requested.'
+      end
+
+      if value['storage_class'] == 'standard' && !node['dvo']['storage']['standard_available']
+        raise 'Standard storage requested but not available. Ending chef-client run prematurely.'
+      end
+    end
+  end
+  not_if { node['dvo_user'].nil? }
+  not_if { node['dvo'].nil? }
+  not_if { storage_classes_set }
+end
+
+ruby_block 'Assign storage classes' do
+  block do
+    node.run_state['storage_class_attributes'].each do |key, value|
+      if value['storage_class'] == 'premium' && !node['dvo']['storage']['premium_available']
+        Chef::Log.warn('Premium storage requested but not available. Using standard instead.')
+      end
+
+      if value['storage_class'] == 'premium' && !node['dvo']['storage']['premium_available'] || value['storage_class'] == 'standard'
+        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['storage_class'] = 'standard'
+        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['windows_drive'] = 'S'
+      else
+        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['storage_class'] = 'premium'
+        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['windows_drive'] = 'P'
+      end
+      key.inject(node.normal['dvo']['storage']) { |acc, elem| acc[elem] }['storage_class_set'] = true
+    end
+  end
+  not_if { node.run_state['storage_class_attributes'].nil? }
+end
