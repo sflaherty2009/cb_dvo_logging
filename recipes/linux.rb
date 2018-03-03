@@ -45,32 +45,6 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
 
 end
 
-ruby_block 'Check storage class availability' do
-  block do
-    if node['dvo_user']['sumologic']['storage_class'] != 'standard' && node['dvo_user']['sumologic']['storage_class'] != 'premium'
-      raise 'Invalid storage class requested.'
-    end
-
-    if node['dvo_user']['sumologic']['storage_class'] == 'standard' && !node['dvo']['storage']['standard_available']
-      raise 'Standard storage requested but not available. Ending chef-client run prematurely.'
-    end
-  end
-  not_if { node.normal['dvo_user']['sumologic'].attribute?('storage_class_set') }
-end
-
-ruby_block 'Assign storage class' do
-  block do
-    if node['dvo_user']['sumologic']['storage_class'] == 'premium' && !node['dvo']['storage']['premium_available']
-      Chef::Log.warn('Premium storage requested but not available. Using standard instead.')
-      node.normal['dvo_user']['sumologic']['storage_class'] = 'standard'
-    else
-      node.normal['dvo_user']['sumologic']['storage_class'] = node['dvo_user']['sumologic']['storage_class']
-    end
-    node.normal['dvo_user']['sumologic']['storage_class_set'] = true
-  end
-  not_if { node.normal['dvo_user']['sumologic'].attribute?('storage_class_set') }
-end
-
 # Guard in case Sumologic has already been set up
 # This is also provides a way to upgrade SumoLogic;
 #  just delete the link and it should recreate it
