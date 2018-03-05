@@ -1,3 +1,8 @@
+# 2.0.6
+## Date: 3/03/2018
+
+No functional changes, but I decided I didn't like extending the Hash class so I refactored it. I also created a library function for a block that was getting long, adjusted some function/variable names, and handled an extra unlikely edge case. Finally, I added a some simple unit tests for the library functions.
+
 # 2.0.5
 ## Date: 3/02/2018
 

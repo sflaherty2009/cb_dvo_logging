@@ -66,47 +66,48 @@ ruby_block 'Set storage class attributes' do
 
     node.normal['dvo']['storage']['standard_available'] = Dir.exist?(dir_check_standard)
     node.normal['dvo']['storage']['premium_available'] = Dir.exist?(dir_check_premium)
+    node.normal['dvo']['storage']['storage_availability_set'] = true
   end
-  not_if { node.normal['dvo']['storage'].attribute?('standard_available') || node.normal['dvo']['storage'].attribute?('premium_available') }
+  not_if { node['dvo']['storage'].attribute?('storage_availability_set') && node['dvo']['storage']['storage_availability_set'] }
 end
 
 # Set storage use for all appropriate attributes
 ruby_block 'Check storage class availabilities' do
   block do
     # Library proc. Gets all unassigned storage classes and puts them in node.run-state['storage_class_attributes']
-    # You might not want to look at it
-    select_unassigned_storage_classes
+    # You might (not?) want to look at it
+    node.run_state['storage_class_attributes'] = select_unassigned_storage_class_attributes(node['dvo'], node['dvo_user'])
 
     node.run_state['storage_class_attributes'].each do |_key, value|
-      if value['storage_class'] != 'standard' && value['storage_class'] != 'premium'
+      if value != 'standard' && value != 'premium'
         raise 'Invalid storage class requested.'
       end
 
-      if value['storage_class'] == 'standard' && !node['dvo']['storage']['standard_available']
+      if value == 'standard' && !node['dvo']['storage']['standard_available']
         raise 'Standard storage requested but not available. Ending chef-client run prematurely.'
       end
     end
   end
   not_if { node['dvo_user'].nil? }
   not_if { node['dvo'].nil? }
-  not_if { storage_classes_set }
+  not_if { storage_classes_set?(node['dvo'], node['dvo_user']) }
 end
 
 ruby_block 'Assign storage classes' do
   block do
     node.run_state['storage_class_attributes'].each do |key, value|
-      if value['storage_class'] == 'premium' && !node['dvo']['storage']['premium_available']
+      key_rest = key[0...-1]
+      if value == 'premium' && !node['dvo']['storage']['premium_available']
         Chef::Log.warn('Premium storage requested but not available. Using standard instead.')
       end
 
-      if value['storage_class'] == 'premium' && !node['dvo']['storage']['premium_available'] || value['storage_class'] == 'standard'
-        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['storage_class'] = 'standard'
-        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['windows_drive'] = 'S'
+      # Assigns storage_class, windows_drive, and storage_class_set attributes based on availability
+      if value == 'premium' && !node['dvo']['storage']['premium_available'] || value == 'standard'
+        set_storage_attributes(key_rest, 'standard')
       else
-        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['storage_class'] = 'premium'
-        key.inject(node.normal['dvo_user']) { |acc, elem| acc[elem] }['windows_drive'] = 'P'
+        set_storage_attributes(key_rest, 'premium')
       end
-      key.inject(node.normal['dvo']['storage']) { |acc, elem| acc[elem] }['storage_class_set'] = true
+      lock_storage_class(key_rest)
     end
   end
   not_if { node.run_state['storage_class_attributes'].nil? }
