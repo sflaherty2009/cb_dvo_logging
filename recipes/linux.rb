@@ -4,11 +4,6 @@
 #
 ## Copyright (c) 2017 Trek Bikes, Ray Crawford, All Rights Reserved.
 
-# The following are created in other cookbooks/installs
-# | user      | UID  | GID  |
-#  -----------------------------------------
-# | na        |  na  | 1104 | sumologic_collector group; created by install
-
 # For local testing and such
 
 if node['dvo']['cloud_service_provider']['name'] == 'local'
