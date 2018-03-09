@@ -1,3 +1,8 @@
+# 2.0.12
+**Date: 3/08/2017**
+
+* Added freegeoip section to template
+
 # 2.0.11
 **Date: 3/02/2017**
 
