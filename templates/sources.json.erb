@@ -927,6 +927,58 @@ if node['dvo_user']['use'].match(/\bfreegeoip\b/)
             "sourceType":"LocalFile"
         }<%
 end
+if node['dvo_user']['use'].match(/\bvertex_app\b/)
+    if matched
+-%>,<%
+    end
+    matched = true
+-%>     
+        { 
+            "name":"Vertex App Logs",
+            "description":"Vertex app logs",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/app_log",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/<%= node['dvo_user']['vertex']['storage_class'] %>/vertex/oseries/log/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Vertex Tomcat Logs",
+            "description":"Vertex tomcat logs",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tomcat_log",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/<%= node['dvo_user']['vertex']['storage_class'] %>/vertex/oseries/tomcat/logs/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Vertex Catalina.out",
+            "description":"Vertex catalina.out",
+            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/catalina_out",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/<%= node['dvo_user']['vertex']['storage_class'] %>/vertex/oseries/tomcat/logs/catalina.out",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<%
+end
 unless matched
      raise "Unknown system use; no case with input #{node['dvo_user']['use']} in sources.json.erb."
 end

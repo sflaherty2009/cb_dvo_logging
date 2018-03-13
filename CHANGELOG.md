@@ -1,3 +1,8 @@
+# 2.0.14
+**Date: 3/13/2017**
+
+* Added vertex log locations
+
 # 2.0.13
 **Date: 3/08/2017**
 
