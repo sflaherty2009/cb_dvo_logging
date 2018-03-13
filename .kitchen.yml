@@ -268,6 +268,29 @@
 #       cpus: 1
 #       network:
 #         - ['private_network', {ip: '192.168.56.18'}]
+#   - name: vertex
+#     data_bags_path: "test/integration/data_bags"
+#     run_list:
+#       - recipe[cb_dvo_logging::default]
+#     verifier:
+#       inspec_tests:
+#         - test/smoke/vertex
+#     attributes:
+#       bbUserName: "<%= ENV['bbUserName'] %>"
+#       bbPassword: "<%= ENV['bbPassword'] %>"
+#       dvo_user:
+#         use: "vertex_app"
+#         ALM_environment: "local" 
+#         vertex:
+#           storage_class: "standard"
+#       dvo:
+#         cloud_service_provider:
+#           name: "local"
+#     driver:
+#       memory: 1024
+#       cpus: 1
+#       network:
+#         - ['private_network', {ip: '192.168.56.18'}]
 #   - name: linux
 #     data_bags_path: "test/integration/data_bags"
 #     run_list:
@@ -300,6 +323,9 @@
 #       dvo_user:
 #         use: "translations PD linux"
 #         ALM_environment: "local" 
+#         translations:
+#           pd:
+#             storage_class: "standard"
 #       dvo:
 #         cloud_service_provider:
 #           name: "local"
