@@ -1,4 +1,9 @@
 # 2.0.14
+**Date: 3/20/2017**
+
+* Incremented versions to push some random changes done previously to the Chef server in an attempt to debug other issues.
+
+# 2.0.14
 **Date: 3/13/2017**
 
 * Added vertex log locations
