@@ -60,8 +60,8 @@ ruby_block 'Set storage class attributes' do
       dir_check_standard = '/standard'
       dir_check_premium = '/premium'
     when 'windows'
-      dir_check_standard = 'S'
-      dir_check_premium = 'P'
+      dir_check_standard = 'S:/'
+      dir_check_premium = 'P:/'
     end
 
     node.normal['dvo']['storage']['standard_available'] = Dir.exist?(dir_check_standard)

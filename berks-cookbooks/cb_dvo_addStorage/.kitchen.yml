@@ -13,10 +13,10 @@ verifier:
 # # See: https://github.com/criteo/vagrant-winrm
 
 # Make sure VPN is turned on before running azurerm driver in kitchen or SSH connection will fail.
-# Production subscription ID. Credentials for this subscriptionj need to be established in your .azure/credentials file.
+# Production subscription ID. Credentials for this subscription need to be established in your .azure/credentials file.
 
 platforms:
-    - name: centos-7.3-azure
+    - name: azure
       transport:
         ssh_key: ~/.ssh/id_rsa
       driver:
@@ -25,7 +25,7 @@ platforms:
         subscription_id: '9fbf7025-df40-4908-b7fb-a3a2144cee91'
         location: East US 2
         machine_size: Standard_D1
-        image_urn: OpenLogic:CentOS:7.3:latest
+        image_urn: OpenLogic:CentOS:7.4:latest
         data_disks:
           - lun: 0
             disk_size_gb: 979
