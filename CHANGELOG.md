@@ -1,5 +1,14 @@
+# 2.1.0
+**Date: 3/20/2018**
+
+There were many changes in this release.
+* Simplified .kitchen.yml, placing more in the platforms and streamlining the suites
+* Renamed platforms to enable easier platform-wide testing, in isolation
+* Fixed an issue with the creation of the solr directory in /standard/sumologs/solr
+* Added comments to clarify future (needed) refactoring
+
 # 2.0.14
-**Date: 3/20/2017**
+**Date: 3/20/2018**
 
 * Incremented versions to push some random changes done previously to the Chef server in an attempt to debug other issues.
 

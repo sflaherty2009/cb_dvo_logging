@@ -49,11 +49,17 @@ control 'SumoLogic installation' do
     it { should be_running }
   end
   unless os.windows?
-    describe file('/opt/sumologs/apache') do
-      it { should be_linked_to '/mnt/resource/sumologs/apache' }
+    describe file('/opt/sumologs') do
+      it { should be_linked_to '/standard/sumologs' }
     end
-    describe file('/opt/sumologs/hybris') do
-      it { should be_linked_to '/mnt/resource/sumologs/hybris' }
+    describe directory('/opt/sumologs/apache') do
+      it { should be_directory }
+    end
+    describe directory('/opt/sumologs/hybris') do
+      it { should be_directory }
+    end
+    describe directory('/opt/sumologs/solr') do
+      it { should be_directory }
     end
   end
 end

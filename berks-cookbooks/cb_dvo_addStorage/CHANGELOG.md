@@ -1,3 +1,8 @@
+# 2.0.7
+## Date: 3/05/2018
+
+Fixed an issue with windows storage class checks.
+
 # 2.0.6
 ## Date: 3/03/2018
 

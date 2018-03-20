@@ -6,7 +6,26 @@
 
 # For local testing and such
 
+include_recipe 'cb_dvo_addStorage'
+
 if node['dvo']['cloud_service_provider']['name'] == 'local'
+
+  # Temporary to debug issue since databag breaks localAccounts in kitchen vagrant:
+  if node['dvo_user']['ALM_service'].eql? 'solr'
+    # Create solr user across all hosts
+    group 'solr' do
+      gid 8983
+      action :create
+    end
+  
+    user 'solr' do
+      comment 'host solr account to enable export from solr containers'
+      uid 8983
+      gid 8983
+      home '/home/solr'
+    end
+  end
+  
   admin_users = %w(rcrawford nlocke deasland sflaherty)
   developer_users = %w(developer)
   all_users = admin_users + developer_users
@@ -62,7 +81,7 @@ end
 unless File.exist?('/opt/sumologs')
   developer_group = 'trekdevs'
 
-  directory '/storage/sumologs' do
+  directory '/<storageSelection>/sumologs' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
     group developer_group
     user 'root'
@@ -75,30 +94,40 @@ unless File.exist?('/opt/sumologs')
     only_if { node.run_state['trekdevs_exists'] }
   end
 
-  directories = %w(sumologs)
-
+  # RAC 3/20/18
+  # REALLY bad coding, but we needed a different case for Solr than the other two.
+  # There are two recos.  First, create hybris and apache users on the VMs in cb_dvo_localAccounts
+  # and then use the user based upon the directory name...  in the case of Apache and Hybris, this
+  # is no big deal because both of those containers run as root and will have access to write
+  # to those paths.  Second, log files should ALWAYS be on standard storage...  this cookbook
+  # should be refactored to eliminate this complexity of storage selection (i.e., always 
+  # put it on /standard/sumologs).  Tech Debt story DVO-2931 was opened to address this in 
+  # a future sprint.
   if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
-    directories << "#{directories[0]}/apache"
-  end
-
-  if node['dvo_user']['use'] =~ /\bhybris\b/
-    directories << "#{directories[0]}/hybris"
-  end
-
-  if node['dvo_user']['use'] =~ /\bsolr\b/
-    directory "#{directories[0]}/solr" do
+    directory '/<storageSelection>/sumologs/apache' do
+      path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/apache" }
       group developer_group
-      user 'solr'
+      user 'root'
       mode '02755'
       only_if { node.run_state['trekdevs_exists'] }
     end
   end
 
-  directories.each do |path|
-    directory path do
-      path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/#{path}" }
+  if node['dvo_user']['use'] =~ /\bhybris\b/
+    directory '/<storageSelection>/sumologs/hybris' do
+      path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/hybris" }
       group developer_group
       user 'root'
+      mode '02755'
+      only_if { node.run_state['trekdevs_exists'] }
+    end
+  end
+
+  if node['dvo_user']['use'] =~ /\bsolr\b/
+    directory '/<storageSelection>/sumologs/solr' do
+      path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/solr" }
+      group developer_group
+      user 'solr'
       mode '02755'
       only_if { node.run_state['trekdevs_exists'] }
     end

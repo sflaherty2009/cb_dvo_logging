@@ -1,7 +1,7 @@
 {
   "cb_dvo_addStorage": {
-    "production": "2.0.6",
-    "staging": "2.0.6",
-    "testing": "2.0.6"
+    "production": "2.0.7",
+    "staging": "2.0.7",
+    "testing": "2.0.7"
   }
 }
