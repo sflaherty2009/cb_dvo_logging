@@ -40,7 +40,7 @@ platforms:
         ostype: linux
         distro: cento
 
-  - name: trek/Windows2012R2
+  - name: Windows2012R2-local
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -68,10 +68,18 @@ platforms:
             device: 1
             type: hdd
             medium: disk2.vdi
+      memory: 2048
+      cpus: 1
       network:
         - ['private_network', {ip: '192.168.57.12'}]
+    attributes:
+      dvo_user:
+        ALM_environment: "local"
+      dvo:
+        cloud_service_provider:
+          name: "local"
 
-  - name: trek/Windows2016
+  - name: Windows2016-local
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -99,64 +107,18 @@ platforms:
             device: 1
             type: hdd
             medium: disk2.vdi
+      memory: 2048
+      cpus: 2
       network:
         - ['private_network', {ip: '192.168.57.11'}]
+    attributes:
+      dvo_user:
+        ALM_environment: "local"
+      dvo:
+        cloud_service_provider:
+          name: "local"
 
-  - name: centos-7.2
-    transport:
-      name: ssh
-      username: vagrant
-      password: vagrant
-    driver:
-      box: bento/centos-7.2
-      customize:
-        createhd:
-          - filename: disk1.vdi
-            size: 1002496
-          - filename: disk2.vdi
-            size: 51200
-        storageattach:
-          - storagectl: SATA Controller
-            port: 1
-            device: 0
-            type: hdd
-            medium: disk1.vdi
-          - storagectl: SATA Controller
-            port: 2
-            device: 0
-            type: hdd
-            medium: disk2.vdi
-      network:
-        - ['private_network', {ip: '192.168.56.13'}]
-
-  - name: centos-7.3
-    transport:
-      name: ssh
-      username: vagrant
-      password: vagrant
-    driver:
-      box: bento/centos-7.3
-      customize:
-        createhd:
-          - filename: disk1.vdi
-            size: 1002496
-          - filename: disk2.vdi
-            size: 51200
-        storageattach:
-          - storagectl: SATA Controller
-            port: 1
-            device: 0
-            type: hdd
-            medium: disk1.vdi
-          - storagectl: SATA Controller
-            port: 2
-            device: 0
-            type: hdd
-            medium: disk2.vdi
-      network:
-        - ['private_network', {ip: '192.168.56.14'}]
-
-  - name: centos-7.4
+  - name: centos-7.4-local
     transport:
       name: ssh
       username: vagrant
@@ -180,157 +142,106 @@ platforms:
             device: 0
             type: hdd
             medium: disk2.vdi
+      memory: 1024
+      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.14'}]
+    attributes:
+      dvo_user:
+        ALM_environment: "local"
+      dvo:
+        cloud_service_provider:
+          name: "local"
 
 suites:
   - name: default
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/default
     attributes:
-      bbUserName: "<%= ENV['bbUserName'] %>"
-      bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
-        use: "hybris hybrisFrontEndWebServer hybrisBackEndWebServer linux docker"
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
+        use: "hybris hybrisFrontEndWebServer hybrisBackEndWebServer solr linux docker"
+        ALM_service: "solr"
     driver:
-      memory: 1024
-      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.15'}]
   - name: hybrisWebServer
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/hybrisWebServer
     attributes:
-      bbUserName: "<%= ENV['bbUserName'] %>"
-      bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "hybrisFrontEndWebServer hybrisBackEndWebServer"
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
     driver:
-      memory: 1024
-      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.16'}]
   - name: hybris
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/hybris
     attributes:
-      bbUserName: "<%= ENV['bbUserName'] %>"
-      bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "hybris"
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
     driver:
-      memory: 1024
-      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.17'}]
   - name: solr
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
-        - test/smoke/hybris
+        - test/smoke/solr
     attributes:
-      bbUserName: "<%= ENV['bbUserName'] %>"
-      bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "solr"
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
+        ALM_service: "solr"
     driver:
-      memory: 1024
-      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.18'}]
   - name: vertex
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/vertex
     attributes:
-      bbUserName: "<%= ENV['bbUserName'] %>"
-      bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "vertex_app"
-        ALM_environment: "local"
         vertex:
           storage_class: "standard"
-      dvo:
-        cloud_service_provider:
-          name: "local"
     driver:
-      memory: 1024
-      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.18'}]
   - name: linux
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/linux
     attributes:
-      bbUserName: "<%= ENV['bbUserName'] %>"
-      bbPassword: "<%= ENV['bbPassword'] %>"
       dvo_user:
         use: "linux"
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
     driver:
-      memory: 1024
-      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.19'}]
   - name: PD
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
-        - test/smoke/linux
+        - test/smoke/translations
     attributes:
       dvo_user:
         use: "translations PD linux"
-        ALM_environment: "local"
         translations:
           pd:
             storage_class: "standard"
-      dvo:
-        cloud_service_provider:
-          name: "local"
     driver:
-      memory: 1024
-      cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.20'}]
