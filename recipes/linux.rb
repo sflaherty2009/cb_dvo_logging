@@ -17,7 +17,7 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
       gid 8983
       action :create
     end
-  
+
     user 'solr' do
       comment 'host solr account to enable export from solr containers'
       uid 8983
@@ -25,7 +25,7 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
       home '/home/solr'
     end
   end
-  
+
   admin_users = %w(rcrawford nlocke deasland sflaherty)
   developer_users = %w(developer)
   all_users = admin_users + developer_users
@@ -100,8 +100,8 @@ unless File.exist?('/opt/sumologs')
   # and then use the user based upon the directory name...  in the case of Apache and Hybris, this
   # is no big deal because both of those containers run as root and will have access to write
   # to those paths.  Second, log files should ALWAYS be on standard storage...  this cookbook
-  # should be refactored to eliminate this complexity of storage selection (i.e., always 
-  # put it on /standard/sumologs).  Tech Debt story DVO-2931 was opened to address this in 
+  # should be refactored to eliminate this complexity of storage selection (i.e., always
+  # put it on /standard/sumologs).  Tech Debt story DVO-2931 was opened to address this in
   # a future sprint.
   if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
     directory '/<storageSelection>/sumologs/apache' do
