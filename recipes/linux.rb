@@ -64,116 +64,95 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
 
 end
 
-# Guard in case Sumologic has already been set up
-# This is also provides a way to upgrade SumoLogic;
-#  just delete the link and it should recreate it
-#  & upgrade if one exists
-# MDO 2017-12-02: added execution time guard on trekdevs group
-#  and added logic to allow for execution time guard on /opt/sumologs
-#  in case needed in the future
+# MDO 2018-03-22: Removed custom ruby converge time checks and allowed Chef idempotence to do its thing instead.
+#                 This meant duplicating a bunch of guard logic, but it still seems more Chefy.
 
-ruby_block 'Check for group run condition' do
-  block do
-    node.run_state['trekdevs_exists'] = !shell_out('getent group trekdevs').error?
-  end
+developer_group = 'trekdevs'
+
+directory '/<storageSelection>/sumologs' do
+  path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
+  group developer_group
+  user 'root'
+  mode '02755'
+  only_if { !shell_out('getent group trekdevs').error? }
 end
 
-unless File.exist?('/opt/sumologs')
-  developer_group = 'trekdevs'
+link '/opt/sumologs' do
+  to lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
+  only_if { !shell_out('getent group trekdevs').error? }
+end
 
-  directory '/<storageSelection>/sumologs' do
-    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
+# RAC 3/20/18
+# REALLY bad coding, but we needed a different case for Solr than the other two.
+# There are two recos.  First, create hybris and apache users on the VMs in cb_dvo_localAccounts
+# and then use the user based upon the directory name...  in the case of Apache and Hybris, this
+# is no big deal because both of those containers run as root and will have access to write
+# to those paths.  Second, log files should ALWAYS be on standard storage...  this cookbook
+# should be refactored to eliminate this complexity of storage selection (i.e., always
+# put it on /standard/sumologs).  Tech Debt story DVO-2931 was opened to address this in
+# a future sprint.
+if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
+  directory '/<storageSelection>/sumologs/apache' do
+    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/apache" }
     group developer_group
     user 'root'
     mode '02755'
-    only_if { node.run_state['trekdevs_exists'] }
-  end
-
-  link '/opt/sumologs' do
-    to lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
-    only_if { node.run_state['trekdevs_exists'] }
-  end
-
-  # RAC 3/20/18
-  # REALLY bad coding, but we needed a different case for Solr than the other two.
-  # There are two recos.  First, create hybris and apache users on the VMs in cb_dvo_localAccounts
-  # and then use the user based upon the directory name...  in the case of Apache and Hybris, this
-  # is no big deal because both of those containers run as root and will have access to write
-  # to those paths.  Second, log files should ALWAYS be on standard storage...  this cookbook
-  # should be refactored to eliminate this complexity of storage selection (i.e., always
-  # put it on /standard/sumologs).  Tech Debt story DVO-2931 was opened to address this in
-  # a future sprint.
-  if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
-    directory '/<storageSelection>/sumologs/apache' do
-      path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/apache" }
-      group developer_group
-      user 'root'
-      mode '02755'
-      only_if { node.run_state['trekdevs_exists'] }
-    end
-  end
-
-  if node['dvo_user']['use'] =~ /\bhybris\b/
-    directory '/<storageSelection>/sumologs/hybris' do
-      path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/hybris" }
-      group developer_group
-      user 'root'
-      mode '02755'
-      only_if { node.run_state['trekdevs_exists'] }
-    end
-  end
-
-  if node['dvo_user']['use'] =~ /\bsolr\b/
-    directory '/<storageSelection>/sumologs/solr' do
-      path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/solr" }
-      group developer_group
-      user 'solr'
-      mode '02755'
-      only_if { node.run_state['trekdevs_exists'] }
-    end
-  end
-
-  remote_file 'SumoLogic Collector' do
-    source node['dvo_user']['sumologic']['url']
-    path "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
-    owner 'root'
-    group 'root'
-    mode '0600'
-    only_if { node.run_state['trekdevs_exists'] }
-  end
-
-  rpm_package 'sumocollector' do
-    source "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
-    action :upgrade
-    notifies :restart, 'service[collector]', :delayed
-    only_if { node.run_state['trekdevs_exists'] }
+    only_if { !shell_out('getent group trekdevs').error? }
   end
 end
 
-# This is not in 'unless' because we want to check for
-#  template updates despite whether SumoLogic was just
-#  installed or not.
-ruby_block 'Check for dir run condition' do
-  block do
-    node.run_state['opt_sumologs_exists'] = ::File.exist?('/opt/sumologs')
+if node['dvo_user']['use'] =~ /\bhybris\b/
+  directory '/<storageSelection>/sumologs/hybris' do
+    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/hybris" }
+    group developer_group
+    user 'root'
+    mode '02755'
+    only_if { !shell_out('getent group trekdevs').error? }
   end
+end
+
+if node['dvo_user']['use'] =~ /\bsolr\b/
+  directory '/<storageSelection>/sumologs/solr' do
+    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/solr" }
+    group developer_group
+    user 'solr'
+    mode '02755'
+    only_if { !shell_out('getent group trekdevs').error? }
+  end
+end
+
+remote_file 'SumoLogic Collector' do
+  source node['dvo_user']['sumologic']['url']
+  path "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
+  owner 'root'
+  group 'root'
+  mode '0600'
+  only_if { !shell_out('getent group trekdevs').error? }
+end
+
+rpm_package 'sumocollector' do
+  source "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
+  action :upgrade
+  notifies :restart, 'service[collector]', :delayed
+  only_if { !shell_out('getent group trekdevs').error? }
 end
 
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'
   notifies :restart, 'service[collector]', :delayed
-  only_if { node.run_state['opt_sumologs_exists'] }
+  only_if { ::Dir.exist?('/opt/SumoCollector/config') }
 end
 
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
   notifies :restart, 'service[collector]', :delayed
-  only_if { node.run_state['opt_sumologs_exists'] }
+  only_if { ::Dir.exist?('/opt/SumoCollector/config') }
 end
 
 service 'collector' do
-  action [:enable, :start]
-  only_if { node.run_state['opt_sumologs_exists'] }
+  action [:enable]
+  notifies :restart, 'service[collector]', :delayed
+  only_if { ::Dir.exist?('/opt/SumoCollector/config') }
 end
