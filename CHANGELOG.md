@@ -1,3 +1,11 @@
+# 2.2.0
+**Date: 3/22/2017**
+
+* Modified linux recipe to leverage built in Chef idempotence instead of compile time guards.
+* Refactored to allow all resources to be skipped if up to date.
+* Implemented clobber flag to replace collectors on machine rebuilds
+  * Note this will require we be careful about naming to avoid unwanted overwriting of collectors
+
 # 2.1.0
 **Date: 3/20/2018**
 

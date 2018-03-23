@@ -2,6 +2,9 @@
   require 'socket'
   my_hostname = Socket.gethostname
 -%>
+name = <%= my_hostname %>
+skipAccessKeyRemoval = true
+clobber = true
 <% 
 # Local execution
 if my_hostname.match('.*vagrantup.com')
@@ -9,84 +12,72 @@ if my_hostname.match('.*vagrantup.com')
 accessid = suB2OhMpjsPQOd
 accesskey = 9SikDt0VCPzUdgnjUfrZgIxTMU63A14dxQTLodsMYYiG1IcmdJIdzezYsdZsQBG4
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <%
   elsif my_hostname.include? '-e2e-'
 -%>
 accessid = supR6X3y58iIA3
 accesskey = pjSf7hnyNDWnp53UwbhtjpCpRV0DCmUZgdLoLoa5v7x0zUDccPRFOeCMboppi56n
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <%
   elsif my_hostname.include? '-prf-'
 -%>
 accessid = surhLZmqrghs83
 accesskey = Sl7ijY3sYjFIO2ntQwvW7jyAfDJ5NjsIfzTQESxLkKgUUjtpdm8I0j2Abw0iDHTg
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <%
   elsif my_hostname.match('dev-*')
 -%>
 accessid = suGXZOa2Hj4HIl
 accesskey = KMR2VdOT57mSbqDJTHbSUfHO11o1ctUiHHZnDafouk3zsAxx2L35m0DPw0NLC2J3
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <%
   elsif my_hostname.include? '-tst-'
 -%>
 accessid = suiX4GEk4d8rdU
 accesskey = 20hSvoedpZFwPc1Vur4gCBEUFuNizkijcIGkC8Nfi7KPHLlOJfoP6uCY0FLr38dP
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <%
   elsif my_hostname.include? '-prd-'
 -%>
 accessid = su2gnh9kJ5l5xr
 accesskey = JxUGiipJYFb0gpBxUvM2W0pNgrBr3ZUld2143sa2xMgrlCTwVrCzbjlOqctqAa63
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <%
   elsif my_hostname.include? '-ssn-'
 -%>
 accessid = su8FfHZm15r4hL
 accesskey = BM7lyjG67aoOiyNiEdvGkT5rLjEeFKlFymyKB0vtgENR939OiKM0zbvf6f3OW0jI
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <% 
   elsif my_hostname.include? '-tf-'
 -%>
 accessid = suUup69IV9SS2f
 accesskey = EcyKLviY2Q0s3Qx8FTpGlRvjJ9VR5tICq4ZtkNkv5f3xf4I3b8LpkzODpuJubv5j
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <% 
   elsif my_hostname.include? '-mdn-'
 -%>
 accessid = suWdHj6K5zQKwX
 accesskey = BV1cbzShV4LbW9zbTeSBjGeiA4gZKEe7v12uC5Ak1pzfFdYGbO2fCgbgnlrxFzbR
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <% 
   elsif my_hostname.include? '-dmn-'
 -%>
 accessid = suM0e3akpZgsTI
 accesskey = ZsSx6XsErb24yfidc0TogPa96qh6KaX2gh0SyUhLbAE18gqXs0JH61MfK9ROHQEG
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <% 
   elsif my_hostname.include? '-ss-'
 -%>
 accessid = suFqs60WKfydqk
 accesskey = YokTvVDFGMMMvfUWqnPXfZfSAEV5BpI9GjT6F8BnlZvClz6PoD2GbQLZ3xGNiNfT
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <% 
    elsif my_hostname.include? '-geoip-'
 -%>
 accessid = suTqpnMJg0K9ey
 accesskey = mE9PuqHxkUV4VzRpGDlaZPAuqMw88Pr6qeLFOQyUHgdKigOWNNPHKhNzkPe90Q7o
 syncSources = /opt/SumoCollector/config/sources.json
-name = <%= my_hostname %>
 <% 
   else 
     raise "Unknown infrastructure found for hostname #{my_hostname} in user.properties.erb"
