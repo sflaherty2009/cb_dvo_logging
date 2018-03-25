@@ -67,19 +67,25 @@ end
 # MDO 2018-03-22: Removed custom ruby converge time checks and allowed Chef idempotence to do its thing instead.
 #                 This meant duplicating a bunch of guard logic, but it still seems more Chefy.
 
-developer_group = 'trekdevs'
+node.run_state['developer_group'] = 'trekdevs'
+
+ruby_block 'Check trekdevs group existence' do
+  block do
+    node.run_state['developer_group'] = 'root'
+  end
+  only_if { shell_out('getent group trekdevs').error? }
+end
 
 directory '/<storageSelection>/sumologs' do
   path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
-  group developer_group
+  group lazy { node.run_state['developer_group'] }
   user 'root'
   mode '02755'
-  only_if { !shell_out('getent group trekdevs').error? }
 end
 
 link '/opt/sumologs' do
   to lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
-  only_if { !shell_out('getent group trekdevs').error? }
+  not_if { ::Dir.exist?('/opt/sumologs') && !::File.symlink?('/opt/sumologs') }
 end
 
 # RAC 3/20/18
@@ -94,30 +100,27 @@ end
 if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
   directory '/<storageSelection>/sumologs/apache' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/apache" }
-    group developer_group
+    group lazy { node.run_state['developer_group'] }
     user 'root'
     mode '02755'
-    only_if { !shell_out('getent group trekdevs').error? }
   end
 end
 
 if node['dvo_user']['use'] =~ /\bhybris\b/
   directory '/<storageSelection>/sumologs/hybris' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/hybris" }
-    group developer_group
+    group lazy { node.run_state['developer_group'] }
     user 'root'
     mode '02755'
-    only_if { !shell_out('getent group trekdevs').error? }
   end
 end
 
 if node['dvo_user']['use'] =~ /\bsolr\b/
   directory '/<storageSelection>/sumologs/solr' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/solr" }
-    group developer_group
+    group lazy { node.run_state['developer_group'] }
     user 'solr'
     mode '02755'
-    only_if { !shell_out('getent group trekdevs').error? }
   end
 end
 
@@ -127,32 +130,27 @@ remote_file 'SumoLogic Collector' do
   owner 'root'
   group 'root'
   mode '0600'
-  only_if { !shell_out('getent group trekdevs').error? }
 end
 
 rpm_package 'sumocollector' do
   source "#{Chef::Config[:file_cache_path]}/sumocollector.rpm"
   action :upgrade
   notifies :restart, 'service[collector]', :delayed
-  only_if { !shell_out('getent group trekdevs').error? }
 end
 
 template '/opt/SumoCollector/config/user.properties' do
   source 'user.properties.erb'
   owner 'root'
   notifies :restart, 'service[collector]', :delayed
-  only_if { ::Dir.exist?('/opt/SumoCollector/config') }
 end
 
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
   notifies :restart, 'service[collector]', :delayed
-  only_if { ::Dir.exist?('/opt/SumoCollector/config') }
 end
 
 service 'collector' do
   action [:enable]
   notifies :restart, 'service[collector]', :delayed
-  only_if { ::Dir.exist?('/opt/SumoCollector/config') }
 end

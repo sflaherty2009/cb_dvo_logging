@@ -151,7 +151,7 @@ platforms:
         ALM_environment: "local"
       dvo:
         cloud_service_provider:
-          name: "local"
+          name: "test"
 
 suites:
   - name: default

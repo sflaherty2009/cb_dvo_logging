@@ -1,3 +1,8 @@
+# 2.2.1
+**Date: 3/25/2017**
+
+* Fixed to allow creation of folders and update group ownership later to avoid problems with containers creating the folders first.
+
 # 2.2.0
 **Date: 3/22/2017**
 
