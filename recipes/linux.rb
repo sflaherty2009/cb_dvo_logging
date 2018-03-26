@@ -79,7 +79,13 @@ ruby_block 'Assign developer group ID if missing from Etc' do
   block do
     node.run_state['developer_group'] = shell_out("getent group #{node.run_state['developer_group']} | awk -F: '{print $3}'").stdout.chomp.to_i
   end
-  not_if { Etc.getgrnam(node.run_state['developer_group']) rescue nil }
+  not_if do
+    begin
+      ::Etc.getgrnam(node.run_state['developer_group'])
+    rescue ArgumentError
+      nil
+    end
+  end
 end
 
 directory '/<storageSelection>/sumologs' do
