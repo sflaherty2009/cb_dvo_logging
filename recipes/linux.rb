@@ -65,15 +65,21 @@ if node['dvo']['cloud_service_provider']['name'] == 'local'
 end
 
 # MDO 2018-03-22: Removed custom ruby converge time checks and allowed Chef idempotence to do its thing instead.
-#                 This meant duplicating a bunch of guard logic, but it still seems more Chefy.
 
 node.run_state['developer_group'] = 'trekdevs'
 
-ruby_block 'Check trekdevs group existence' do
+ruby_block 'Check developer group existence' do
   block do
     node.run_state['developer_group'] = 'root'
   end
-  only_if { shell_out('getent group trekdevs').error? }
+  only_if { shell_out("getent group #{node.run_state['developer_group']}").error? }
+end
+
+ruby_block 'Assign developer group ID if missing from Etc' do
+  block do
+    node.run_state['developer_group'] = shell_out("getent group #{node.run_state['developer_group']} | awk -F: '{print $3}'").stdout.chomp.to_i
+  end
+  not_if { Etc.getgrnam(node.run_state['developer_group']) rescue nil }
 end
 
 directory '/<storageSelection>/sumologs' do

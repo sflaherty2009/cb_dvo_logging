@@ -13,6 +13,12 @@ accessid = suB2OhMpjsPQOd
 accesskey = 9SikDt0VCPzUdgnjUfrZgIxTMU63A14dxQTLodsMYYiG1IcmdJIdzezYsdZsQBG4
 syncSources = /opt/SumoCollector/config/sources.json
 <%
+  elsif my_hostname.include? 'kitchen'
+-%>
+accessid = supR6X3y58iIA3
+accesskey = pjSf7hnyNDWnp53UwbhtjpCpRV0DCmUZgdLoLoa5v7x0zUDccPRFOeCMboppi56n
+syncSources = /opt/SumoCollector/config/sources.json
+<%
   elsif my_hostname.include? '-e2e-'
 -%>
 accessid = supR6X3y58iIA3

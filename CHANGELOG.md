@@ -1,3 +1,8 @@
+# 2.2.2
+**Date: 3/26/2017**
+
+* Fixed issue caused by nsswitch.conf being changed during the chef run on first converge while joining the AD. Apparently a process already running (including chef) must be restarted to gain access to user/group changes if nsswitch.conf changes. Since chef initiates joining the AD, this means it would be required to restart. I worked around this by shelling out to a new process to find the group ID and using that instead, which chef is fine with.
+
 # 2.2.1
 **Date: 3/25/2017**
 
