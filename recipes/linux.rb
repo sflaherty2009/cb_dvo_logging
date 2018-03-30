@@ -8,10 +8,10 @@
 
 include_recipe 'cb_dvo_addStorage'
 
-if node['dvo']['cloud_service_provider']['name'] == 'local'
+if node['cloud']['provider'] == 'local'
 
   # Temporary to debug issue since databag breaks localAccounts in kitchen vagrant:
-  if node['dvo_user']['ALM_service'].eql? 'solr'
+  if node['hostname'].include? 'solr'
     # Create solr user across all hosts
     group 'solr' do
       gid 8983
@@ -109,7 +109,7 @@ end
 # should be refactored to eliminate this complexity of storage selection (i.e., always
 # put it on /standard/sumologs).  Tech Debt story DVO-2931 was opened to address this in
 # a future sprint.
-if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
+if node['hostname'].include? 'web'
   directory '/<storageSelection>/sumologs/apache' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/apache" }
     group lazy { node.run_state['developer_group'] }
@@ -118,7 +118,7 @@ if node['dvo_user']['use'] =~ /\bhybris\S*WebServer\b/
   end
 end
 
-if node['dvo_user']['use'] =~ /\bhybris\b/
+if node['hostname'].include? 'hyb'
   directory '/<storageSelection>/sumologs/hybris' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/hybris" }
     group lazy { node.run_state['developer_group'] }
@@ -127,7 +127,7 @@ if node['dvo_user']['use'] =~ /\bhybris\b/
   end
 end
 
-if node['dvo_user']['use'] =~ /\bsolr\b/
+if node['hostname'].include? 'slr'
   directory '/<storageSelection>/sumologs/solr' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/solr" }
     group lazy { node.run_state['developer_group'] }

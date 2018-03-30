@@ -4,7 +4,7 @@
 #
 # Copyright (c) 2017 Trek Bikes, Ray Crawford, All Rights Reserved.
 
-Chef::Log.warn "Mandatory attribute: cloud service provider name = #{node['dvo']['cloud_service_provider']['name']}"
+Chef::Log.warn "Mandatory attribute: cloud service provider name = #{node['cloud']['provider']}"
 Chef::Log.warn "Mandatory attribute: ALM Environment = #{node['dvo_user']['ALM_environment']}"
 Chef::Log.warn "Mandatory attribute: VM use = #{node['dvo_user']['use']}"
 
