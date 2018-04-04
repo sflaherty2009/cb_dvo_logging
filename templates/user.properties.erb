@@ -1,88 +1,89 @@
 <% 
   require 'socket'
-  my_hostname = Socket.gethostname
+  my_hostname = node['hostname']
 -%>
 name = <%= my_hostname %>
 skipAccessKeyRemoval = true
 clobber = true
 <% 
 # Local execution
+# 2018.04.04 Please note All Access keys and Access IDs are associated with Scott Flaherty's Sumologic account.  
 if my_hostname.match('.*vagrantup.com')
 -%>
-accessid = suB2OhMpjsPQOd
-accesskey = 9SikDt0VCPzUdgnjUfrZgIxTMU63A14dxQTLodsMYYiG1IcmdJIdzezYsdZsQBG4
+accessid = suMluZek3sVNMa
+accesskey = vQI4XL2Fs3XD1ypRLseFwiazMK8Z9NapZdaF65VLDrfVFIS3KywJRJNdoYUlVOC8
 syncSources = /opt/SumoCollector/config/sources.json
 <%
   elsif my_hostname.include? 'kitchen'
 -%>
-accessid = supR6X3y58iIA3
-accesskey = pjSf7hnyNDWnp53UwbhtjpCpRV0DCmUZgdLoLoa5v7x0zUDccPRFOeCMboppi56n
+accessid = suMluZek3sVNMa
+accesskey = vQI4XL2Fs3XD1ypRLseFwiazMK8Z9NapZdaF65VLDrfVFIS3KywJRJNdoYUlVOC8
 syncSources = /opt/SumoCollector/config/sources.json
 <%
   elsif my_hostname.include? '-e2e-'
 -%>
-accessid = supR6X3y58iIA3
-accesskey = pjSf7hnyNDWnp53UwbhtjpCpRV0DCmUZgdLoLoa5v7x0zUDccPRFOeCMboppi56n
+accessid = su8MTzuDRT7umW
+accesskey = AKfMviah6jMwVEoqXvzelpWqniTs3rL6BWtu9NGuHmmztEx36mimqmQnBjtwsXkv
 syncSources = /opt/SumoCollector/config/sources.json
 <%
   elsif my_hostname.include? '-prf-'
 -%>
-accessid = surhLZmqrghs83
-accesskey = Sl7ijY3sYjFIO2ntQwvW7jyAfDJ5NjsIfzTQESxLkKgUUjtpdm8I0j2Abw0iDHTg
+accessid = suxQTUrWZywZMG
+accesskey = 3sKhdrr5rBPcCpGN1RAIJG0WTK7djkGpXE81gJkA6x7eOkYCCqCMv8uh1gEhbKKt
 syncSources = /opt/SumoCollector/config/sources.json
 <%
   elsif my_hostname.match('dev-*')
 -%>
-accessid = suGXZOa2Hj4HIl
-accesskey = KMR2VdOT57mSbqDJTHbSUfHO11o1ctUiHHZnDafouk3zsAxx2L35m0DPw0NLC2J3
+accessid = suXCkFeBhZcyvA
+accesskey = Oc0m0vN9OQvGC7WaDGPmHNNgCJr88roalmwiGwDfIEgVSe32Svt3CnFesNNKMORc
 syncSources = /opt/SumoCollector/config/sources.json
 <%
   elsif my_hostname.include? '-tst-'
 -%>
-accessid = suiX4GEk4d8rdU
-accesskey = 20hSvoedpZFwPc1Vur4gCBEUFuNizkijcIGkC8Nfi7KPHLlOJfoP6uCY0FLr38dP
+accessid = suJW8gjlIBwTID
+accesskey = 2zXiEaWoUa3Lv7I2baoGX2sgOXA0DT44HWBMVH1IXpQB7eNF6zagHnBn93uVeAoc
 syncSources = /opt/SumoCollector/config/sources.json
 <%
   elsif my_hostname.include? '-prd-'
 -%>
-accessid = su2gnh9kJ5l5xr
-accesskey = JxUGiipJYFb0gpBxUvM2W0pNgrBr3ZUld2143sa2xMgrlCTwVrCzbjlOqctqAa63
+accessid = su59v1n5QqrkYq
+accesskey = j8DE7ZCoS88N8380luZfLvximF9Cc67zMdfjQwXxtRMgEuyrZwapW89HMKy0jaLk
 syncSources = /opt/SumoCollector/config/sources.json
 <%
   elsif my_hostname.include? '-ssn-'
 -%>
-accessid = su8FfHZm15r4hL
-accesskey = BM7lyjG67aoOiyNiEdvGkT5rLjEeFKlFymyKB0vtgENR939OiKM0zbvf6f3OW0jI
+accessid = susD3WoKxwK4qk
+accesskey = GCNuBhNtkpGmldCOYwGTor9KICMYWB352hGLAMMNhyr6asuezIVOPJVaXGMnLyEC
 syncSources = /opt/SumoCollector/config/sources.json
 <% 
   elsif my_hostname.include? '-tf-'
 -%>
-accessid = suUup69IV9SS2f
-accesskey = EcyKLviY2Q0s3Qx8FTpGlRvjJ9VR5tICq4ZtkNkv5f3xf4I3b8LpkzODpuJubv5j
+accessid = suVWZahN45GWuU
+accesskey = D2vO8rGewMTLxZYilAZMf1CzIqzDzgT4lYvsXeqJbL572FinVf5sZcoUUuE4zgqW
 syncSources = /opt/SumoCollector/config/sources.json
 <% 
   elsif my_hostname.include? '-mdn-'
 -%>
-accessid = suWdHj6K5zQKwX
-accesskey = BV1cbzShV4LbW9zbTeSBjGeiA4gZKEe7v12uC5Ak1pzfFdYGbO2fCgbgnlrxFzbR
+accessid = suy84BEdGx98nK
+accesskey = YqyYx24UqIrwvx5SSx258qLveCJON6OE3mVyTzFVDP6wilvHqeieA5n0Sg1c3GH8
 syncSources = /opt/SumoCollector/config/sources.json
 <% 
   elsif my_hostname.include? '-dmn-'
 -%>
-accessid = suM0e3akpZgsTI
-accesskey = ZsSx6XsErb24yfidc0TogPa96qh6KaX2gh0SyUhLbAE18gqXs0JH61MfK9ROHQEG
+accessid = suLpcczoPvpAHq
+accesskey = OQP3pP2DjsvL9sa7UScdtwvXDb46XGqIxB2XvCxWk8aSP3zH3CjBOrwad4b9mWkY
 syncSources = /opt/SumoCollector/config/sources.json
 <% 
   elsif my_hostname.include? '-ss-'
 -%>
-accessid = suFqs60WKfydqk
-accesskey = YokTvVDFGMMMvfUWqnPXfZfSAEV5BpI9GjT6F8BnlZvClz6PoD2GbQLZ3xGNiNfT
+accessid = suCrZFPnv6OaiB
+accesskey = O9GpkqmHVN88QjupxohRX6bsKwIMf2iOauZCTCvf2cHZkW0k3Kv2SXFVI0Rv22LH
 syncSources = /opt/SumoCollector/config/sources.json
 <% 
    elsif my_hostname.include? '-geoip-'
 -%>
-accessid = suTqpnMJg0K9ey
-accesskey = mE9PuqHxkUV4VzRpGDlaZPAuqMw88Pr6qeLFOQyUHgdKigOWNNPHKhNzkPe90Q7o
+accessid = su3pZ5wkSkMH9B
+accesskey = TnjTPngzW0OAge6FidEkU9GfFFIrV9hm3wnLJLjKU6puYLon63FpISJv3lr2qKEG
 syncSources = /opt/SumoCollector/config/sources.json
 <% 
   else 
