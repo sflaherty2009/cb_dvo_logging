@@ -1,6 +1,6 @@
 <%
 rootCategory = 'www.trekbikes.com'
-if node['hostname'].include('-trn-')
+if node['hostname'].include? "-trn-"
   rootCategory = 'translations.com'
 end
 -%>
@@ -9,7 +9,7 @@ end
     "sources": [
         {
             "name":"Azure Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/azure",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/azure",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -44,7 +44,7 @@ end
         ,
         {
             "name":"System Audit Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/audit",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/audit",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -79,7 +79,7 @@ end
         ,
         {
             "name":"System Security Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/security",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/security",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -114,7 +114,7 @@ end
         ,
         {
             "name":"System Bash History",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/bash_history",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/bash_history",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -149,7 +149,7 @@ end
         ,
         {
             "name":"Linux Boot Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/boot",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/boot",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -184,7 +184,7 @@ end
         ,
         {
             "name":"Linux Cron Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/cron",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/cron",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -219,7 +219,7 @@ end
         ,
         {
             "name":"Linux SSSD Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/sssd",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/sssd",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -254,7 +254,7 @@ end
         ,
         {
             "name":"Linux yum Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/yum",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/yum",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -289,7 +289,7 @@ end
         ,
         {
             "name":"Linux WPA Supplicant Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/wpa",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/wpa",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -326,7 +326,7 @@ end
         {
             "name": "Apache Access Log",
             "description": "Apache Access Log",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/apache/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -343,7 +343,7 @@ end
         {
             "name": "Apache Error Log",
             "description": "Apache Error Log",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
+            "category": "<%= rootCategory %>/<%= @environment %>/apache/error",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -360,7 +360,7 @@ end
         {
             "name": "Back Office Access Log",
             "description": "Back Office Access Log",
-            "category": "backoffice.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
+            "category": "backoffice.trekbikes.com/<%= @environment %>/apache/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching":true,
@@ -377,7 +377,7 @@ end
         {
             "name":"Back Office Error Log",
             "description":"Backoffice Error Log",
-            "category":"backoffice.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
+            "category":"backoffice.trekbikes.com/<%= @environment %>/apache/error",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -394,7 +394,7 @@ end
         {
             "name":"Hybris BiDataImport",
             "description":"Log for the Hybris BI import process nightly",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/bidataimport",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/bidataimport",
             "hostName":"",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
@@ -412,7 +412,7 @@ end
         {
             "name":"Hybris CustomContentSyncJob",
             "description":"This is the catalog sync job that runs in hybris",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/customcontentsyncjob",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/customcontentsyncjob",
             "hostName":"",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
@@ -430,7 +430,7 @@ end
         {
             "name":"Hybris JDBC Log",
             "description":"Log for Hybris jdbc connections",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/jdbc",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/jdbc",
             "hostName":"",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
@@ -448,7 +448,7 @@ end
         {
             "name":"Hybris SolrIndexJob",
             "description":"The solr indexing processes inside hybris",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/solrindexjob",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/solrindexjob",
             "hostName":"",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
@@ -466,7 +466,7 @@ end
         {
             "name":"Hybris UserLocales",
             "description":"Says how the locale served to the cliend was determined, url, cookie, geoip",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/userlocales",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/userlocales",
             "hostName":"",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
@@ -483,7 +483,7 @@ end
         ,
         {
             "name":"Hybris Tomcat Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tomcat/application",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat/application",
             "hostName":"",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
@@ -501,7 +501,7 @@ end
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
             "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/<%= node['dvo_user']['ALM_service'] %>/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -516,7 +516,7 @@ end
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Access Logs",
             "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/<%= node['dvo_user']['ALM_service'] %>/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -531,7 +531,7 @@ end
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
             "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/<%= node['dvo_user']['ALM_service'] %>/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -548,7 +548,7 @@ end
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
             "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/<%= node['dvo_user']['ALM_service'] %>/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -563,7 +563,7 @@ end
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Access Logs",
             "description": "Translations TMGR Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/<%= node['dvo_user']['ALM_service'] %>/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -578,7 +578,7 @@ end
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
             "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/<%= node['dvo_user']['ALM_service'].upcase %>/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'].upcase %>/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -595,7 +595,7 @@ end
         {
             "name": "Translations TSR App Logs",
             "description": "Translations TSR App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tsr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/tsr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -612,7 +612,7 @@ end
         {
             "name": "Translations TSR App Logs",
             "description": "Translations TSR App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tsr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/tsr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -629,7 +629,7 @@ end
         {
             "name": "Translations AMQ Tomcat Catalina Logs",
             "description": "Translations AMQ Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -644,7 +644,7 @@ end
         {
             "name": "Translations AMQ Access Logs",
             "description": "Translations AMQ Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -659,7 +659,7 @@ end
         {
             "name": "Translations AMQ App Logs",
             "description": "Translations AMQ App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -676,7 +676,7 @@ end
         {
             "name": "Translations AMQ Tomcat Catalina Logs",
             "description": "Translations AMQ Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -691,7 +691,7 @@ end
         {
             "name": "Translations AMQ Access Logs",
             "description": "Translations AMQ Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -706,7 +706,7 @@ end
         {
             "name": "Translations AMQ App Logs",
             "description": "Translations AMQ App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -723,7 +723,7 @@ end
         {
             "name": "Translations SOLR Tomcat Catalina Logs",
             "description": "Translations SOLR Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -738,7 +738,7 @@ end
         {
             "name": "Translations SOLR Access Logs",
             "description": "Translations SOLR Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -753,7 +753,7 @@ end
         {
             "name": "Translations SOLR App Logs",
             "description": "Translations SOLR App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -770,7 +770,7 @@ end
         {
             "name": "Translations SOLR Tomcat Catalina Logs",
             "description": "Translations SOLR Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -785,7 +785,7 @@ end
         {
             "name": "Translations SOLR Access Logs",
             "description": "Translations SOLR Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -800,7 +800,7 @@ end
         {
             "name": "Translations SOLR App Logs",
             "description": "Translations SOLR App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -817,7 +817,7 @@ end
         {
             "name": "Translations PD Apache Access Logs",
             "description": "Translations PD Apache Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/pd/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -834,7 +834,7 @@ end
         {
             "name": "Translations PD Apache Error Logs",
             "description": "Translations PD Apache Error Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/error",
+            "category": "<%= rootCategory %>/<%= @environment %>/pd/error",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -851,7 +851,7 @@ end
         {
             "name": "Translations TSO App Logs",
             "description": "Translations TSO App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tso/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/tso/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -868,7 +868,7 @@ end
         {
             "name": "Translations TSO App Logs",
             "description": "Translations TSO App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tso/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/tso/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -885,7 +885,7 @@ end
         {
             "name":"Solr Log",
             "description":"Solr Tomcat logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/eventlog",
+            "category":"<%= rootCategory %>/<%= @environment %>/solr/eventlog",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -902,7 +902,7 @@ end
         {
             "name":"Solr GC Log",
             "description":"Garbage collection logs from Solr",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/gc_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/apache/gc_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -919,7 +919,7 @@ end
         {
             "name":"freeGeoIP log",
             "description":"stdout and stderr from freeGeoIP container",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/freegeoip/eventlog",
+            "category":"<%= rootCategory %>/<%= @environment %>/freegeoip/eventlog",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -936,7 +936,7 @@ end
         {
             "name":"freeGeoIP log",
             "description":"stdout and stderr from freeGeoIP container",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/freegeoip/eventlog",
+            "category":"<%= rootCategory %>/<%= @environment %>/freegeoip/eventlog",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -953,7 +953,7 @@ end
         {
             "name":"Vertex App Logs",
             "description":"Vertex app logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/app_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/app_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -970,7 +970,7 @@ end
         {
             "name":"Vertex App Logs",
             "description":"Vertex app logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/app_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/app_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -987,7 +987,7 @@ end
         {
             "name":"Vertex Tomcat Logs",
             "description":"Vertex tomcat logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tomcat_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -1004,7 +1004,7 @@ end
         {
             "name":"Vertex Tomcat Logs",
             "description":"Vertex tomcat logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tomcat_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -1021,7 +1021,7 @@ end
         {
             "name":"Vertex Catalina.out",
             "description":"Vertex catalina.out",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/catalina_out",
+            "category":"<%= rootCategory %>/<%= @environment %>/catalina_out",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -1038,7 +1038,7 @@ end
         {
             "name":"Vertex Catalina.out",
             "description":"Vertex catalina.out",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/catalina_out",
+            "category":"<%= rootCategory %>/<%= @environment %>/catalina_out",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -1055,7 +1055,7 @@ end
         {
             "name":"Jenkins Log",
             "description":"Jenkins Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/jenkins",
+            "category":"<%= rootCategory %>/<%= @environment %>/jenkins",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -1072,7 +1072,7 @@ end
         {
             "name":"SonarQube Logs",
             "description":"SonarQube Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/sonarqube",
+            "category":"<%= rootCategory %>/<%= @environment %>/sonarqube",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -1089,7 +1089,7 @@ end
         {
             "name":"SonarQube Logs",
             "description":"SonarQube Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/sonarqube",
+            "category":"<%= rootCategory %>/<%= @environment %>/sonarqube",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,

@@ -159,6 +159,9 @@ end
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
+  variables(
+    environment: "#{node['hostname'].split('-')[1]}"
+  )
   notifies :restart, 'service[collector]', :delayed
 end
 
