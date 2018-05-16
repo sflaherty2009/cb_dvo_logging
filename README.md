@@ -40,7 +40,7 @@ A space delimited set of VM uses.  Anything can be in the list, but it must have
 
 This attribute is used in two places.  First, if it contains `\bsolr\b`,`\bhybris\b` or `\bhybris\S*WebServer\b` the appropriate `/standard/sumologs/` directories will be created.  This must be done ***before*** the wcp_deploy.sh script is run if Docker is used on the VM.  The second place it is used is to select what part(s) of the sources.json.erb template are dropped.
 
-### node['dvo_user']['ALM_environment']
+### #{node['hostname'].split('-')[1]}
 
 A short representation of the environment used to configure the _sourceCategory in SumoLogic.  For example:
 
@@ -95,7 +95,7 @@ The location of the download.
 
 * Via Knife or the Chef Manage UI (does not work with Orchestrator redeployment):
   * Update the node['dvo_user']['use'] with a list of VM uses
-  * Update the node['dvo_user']['ALM_environment'] attribute
+  * Update the #{node['hostname'].split('-')[1]} attribute
   * If doing on a Hybris or Apache node running in a container, stop the container, delete `/opt/sumologs`
   * Add the cb_dvo_logging cookbook to the VM
   * If needed, delete the container and the image and rerun `/data/deploy/wcp_deploy.sh` after ensuring that a newer container has not been deployed

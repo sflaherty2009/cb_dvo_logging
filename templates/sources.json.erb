@@ -1,297 +1,15 @@
-{
-    "api.version": "v1",
-    "sources": [<% 
-matched = false
-
+<%
 rootCategory = 'www.trekbikes.com'
-if node['dvo_user']['use'].match(/\btranslations\b/)
+if node['hostname'].include? "-trn-"
   rootCategory = 'translations.com'
 end
-
-if node['dvo_user']['use'].match(/\bhybrisFrontEndWebServer\b/)
-    if matched
--%>,<%
-    end
-    matched = true
 -%>
+{
+    "api.version": "v1",
+    "sources": [
         {
-            "name": "Apache Access Log",
-            "description": "Apache Access Log",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching": true,
-            "forceTimeZone": false,
-            "filters": [],
-            "cutoffTimestamp": 1487052000000,
-            "encoding": "UTF-8",
-            "pathExpression": "/opt/sumologs/apache/access_log",
-            "blacklist": [],
-            "sourceType": "LocalFile"
-        },
-        {
-            "name": "Apache Error Log",
-            "description": "Apache Error Log",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching": true,
-            "forceTimeZone": false,
-            "filters": [],
-            "cutoffTimestamp": 1487052000000,
-            "encoding": "UTF-8",
-            "pathExpression": "/opt/sumologs/apache/error_log",
-            "blacklist": [],
-            "sourceType": "LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bhybrisBackEndWebServer\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>
-        {
-            "name": "Back Office Access Log",
-            "description": "Back Office Access Log",
-            "category": "backoffice.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/access",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching":true,
-            "forceTimeZone":false,
-            "filters":[],
-            "cutoffTimestamp":1487052000000,
-            "encoding":"UTF-8",
-            "pathExpression":"/opt/sumologs/apache/bo_access_log",
-            "blacklist":[],
-            "sourceType":"LocalFile"
-        },
-        {
-            "name":"Back Office Error Log",
-            "description":"Backoffice Error Log",
-            "category":"backoffice.trekbikes.com/<%= node['dvo_user']['ALM_environment'] %>/apache/error",
-            "automaticDateParsing":true,
-            "multilineProcessingEnabled":true,
-            "useAutolineMatching":true,
-            "forceTimeZone":false,
-            "filters":[],
-            "cutoffTimestamp":1487052000000,
-            "encoding":"UTF-8",
-            "pathExpression":"/opt/sumologs/apache/bo_error_log",
-            "blacklist":[],
-            "sourceType":"LocalFile"
-        }<% 
-end
-if node['dvo_user']['use'].match(/\bhybris\b/)
-    if matched
--%>,<%
-    end
-    matched = true
-%>
-    {
-        "name":"Hybris BiDataImport",
-        "description":"Log for the Hybris BI import process nightly",
-        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/bidataimport",
-        "hostName":"",
-        "automaticDateParsing":true,
-        "multilineProcessingEnabled":true,
-        "useAutolineMatching":true,
-        "forceTimeZone":false,
-        "filters":[],
-        "cutoffTimestamp":1487052000000,
-        "encoding":"UTF-8",
-        "pathExpression":"/opt/sumologs/hybris/trek/biDataImport/*.log",
-        "blacklist":[],
-        "sourceType":"LocalFile"
-    },
-    {
-        "name":"Hybris CustomContentSyncJob",
-        "description":"This is the catalog sync job that runs in hybris",
-        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/customcontentsyncjob",
-        "hostName":"",
-        "automaticDateParsing":true,
-        "multilineProcessingEnabled":true,
-        "useAutolineMatching":true,
-        "forceTimeZone":false,
-        "filters":[],
-        "cutoffTimestamp":1487052000000,
-        "encoding":"UTF-8",
-        "pathExpression":"/opt/sumologs/hybris/trek/sync/*.log",
-        "blacklist":[],
-        "sourceType":"LocalFile"
-    },
-    {
-        "name":"Hybris JDBC Log",
-        "description":"Log for Hybris jdbc connections",
-        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/jdbc",
-        "hostName":"",
-        "automaticDateParsing":true,
-        "multilineProcessingEnabled":true,
-        "useAutolineMatching":true,
-        "forceTimeZone":false,
-        "filters":[],
-        "cutoffTimestamp":1487052000000,
-        "encoding":"UTF-8",
-        "pathExpression":"/opt/sumologs/hybris/jdbc.log",
-        "blacklist":[],
-        "sourceType":"LocalFile"
-    },
-    {
-        "name":"Hybris SolrIndexJob",
-        "description":"The solr indexing processes inside hybris",
-        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/solrindexjob",
-        "hostName":"",
-        "automaticDateParsing":true,
-        "multilineProcessingEnabled":true,
-        "useAutolineMatching":true,
-        "forceTimeZone":false,
-        "filters":[],
-        "cutoffTimestamp":1487052000000,
-        "encoding":"UTF-8",
-        "pathExpression":"/opt/sumologs/hybris/trek/solr/*.log",
-        "blacklist":[],
-        "sourceType":"LocalFile"
-    },
-    {
-        "name":"Hybris UserLocales",
-        "description":"Says how the locale served to the cliend was determined, url, cookie, geoip",
-        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/hybris/userlocales",
-        "hostName":"",
-        "automaticDateParsing":true,
-        "multilineProcessingEnabled":true,
-        "useAutolineMatching":true,
-        "forceTimeZone":false,
-        "filters":[],
-        "cutoffTimestamp":1487052000000,
-        "encoding":"UTF-8",
-        "pathExpression":"/opt/sumologs/hybris/trek/userLocales/*.log",
-        "blacklist":[],
-        "sourceType":"LocalFile"
-    },
-    {
-        "name":"Hybris Tomcat Log",
-        "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tomcat/application",
-        "hostName":"",
-        "automaticDateParsing":true,
-        "multilineProcessingEnabled":true,
-        "useAutolineMatching":true,
-        "forceTimeZone":false,
-        "filters":[],
-        "cutoffTimestamp":1487052000000,
-        "encoding":"UTF-8",
-        "pathExpression":"/opt/sumologs/hybris/tomcat/*.log",
-        "blacklist":[],
-        "sourceType":"LocalFile"
-  }<%
-end
-if node['dvo_user']['use'].match(/\blinux\b/)
-    if matched
--%>,<%
-    end
-    matched = true 
--%>
-        {  
-            "name":"System Audit Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/audit",
-            "automaticDateParsing":true,
-            "multilineProcessingEnabled":true,
-            "useAutolineMatching":true,
-            "contentType":"Linux",
-            "forceTimeZone":false,
-            "timeZone":"Etc/UTC",
-            "filters":[  
-
-            ],
-            "cutoffTimestamp":1447135200000,
-            "encoding":"UTF-8",
-            "thirdPartyRef":{  
-                "resources":[  
-                {  
-                    "serviceType":"Linux",
-                    "path":{  
-                        "type":"NoPathExpression"
-                    },
-                    "authentication":{  
-                        "type":"NoAuthentication"
-                    }
-                }
-                ]
-            },
-            "pathExpression":"/var/log/audit/*.log*",
-            "blacklist":[  
-
-            ],
-            "sourceType":"LocalFile"
-        },
-        {  
-            "name":"System Security Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/security",
-            "automaticDateParsing":true,
-            "multilineProcessingEnabled":true,
-            "useAutolineMatching":true,
-            "contentType":"Linux",
-            "forceTimeZone":false,
-            "timeZone":"Etc/UTC",
-            "filters":[  
-
-            ],
-            "cutoffTimestamp":1447135200000,
-            "encoding":"UTF-8",
-            "thirdPartyRef":{  
-                "resources":[  
-                {  
-                    "serviceType":"Linux",
-                    "path":{  
-                        "type":"NoPathExpression"
-                    },
-                    "authentication":{  
-                        "type":"NoAuthentication"
-                    }
-                }
-                ]
-            },
-            "pathExpression":"/var/log/secure*",
-            "blacklist":[  
-
-            ],
-            "sourceType":"LocalFile"
-        },
-        {  
-            "name":"System Bash History",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/bash_history",
-            "automaticDateParsing":true,
-            "multilineProcessingEnabled":true,
-            "useAutolineMatching":true,
-            "contentType":"Linux",
-            "forceTimeZone":false,
-            "timeZone":"Etc/UTC",
-            "filters":[  
-
-            ],
-            "cutoffTimestamp":1447135200000,
-            "encoding":"UTF-8",
-            "thirdPartyRef":{  
-                "resources":[  
-                {  
-                    "serviceType":"Linux",
-                    "path":{  
-                        "type":"NoPathExpression"
-                    },
-                    "authentication":{  
-                        "type":"NoAuthentication"
-                    }
-                }
-                ]
-            },
-            "pathExpression":"/var/log/messages*",
-            "blacklist":[  
-
-            ],
-            "sourceType":"LocalFile"
-        },
-        {  
             "name":"Azure Logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/azure",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/azure",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -303,14 +21,14 @@ if node['dvo_user']['use'].match(/\blinux\b/)
             ],
             "cutoffTimestamp":1447135200000,
             "encoding":"UTF-8",
-            "thirdPartyRef":{  
+            "thirdPartyRef":{
                 "resources":[  
-                {  
+                {
                     "serviceType":"Linux",
-                    "path":{  
+                    "path":{
                         "type":"NoPathExpression"
                     },
-                    "authentication":{  
+                    "authentication":{
                         "type":"NoAuthentication"
                     }
                 }
@@ -321,10 +39,12 @@ if node['dvo_user']['use'].match(/\blinux\b/)
 
             ],
             "sourceType":"LocalFile"
-        },
-        {  
-            "name":"Linux Boot Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/boot",
+        }
+        <% if Dir.exist?('/var/log/audit') -%>
+        ,
+        {
+            "name":"System Audit Logs",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/audit",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -336,14 +56,119 @@ if node['dvo_user']['use'].match(/\blinux\b/)
             ],
             "cutoffTimestamp":1447135200000,
             "encoding":"UTF-8",
-            "thirdPartyRef":{  
+            "thirdPartyRef":{
                 "resources":[  
-                {  
+                {
                     "serviceType":"Linux",
-                    "path":{  
+                    "path":{
                         "type":"NoPathExpression"
                     },
-                    "authentication":{  
+                    "authentication":{
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/audit/*.log*",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if File.exist?('/var/log/secure') -%>
+        ,
+        {
+            "name":"System Security Logs",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/security",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+                "resources":[  
+                {
+                    "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/secure*",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if File.exist?('/var/log/messages') -%>
+        ,
+        {
+            "name":"System Bash History",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/bash_history",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+                "resources":[  
+                {
+                    "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
+                        "type":"NoAuthentication"
+                    }
+                }
+                ]
+            },
+            "pathExpression":"/var/log/messages*",
+            "blacklist":[  
+
+            ],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if File.exist?('/var/log/boot.log') -%>
+        ,
+        {
+            "name":"Linux Boot Log",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/boot",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "contentType":"Linux",
+            "forceTimeZone":false,
+            "timeZone":"Etc/UTC",
+            "filters":[  
+
+            ],
+            "cutoffTimestamp":1447135200000,
+            "encoding":"UTF-8",
+            "thirdPartyRef":{
+                "resources":[  
+                {
+                    "serviceType":"Linux",
+                    "path":{
+                        "type":"NoPathExpression"
+                    },
+                    "authentication":{
                         "type":"NoAuthentication"
                     }
                 }
@@ -354,10 +179,12 @@ if node['dvo_user']['use'].match(/\blinux\b/)
 
             ],
             "sourceType":"LocalFile"
-        },
-        {  
+        }<% end -%>
+        <% if File.exist?('/var/log/cron') -%>
+        ,
+        {
             "name":"Linux Cron Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/cron",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/cron",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -369,14 +196,14 @@ if node['dvo_user']['use'].match(/\blinux\b/)
             ],
             "cutoffTimestamp":1447135200000,
             "encoding":"UTF-8",
-            "thirdPartyRef":{  
+            "thirdPartyRef":{
                 "resources":[  
-                {  
+                {
                     "serviceType":"Linux",
-                    "path":{  
+                    "path":{
                         "type":"NoPathExpression"
                     },
-                    "authentication":{  
+                    "authentication":{
                         "type":"NoAuthentication"
                     }
                 }
@@ -387,10 +214,12 @@ if node['dvo_user']['use'].match(/\blinux\b/)
 
             ],
             "sourceType":"LocalFile"
-        },
-        {  
+        }<% end -%>
+        <% if Dir.exist?('/var/log/sssd') -%>
+        ,
+        {
             "name":"Linux SSSD Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/sssd",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/sssd",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -402,14 +231,14 @@ if node['dvo_user']['use'].match(/\blinux\b/)
             ],
             "cutoffTimestamp":1447135200000,
             "encoding":"UTF-8",
-            "thirdPartyRef":{  
+            "thirdPartyRef":{
                 "resources":[  
-                {  
+                {
                     "serviceType":"Linux",
-                    "path":{  
+                    "path":{
                         "type":"NoPathExpression"
                     },
-                    "authentication":{  
+                    "authentication":{
                         "type":"NoAuthentication"
                     }
                 }
@@ -420,10 +249,12 @@ if node['dvo_user']['use'].match(/\blinux\b/)
 
             ],
             "sourceType":"LocalFile"
-        },
-        {  
+        }<% end -%>
+        <% if File.exist?('/var/log/yum.log') -%>
+        ,
+        {
             "name":"Linux yum Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/yum",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/yum",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -435,14 +266,14 @@ if node['dvo_user']['use'].match(/\blinux\b/)
             ],
             "cutoffTimestamp":1447135200000,
             "encoding":"UTF-8",
-            "thirdPartyRef":{  
+            "thirdPartyRef":{
                 "resources":[  
-                {  
+                {
                     "serviceType":"Linux",
-                    "path":{  
+                    "path":{
                         "type":"NoPathExpression"
                     },
-                    "authentication":{  
+                    "authentication":{
                         "type":"NoAuthentication"
                     }
                 }
@@ -453,10 +284,12 @@ if node['dvo_user']['use'].match(/\blinux\b/)
 
             ],
             "sourceType":"LocalFile"
-        },
-        {  
+        }<% end -%>
+        <% if File.exist?('/var/log/wpa_supplicant.log') -%>
+        ,
+        {
             "name":"Linux WPA Supplicant Log",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/linux/wpa",
+            "category":"<%= rootCategory %>/<%= @environment %>/linux/wpa",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -468,14 +301,14 @@ if node['dvo_user']['use'].match(/\blinux\b/)
             ],
             "cutoffTimestamp":1447135200000,
             "encoding":"UTF-8",
-            "thirdPartyRef":{  
+            "thirdPartyRef":{
                 "resources":[  
-                {  
+                {
                     "serviceType":"Linux",
-                    "path":{  
+                    "path":{
                         "type":"NoPathExpression"
                     },
-                    "authentication":{  
+                    "authentication":{
                         "type":"NoAuthentication"
                     }
                 }
@@ -486,18 +319,14 @@ if node['dvo_user']['use'].match(/\blinux\b/)
 
             ],
             "sourceType":"LocalFile"
-        }<% 
-end
-if node['dvo_user']['use'].match(/\bTMGR\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>
+        }
+        <%- end if -%>
+        <% if File.exist?('/opt/sumologs/apache/access_log') -%>
+        ,
         {
-            "name": "Translations TMGR Tomcat Catalina Logs",
-            "description": "Translations TMGR Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tmgr/application",
+            "name": "Apache Access Log",
+            "description": "Apache Access Log",
+            "category": "<%= rootCategory %>/<%= @environment %>/apache/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -505,14 +334,236 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['tmgr']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
+            "pathExpression": "/opt/sumologs/apache/access_log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<% end -%>
+        <% if File.exist?('/opt/sumologs/apache/error_log') -%>
+        ,
+        {
+            "name": "Apache Error Log",
+            "description": "Apache Error Log",
+            "category": "<%= rootCategory %>/<%= @environment %>/apache/error",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/opt/sumologs/apache/error_log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<% end -%>
+        <% if File.exist?('/opt/sumologs/apache/bo_access_log') -%>
+        ,
+        {
+            "name": "Back Office Access Log",
+            "description": "Back Office Access Log",
+            "category": "backoffice.trekbikes.com/<%= @environment %>/apache/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/apache/bo_access_log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if File.exist?('/opt/sumologs/apache/bo_error_log') -%>
+        ,
+        {
+            "name":"Back Office Error Log",
+            "description":"Backoffice Error Log",
+            "category":"backoffice.trekbikes.com/<%= @environment %>/apache/error",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/apache/bo_error_log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/biDataImport') -%>
+        ,
+        {
+            "name":"Hybris BiDataImport",
+            "description":"Log for the Hybris BI import process nightly",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/bidataimport",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/trek/biDataImport/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/sync') -%>
+        ,
+        {
+            "name":"Hybris CustomContentSyncJob",
+            "description":"This is the catalog sync job that runs in hybris",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/customcontentsyncjob",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/trek/sync/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if File.exist?('/opt/sumologs/hybris/jdbc.log') -%>
+        ,
+        {
+            "name":"Hybris JDBC Log",
+            "description":"Log for Hybris jdbc connections",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/jdbc",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/jdbc.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end %>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/solr') -%>
+        ,
+        {
+            "name":"Hybris SolrIndexJob",
+            "description":"The solr indexing processes inside hybris",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/solrindexjob",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/trek/solr/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/userLocales') -%>
+        ,
+        {
+            "name":"Hybris UserLocales",
+            "description":"Says how the locale served to the cliend was determined, url, cookie, geoip",
+            "category":"<%= rootCategory %>/<%= @environment %>/hybris/userlocales",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/trek/userLocales/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?('/opt/sumologs/hybris/tomcat') -%>
+        ,
+        {
+            "name":"Hybris Tomcat Log",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat/application",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1487052000000,
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/tomcat/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-GL/logs") -%>
+        ,
+        {
+            "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
+            "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
-            "name": "Translations TMGR Access Logs",
+            "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Access Logs",
+            "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Access Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/access",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
+            "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<% end -%>
+        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-GL/logs") -%>
+        ,
+        {
+            "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
+            "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-GL/logs/*.out",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Access Logs",
             "description": "Translations TMGR Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tmgr/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'] %>/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -520,14 +571,14 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['tmgr']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
-            "name": "Translations TMGR App Logs",
-            "description": "Translations TMGR App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tmgr/application",
+            "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
+            "description": "Translations <%= node['dvo_user']['ALM_service'].upcase %> App Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/<%= node['dvo_user']['ALM_service'].upcase %>/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -535,21 +586,16 @@ if node['dvo_user']['use'].match(/\bTMGR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['tmgr']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bTSR\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>
+        }<% end -%>
+        <% if Dir.exist?("/standard/TSR/gtk") -%>
+        ,
         {
             "name": "Translations TSR App Logs",
             "description": "Translations TSR App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tsr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/tsr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -557,22 +603,16 @@ if node['dvo_user']['use'].match(/\bTSR\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['tsr']['storage_class'] %>/TSR/gtk/full-*.log",
+            "pathExpression": "/standard/TSR/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<%
-end
-if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
-    if matched
--%>,<%
-    end
-    matched = true
-    batchServerName = matches[0].upcase!
--%>
+        }<% end %>
+        <% if Dir.exist?("/premium/TSR/gtk") -%>
+        ,
         {
-            "name": "Translations <%= batchServerName %> Tomcat Catalina Logs",
-            "description": "Translations <%= batchServerName %> Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/batch/application",
+            "name": "Translations TSR App Logs",
+            "description": "Translations TSR App Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/tsr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -580,51 +620,16 @@ if (matches = node['dvo_user']['use'].match(/\bbatch\d*\b/))
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['batch']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
+            "pathExpression": "/premium/TSR/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        },
-        {
-            "name": "Translations <%= batchServerName %> Access Logs",
-            "description": "Translations <%= batchServerName %> Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/batch/access",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching": true,
-            "forceTimeZone": false,
-            "filters": [],
-            "cutoffTimestamp": 1487052000000,
-            "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['batch']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
-            "blacklist": [],
-            "sourceType": "LocalFile"
-        },
-        {
-            "name": "Translations <%= batchServerName %> App Logs",
-            "description": "Translations <%= batchServerName %> App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/batch/application",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching": true,
-            "forceTimeZone": false,
-            "filters": [],
-            "cutoffTimestamp": 1487052000000,
-            "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['batch']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
-            "blacklist": [],
-            "sourceType": "LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bActiveMQ\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>
+        }<% end %>
+        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-AMQ/logs") -%>
+        ,
         {
             "name": "Translations AMQ Tomcat Catalina Logs",
             "description": "Translations AMQ Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -632,14 +637,14 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-AMQ/logs/*.out",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
             "name": "Translations AMQ Access Logs",
             "description": "Translations AMQ Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -647,14 +652,14 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
             "name": "Translations AMQ App Logs",
             "description": "Translations AMQ App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/amq/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -662,14 +667,31 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-AMQ/logs/*.log",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<% end %>
+        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-AMQ/logs") -%>
+        ,
+        {
+            "name": "Translations AMQ Tomcat Catalina Logs",
+            "description": "Translations AMQ Tomcat Catalina Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-AMQ/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
-            "name": "Translations SOLR Tomcat Catalina Logs",
-            "description": "Translations SOLR Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "name": "Translations AMQ Access Logs",
+            "description": "Translations AMQ Access Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -677,14 +699,46 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-SOLR/logs/*.out",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        },
+        {
+            "name": "Translations AMQ App Logs",
+            "description": "Translations AMQ App Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/amq/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-AMQ/logs/*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<% end %>
+        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-SOLR/logs") -%>
+        ,
+        {
+            "name": "Translations SOLR Tomcat Catalina Logs",
+            "description": "Translations SOLR Tomcat Catalina Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
             "name": "Translations SOLR Access Logs",
             "description": "Translations SOLR Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -692,14 +746,14 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
             "name": "Translations SOLR App Logs",
             "description": "Translations SOLR App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -707,21 +761,16 @@ if node['dvo_user']['use'].match(/\bActiveMQ\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['amq_solr']['storage_class'] %>/apache-tomcat-8.0.24-SOLR/logs/*.log",
+            "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bTMS\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>
+        }<% end %>
+        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-SOLR/logs") -%>
+        ,
         {
-            "name": "Translations TMS Tomcat Catalina Logs",
-            "description": "Translations TMS Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tms/application",
+            "name": "Translations SOLR Tomcat Catalina Logs",
+            "description": "Translations SOLR Tomcat Catalina Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -729,14 +778,14 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['tms']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-SOLR/logs/*.out",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
-            "name": "Translations TMS Access Logs",
-            "description": "Translations TMS Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tms/access",
+            "name": "Translations SOLR Access Logs",
+            "description": "Translations SOLR Access Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -744,14 +793,14 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['tms']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
             "blacklist": [],
             "sourceType": "LocalFile"
         },
         {
-            "name": "Translations TMS App Logs",
-            "description": "Translations TMS App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tms/application",
+            "name": "Translations SOLR App Logs",
+            "description": "Translations SOLR App Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/solr/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -759,66 +808,16 @@ if node['dvo_user']['use'].match(/\bTMS\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['tms']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
+            "pathExpression": "/premium/apache-tomcat-8.0.24-SOLR/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bPD\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>
-        {
-            "name": "Translations PD Tomcat Catalina Logs",
-            "description": "Translations PD Tomcat Catalina Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/application",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching": true,
-            "forceTimeZone": false,
-            "filters": [],
-            "cutoffTimestamp": 1487052000000,
-            "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.out",
-            "blacklist": [],
-            "sourceType": "LocalFile"
-        },
-        {
-            "name": "Translations PD Access Logs",
-            "description": "Translations PD Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching": true,
-            "forceTimeZone": false,
-            "filters": [],
-            "cutoffTimestamp": 1487052000000,
-            "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
-            "blacklist": [],
-            "sourceType": "LocalFile"
-        },
-        {
-            "name": "Translations PD App Logs",
-            "description": "Translations PD App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/application",
-            "automaticDateParsing": true,
-            "multilineProcessingEnabled": true,
-            "useAutolineMatching": true,
-            "forceTimeZone": false,
-            "filters": [],
-            "cutoffTimestamp": 1487052000000,
-            "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/apache-tomcat-8.0.24-GL/logs/*.log",
-            "blacklist": [],
-            "sourceType": "LocalFile"
-        },
+        }<% end -%>
+        <% if File.exist?("/var/log/httpd/access_log") && node['dvo_user']['ALM_service'].upcase == 'PD' -%>
+        ,
         {
             "name": "Translations PD Apache Access Logs",
             "description": "Translations PD Apache Access Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/access",
+            "category": "<%= rootCategory %>/<%= @environment %>/pd/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -829,11 +828,13 @@ if node['dvo_user']['use'].match(/\bPD\b/)
             "pathExpression": "/var/log/httpd/access_log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        },
+        }<% end -%>
+        <% if File.exist?("/var/log/httpd/error_log") && node['dvo_user']['ALM_service'].upcase == 'PD' -%>
+        ,
         {
             "name": "Translations PD Apache Error Logs",
             "description": "Translations PD Apache Error Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/pd/error",
+            "category": "<%= rootCategory %>/<%= @environment %>/pd/error",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -844,18 +845,13 @@ if node['dvo_user']['use'].match(/\bPD\b/)
             "pathExpression": "/var/log/httpd/error_log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bTSO\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>
+        }<% end -%>
+        <% if Dir.exist?("/standard/TSO/gtk") -%>
+        ,
         {
             "name": "Translations TSO App Logs",
             "description": "Translations TSO App Logs",
-            "category": "<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tso/application",
+            "category": "<%= rootCategory %>/<%= @environment %>/tso/application",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching": true,
@@ -863,21 +859,33 @@ if node['dvo_user']['use'].match(/\bTSO\b/)
             "filters": [],
             "cutoffTimestamp": 1487052000000,
             "encoding": "UTF-8",
-            "pathExpression": "/<%= node['dvo_user']['translations']['pd']['storage_class'] %>/TSO/gtk/full-*.log",
+            "pathExpression": "/standard/TSO/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bsolr\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>     
-        { 
+        }<% end -%>
+        <% if Dir.exist?("/premium/TSO/gtk") -%>
+        ,
+        {
+            "name": "Translations TSO App Logs",
+            "description": "Translations TSO App Logs",
+            "category": "<%= rootCategory %>/<%= @environment %>/tso/application",
+            "automaticDateParsing": true,
+            "multilineProcessingEnabled": true,
+            "useAutolineMatching": true,
+            "forceTimeZone": false,
+            "filters": [],
+            "cutoffTimestamp": 1487052000000,
+            "encoding": "UTF-8",
+            "pathExpression": "/premium/TSO/gtk/full-*.log",
+            "blacklist": [],
+            "sourceType": "LocalFile"
+        }<% end -%>
+        <% if File.exist?("/opt/sumologs/solr/solr.log") -%>
+        ,
+        {
             "name":"Solr Log",
             "description":"Solr Tomcat logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/solr/eventlog",
+            "category":"<%= rootCategory %>/<%= @environment %>/solr/eventlog",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -888,11 +896,13 @@ if node['dvo_user']['use'].match(/\bsolr\b/)
             "pathExpression":"/opt/sumologs/solr/solr.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        },
+        }<% end -%>
+        <% if File.exist?("/opt/sumologs/solr/solr_gc.log") -%>
+        ,
         {
             "name":"Solr GC Log",
             "description":"Garbage collection logs from Solr",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/apache/gc_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/apache/gc_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -903,18 +913,13 @@ if node['dvo_user']['use'].match(/\bsolr\b/)
             "pathExpression":"/opt/sumologs/solr/solr_gc.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bfreegeoip\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>     
-        { 
+        }<% end -%>
+        <% if File.exist?("/standard/sumologs/freeGeoIP/freegeoip.log") -%>
+        ,
+        {
             "name":"freeGeoIP log",
             "description":"stdout and stderr from freeGeoIP container",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/freegeoip/eventlog",
+            "category":"<%= rootCategory %>/<%= @environment %>/freegeoip/eventlog",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -925,18 +930,30 @@ if node['dvo_user']['use'].match(/\bfreegeoip\b/)
             "pathExpression":"/standard/sumologs/freeGeoIP/freegeoip.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<%
-end
-if node['dvo_user']['use'].match(/\bvertex_app\b/)
-    if matched
--%>,<%
-    end
-    matched = true
--%>     
-        { 
+        }<% end -%>
+        <% if File.exist?("/premium/sumologs/freeGeoIP/freegeoip.log") -%>
+        ,
+        {
+            "name":"freeGeoIP log",
+            "description":"stdout and stderr from freeGeoIP container",
+            "category":"<%= rootCategory %>/<%= @environment %>/freegeoip/eventlog",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1519876093000,
+            "encoding":"UTF-8",
+            "pathExpression":"/premium/sumologs/freeGeoIP/freegeoip.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?("/standard/vertex/oseries/log") -%>
+        ,
+        {
             "name":"Vertex App Logs",
             "description":"Vertex app logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/app_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/app_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -944,14 +961,33 @@ if node['dvo_user']['use'].match(/\bvertex_app\b/)
             "filters":[],
             "cutoffTimestamp":1518201742009,
             "encoding":"UTF-8",
-            "pathExpression":"/<%= node['dvo_user']['vertex']['storage_class'] %>/vertex/oseries/log/*.log",
+            "pathExpression":"/standard/vertex/oseries/log/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        },
+        }<% end -%>
+        <% if Dir.exist?("/premium/vertex/oseries/log") -%>
+        ,
+        {
+            "name":"Vertex App Logs",
+            "description":"Vertex app logs",
+            "category":"<%= rootCategory %>/<%= @environment %>/app_log",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/premium/vertex/oseries/log/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?("/standard/vertex/oseries/tomcat/logs") -%>
+        ,
         {
             "name":"Vertex Tomcat Logs",
             "description":"Vertex tomcat logs",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/tomcat_log",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat_log",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -959,14 +995,33 @@ if node['dvo_user']['use'].match(/\bvertex_app\b/)
             "filters":[],
             "cutoffTimestamp":1518201742009,
             "encoding":"UTF-8",
-            "pathExpression":"/<%= node['dvo_user']['vertex']['storage_class'] %>/vertex/oseries/tomcat/logs/*.log",
+            "pathExpression":"/standard/vertex/oseries/tomcat/logs/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        },
+        }<% end -%>
+        <% if Dir.exist?("/premium/vertex/oseries/tomcat/logs") -%>
+        ,
+        {
+            "name":"Vertex Tomcat Logs",
+            "description":"Vertex tomcat logs",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat_log",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/premium/vertex/oseries/tomcat/logs/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if File.exist?("/standard/vertex/oseries/tomcat/logs/catalina.out") -%>
+        ,
         {
             "name":"Vertex Catalina.out",
             "description":"Vertex catalina.out",
-            "category":"<%= rootCategory %>/<%= node['dvo_user']['ALM_environment'] %>/catalina_out",
+            "category":"<%= rootCategory %>/<%= @environment %>/catalina_out",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -974,14 +1029,77 @@ if node['dvo_user']['use'].match(/\bvertex_app\b/)
             "filters":[],
             "cutoffTimestamp":1518201742009,
             "encoding":"UTF-8",
-            "pathExpression":"/<%= node['dvo_user']['vertex']['storage_class'] %>/vertex/oseries/tomcat/logs/catalina.out",
+            "pathExpression":"/standard/vertex/oseries/tomcat/logs/catalina.out",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<%
-end
-unless matched
-     raise "Unknown system use; no case with input #{node['dvo_user']['use']} in sources.json.erb."
-end
--%>
+        }<% end -%>
+        <% if File.exist?("/premium/vertex/oseries/tomcat/logs/catalina.out") -%>
+        ,
+        {
+            "name":"Vertex Catalina.out",
+            "description":"Vertex catalina.out",
+            "category":"<%= rootCategory %>/<%= @environment %>/catalina_out",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/premium/vertex/oseries/tomcat/logs/catalina.out",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if File.exist?("/var/log/jenkins/jenkins.log") -%>
+        ,
+        {
+            "name":"Jenkins Log",
+            "description":"Jenkins Log",
+            "category":"<%= rootCategory %>/<%= @environment %>/jenkins",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/var/log/jenkins/jenkins.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?("/standard/sonarqube/logs") -%>
+        ,
+        {
+            "name":"SonarQube Logs",
+            "description":"SonarQube Logs",
+            "category":"<%= rootCategory %>/<%= @environment %>/sonarqube",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/standard/sonarqube/logs/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end -%>
+        <% if Dir.exist?("/premium/sonarqube/logs") -%>
+        ,
+        {
+            "name":"SonarQube Logs",
+            "description":"SonarQube Logs",
+            "category":"<%= rootCategory %>/<%= @environment %>/sonarqube",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffTimestamp":1518201742009,
+            "encoding":"UTF-8",
+            "pathExpression":"/premium/sonarqube/logs/*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        }<% end %>
     ]
 }
