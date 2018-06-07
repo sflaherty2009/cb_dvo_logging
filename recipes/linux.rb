@@ -6,9 +6,9 @@
 
 # For local testing and such
 
-include_recipe 'cb_dvo_addStorage'
-
 if node['cloud']['provider'] == 'local'
+
+  include_recipe 'cb_dvo_addStorage'
 
   # Temporary to debug issue since databag breaks localAccounts in kitchen vagrant:
   if node['hostname'].include? 'solr'
@@ -132,6 +132,15 @@ if node['hostname'].include? 'slr'
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/solr" }
     group lazy { node.run_state['developer_group'] }
     user 'solr'
+    mode '02755'
+  end
+end
+
+if node['hostname'].include? 'geo'
+  directory '/<storageSelection>/sumologs/freeGeoIP' do
+    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/freeGeoIP" }
+    group lazy { node.run_state['developer_group'] }
+    user 'freegeoip'
     mode '02755'
   end
 end
