@@ -18,29 +18,38 @@ platforms:
       ssh_key: ~/.ssh/id_rsa
     driver:
       name: azurerm
-    attributes:
-      dvo:
-        cloud_service_provider:
-          name: 'azure'
     driver_config:
-      subscription_id: '9fbf7025-df40-4908-b7fb-a3a2144cee91'
+      subscription_id: '9db13c96-62ad-4945-9579-74aeed296e48'
       location: East US 2
       machine_size: Standard_D1
       image_urn: OpenLogic:CentOS:7.4:latest
       data_disks:
         - lun: 0
           disk_size_gb: 979
-        - lun: 1
-          disk_size_gb: 50
-      # vnet and subnet id will work in web technology prod only. Disable otherwise.
-      vnet_id: /subscriptions/9fbf7025-df40-4908-b7fb-a3a2144cee91/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-02
-      subnet_id: AZ-SN-dvo
-      vm_name: azl-tst-kitchen
-      vm_tags:
-        ostype: linux
-        distro: cento
+      vnet_id: /subscriptions/9db13c96-62ad-4945-9579-74aeed296e48/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-01
+      subnet_id: AZ-SN-front
+      vm_name: azl-tst-kit-01
 
-  - name: Windows2012R2-local
+  - name: win-az
+    transport:
+      name: winrm
+      username: vagrant
+      password: vagrant
+    driver:
+      name: azurerm
+    driver_config:
+      subscription_id: '9db13c96-62ad-4945-9579-74aeed296e48'
+      location: East US 2
+      machine_size: Standard_D1
+      image_urn: MicrosoftSQLServer:SQL2016SP1-WS2016:SQLDEV:latest
+      data_disks:
+        - lun: 0
+          disk_size_gb: 979
+      vnet_id: /subscriptions/9db13c96-62ad-4945-9579-74aeed296e48/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-01
+      subnet_id: AZ-SN-back
+      vm_name: azw-tst-kit-01
+
+  - name: kitchen2012
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -72,16 +81,8 @@ platforms:
       cpus: 1
       network:
         - ['private_network', {ip: '192.168.57.12'}]
-    attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
 
-  - name: Windows2016-local
+  - name: kitchen2016
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -113,16 +114,8 @@ platforms:
       cpus: 2
       network:
         - ['private_network', {ip: '192.168.57.11'}]
-    attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
 
-  - name: centos-7.4-local
+  - name: centos-7.4-kitchen
     transport:
       name: ssh
       username: vagrant
@@ -150,115 +143,89 @@ platforms:
       cpus: 1
       network:
         - ['private_network', {ip: '192.168.56.14'}]
-    attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        ALM_environment: "local"
-      dvo:
-        cloud_service_provider:
-          name: "local"
 
 suites:
   - name: default
+    data_bags_path: "test/integration/data_bags"
+    encrypted_data_bag_secret_key_path: "test/integration/logging_secret"
     run_list:
+      - recipe[cb_dvo_addStorage::default]
+      - recipe[cb_dvo_adJoin::default]
+      - recipe[cb_dvo_localAccounts::default]
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/default
-    attributes:
-      dvo_user:
-        cloud:
-        provider: 'local'
-        use: "hybris hybrisFrontEndWebServer hybrisBackEndWebServer solr linux docker"
-        ALM_service: "solr"
     driver:
       network:
         - ['private_network', {ip: '192.168.56.15'}]
-  - name: hybrisWebServer
+  - name: web
     run_list:
-      - recipe[cb_dvo_logging::default]
+        - recipe[cb_dvo_addStorage::default]
+        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/hybrisWebServer
-    attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        use: "hybrisFrontEndWebServer hybrisBackEndWebServer"
     driver:
       network:
         - ['private_network', {ip: '192.168.56.16'}]
-  - name: hybris
+  - name: hyb
     run_list:
-      - recipe[cb_dvo_logging::default]
+        - recipe[cb_dvo_addStorage::default]
+        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/hybris
-    attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        use: "hybris"
     driver:
       network:
         - ['private_network', {ip: '192.168.56.17'}]
-  - name: solr
+  - name: slr
+    data_bags_path: "test/integration/data_bags"
+    encrypted_data_bag_secret_key_path: "test/integration/logging_secret"
     run_list:
-      - recipe[cb_dvo_logging::default]
+        - recipe[cb_dvo_addStorage::default]
+        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_logging::default]
+    attributes:
+      cloud:
+        provider: "local"
     verifier:
       inspec_tests:
         - test/smoke/solr
-    attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        use: "solr"
-        ALM_service: "solr"
     driver:
       network:
         - ['private_network', {ip: '192.168.56.18'}]
-  - name: vertex
+  - name: ver
     run_list:
-      - recipe[cb_dvo_logging::default]
+        - recipe[cb_dvo_addStorage::default]
+        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/vertex
     attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        use: "vertex_app"
         vertex:
           storage_class: "standard"
     driver:
       network:
         - ['private_network', {ip: '192.168.56.18'}]
-  - name: linux
-    run_list:
-      - recipe[cb_dvo_logging::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/linux
-    attributes:
-      cloud:
-        provider: 'local'
-      dvo_user:
-        use: "linux"
-    driver:
-      network:
-        - ['private_network', {ip: '192.168.56.19'}]
   - name: PD
     run_list:
-      - recipe[cb_dvo_logging::default]
+        - recipe[cb_dvo_addStorage::default]
+        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
         - test/smoke/translations
     attributes:
-      cloud:
-        provider: 'local'
       dvo_user:
-        use: "translations PD linux"
         translations:
           pd:
             storage_class: "standard"
