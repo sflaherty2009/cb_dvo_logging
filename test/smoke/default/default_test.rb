@@ -28,17 +28,6 @@ control 'SumoLogic_sources.json' do
   end
 end
 
-control 'SumoLogic_user.properties' do
-  impact 1.0
-  title 'SumoLogic user.properties content check'
-  desc 'Confirm that the user.properties file has been updated with new keys'
-  unless os.windows?
-    describe file('/opt/SumoCollector/config/user.properties') do
-      its('content') { should_not match '#accessid = [accessId]' }
-    end
-  end
-end
-
 control 'SumoLogic installation' do
   impact 1.0
   title 'SumoLogic installation confirmation'
