@@ -11,7 +11,7 @@ end
 sumo_source_local_windows_event_log 'windows' do
   source_json_directory node['sumologic']['sumo_json_path']
   category "www.trekbikes.com/#{node['hostname'].split('-')[1]}/windows"
-  log_names ['security', 'application']
+  log_names %w(security,application)
 end
 
 sumologic_collector 'C:\sumo' do

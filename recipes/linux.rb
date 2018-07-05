@@ -91,7 +91,7 @@ end
 
 sumologic_collector '/opt/SumoCollector/' do
   collector_name node['hostname']
-  clobber true 
+  clobber true
   sumo_access_id node['dvo_user']['sumologic']['accessID']
   sumo_access_key node['dvo_user']['sumologic']['accessKey']
   sources '/opt/SumoCollector/config/sources.json'
