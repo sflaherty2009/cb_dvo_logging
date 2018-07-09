@@ -96,4 +96,5 @@ sumologic_collector '/opt/SumoCollector/' do
   sumo_access_key node['dvo_user']['sumologic']['accessKey']
   sources '/opt/SumoCollector/config/sources.json'
   sensitive true
+  not_if { File.exist?('/opt/SumoCollector/collector') }
 end
