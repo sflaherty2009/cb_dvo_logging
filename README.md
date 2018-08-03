@@ -3,6 +3,8 @@
 * Configures the necessary directories
 * Installs/starts SumoLogic
 * Places use-specific sources.json files
+* Ensures logrotate is running hourly on Linux
+* Adds logrotate configuration files as appropriate on Linux
 
 # Requirements
 

@@ -28,6 +28,12 @@ ruby_block 'Assign developer group ID if missing from Etc' do
   end
 end
 
+# Run logrotate hourly
+execute 'Switch logrotate from daily to hourly' do
+  command 'mv /etc/cron.daily/logrotate /etc/cron.hourly/logrotate'
+  only_if { ::File.exist?('/etc/cron.daily/logrotate') && !::File.exist?('/etc/cron.hourly/logrotate') }
+end
+
 directory '/<storageSelection>/sumologs' do
   path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs" }
   group lazy { node.run_state['developer_group'] }
@@ -47,6 +53,10 @@ if node['hostname'].include? 'web'
     user 'root'
     mode '02755'
   end
+
+  template '/etc/logrotate.d/web_node' do
+    source 'etc/logrotate.d/web_node.erb'
+  end
 end
 
 if node['hostname'].include? 'hyb'
@@ -55,6 +65,13 @@ if node['hostname'].include? 'hyb'
     group lazy { node.run_state['developer_group'] }
     user 'root'
     mode '02755'
+  end
+
+  template '/etc/logrotate.d/tomcat_console' do
+    source 'etc/logrotate.d/tomcat_console.erb'
+    variables(
+      storage_class: lazy { node['dvo_user']['sumologic']['storage_class'] }
+    )
   end
 end
 

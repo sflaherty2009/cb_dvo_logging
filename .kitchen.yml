@@ -14,7 +14,7 @@ verifier:
 # Make sure VPN is turned on before running azure kitchen or SSH connection will fail.
 platforms:
   - name: centos-7.4-azure
-    transport:
+    j:
       ssh_key: ~/.ssh/id_rsa
     driver:
       name: azurerm
@@ -229,6 +229,8 @@ suites:
         translations:
           pd:
             storage_class: "standard"
+      cloud:
+        provider: "local"
     driver:
       network:
         - ['private_network', {ip: '192.168.56.20'}]

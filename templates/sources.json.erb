@@ -3,7 +3,7 @@ rootCategory = 'www.trekbikes.com'
 if node['hostname'].include? "-trn-"
   rootCategory = 'translations.com'
 end
--%>
+%>
 {
     "api.version": "v1",
     "sources": [
@@ -19,7 +19,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -40,7 +40,7 @@ end
             ],
             "sourceType":"LocalFile"
         }
-        <% if Dir.exist?('/var/log/audit') -%>
+        <% if Dir.exist?('/var/log/audit') %>
         ,
         {
             "name":"System Audit Logs",
@@ -54,7 +54,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -74,8 +74,9 @@ end
 
             ],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/var/log/secure') -%>
+        }
+        <% end %>
+        <% if File.exist?('/var/log/secure') %>
         ,
         {
             "name":"System Security Logs",
@@ -89,7 +90,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -109,8 +110,9 @@ end
 
             ],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/var/log/messages') -%>
+        }
+        <% end %>
+        <% if File.exist?('/var/log/messages') %>
         ,
         {
             "name":"System Bash History",
@@ -124,7 +126,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -144,8 +146,9 @@ end
 
             ],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/var/log/boot.log') -%>
+        }
+        <% end %>
+        <% if File.exist?('/var/log/boot.log') %>
         ,
         {
             "name":"Linux Boot Log",
@@ -159,7 +162,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -179,8 +182,9 @@ end
 
             ],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/var/log/cron') -%>
+        }
+        <% end %>
+        <% if File.exist?('/var/log/cron') %>
         ,
         {
             "name":"Linux Cron Log",
@@ -194,7 +198,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -214,8 +218,9 @@ end
 
             ],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?('/var/log/sssd') -%>
+        }
+        <% end %>
+        <% if Dir.exist?('/var/log/sssd') %>
         ,
         {
             "name":"Linux SSSD Log",
@@ -229,7 +234,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -249,8 +254,9 @@ end
 
             ],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/var/log/yum.log') -%>
+        }
+        <% end %>
+        <% if File.exist?('/var/log/yum.log') %>
         ,
         {
             "name":"Linux yum Log",
@@ -264,7 +270,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -284,8 +290,9 @@ end
 
             ],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/var/log/wpa_supplicant.log') -%>
+        }
+        <% end %>
+        <% if File.exist?('/var/log/wpa_supplicant.log') %>
         ,
         {
             "name":"Linux WPA Supplicant Log",
@@ -299,7 +306,7 @@ end
             "filters":[  
 
             ],
-            "cutoffTimestamp":1447135200000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "thirdPartyRef":{
                 "resources":[  
@@ -320,8 +327,8 @@ end
             ],
             "sourceType":"LocalFile"
         }
-        <%- end if -%>
-        <% if File.exist?('/opt/sumologs/apache/access_log') -%>
+        <% end %>
+        <% if File.exist?('/opt/sumologs/apache/access_log') %>
         ,
         {
             "name": "Apache Access Log",
@@ -332,13 +339,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/opt/sumologs/apache/access_log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if File.exist?('/opt/sumologs/apache/error_log') -%>
+        }
+        <% end %>
+        <% if File.exist?('/opt/sumologs/apache/error_log') %>
         ,
         {
             "name": "Apache Error Log",
@@ -349,13 +357,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/opt/sumologs/apache/error_log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if File.exist?('/opt/sumologs/apache/bo_access_log') -%>
+        }
+        <% end %>
+        <% if File.exist?('/opt/sumologs/apache/bo_access_log') %>
         ,
         {
             "name": "Back Office Access Log",
@@ -366,13 +375,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/apache/bo_access_log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/opt/sumologs/apache/bo_error_log') -%>
+        }
+        <% end %>
+        <% if File.exist?('/opt/sumologs/apache/bo_error_log') %>
         ,
         {
             "name":"Back Office Error Log",
@@ -383,13 +393,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/apache/bo_error_log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/biDataImport') -%>
+        }
+        <% end %>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/biDataImport') %>
         ,
         {
             "name":"Hybris BiDataImport",
@@ -401,13 +412,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/hybris/trek/biDataImport/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/sync') -%>
+        }
+        <% end %>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/sync') %>
         ,
         {
             "name":"Hybris CustomContentSyncJob",
@@ -419,13 +431,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/hybris/trek/sync/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?('/opt/sumologs/hybris/jdbc.log') -%>
+        }
+        <% end %>
+        <% if File.exist?('/opt/sumologs/hybris/jdbc.log') %>
         ,
         {
             "name":"Hybris JDBC Log",
@@ -437,13 +450,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/hybris/jdbc.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end %>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/solr') -%>
+        }
+        <% end %>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/solr') %>
         ,
         {
             "name":"Hybris SolrIndexJob",
@@ -455,13 +469,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/hybris/trek/solr/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/userLocales') -%>
+        }
+        <% end %>
+        <% if Dir.exist?('/opt/sumologs/hybris/trek/userLocales') %>
         ,
         {
             "name":"Hybris UserLocales",
@@ -473,13 +488,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/hybris/trek/userLocales/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?('/opt/sumologs/hybris/tomcat') -%>
+        }
+        <% end %>
+        <% if Dir.exist?('/opt/sumologs/hybris/tomcat') %>
         ,
         {
             "name":"Hybris Tomcat Log",
@@ -490,13 +506,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/hybris/tomcat/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-GL/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-GL/logs") %>
         ,
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
@@ -507,7 +524,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.out",
             "blacklist": [],
@@ -522,7 +539,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
             "blacklist": [],
@@ -537,13 +554,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-GL/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-GL/logs") %>
         ,
         {
             "name": "Translations <%= node['dvo_user']['ALM_service'].upcase %> Tomcat Catalina Logs",
@@ -554,7 +572,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-GL/logs/*.out",
             "blacklist": [],
@@ -569,7 +587,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-GL/logs/*_access_*.txt",
             "blacklist": [],
@@ -584,13 +602,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-GL/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/standard/TSR/gtk") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/TSR/gtk") %>
         ,
         {
             "name": "Translations TSR App Logs",
@@ -601,13 +620,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/TSR/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end %>
-        <% if Dir.exist?("/premium/TSR/gtk") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/TSR/gtk") %>
         ,
         {
             "name": "Translations TSR App Logs",
@@ -618,13 +638,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/TSR/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end %>
-        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-AMQ/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-AMQ/logs") %>
         ,
         {
             "name": "Translations AMQ Tomcat Catalina Logs",
@@ -635,7 +656,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.out",
             "blacklist": [],
@@ -650,7 +671,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
             "blacklist": [],
@@ -665,13 +686,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-AMQ/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end %>
-        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-AMQ/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-AMQ/logs") %>
         ,
         {
             "name": "Translations AMQ Tomcat Catalina Logs",
@@ -682,7 +704,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-AMQ/logs/*.out",
             "blacklist": [],
@@ -697,7 +719,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-AMQ/logs/*_access_*.txt",
             "blacklist": [],
@@ -712,13 +734,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-AMQ/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end %>
-        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-SOLR/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/apache-tomcat-8.0.24-SOLR/logs") %>
         ,
         {
             "name": "Translations SOLR Tomcat Catalina Logs",
@@ -729,7 +752,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.out",
             "blacklist": [],
@@ -744,7 +767,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
             "blacklist": [],
@@ -759,13 +782,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/apache-tomcat-8.0.24-SOLR/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end %>
-        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-SOLR/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/apache-tomcat-8.0.24-SOLR/logs") %>
         ,
         {
             "name": "Translations SOLR Tomcat Catalina Logs",
@@ -776,7 +800,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-SOLR/logs/*.out",
             "blacklist": [],
@@ -791,7 +815,7 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-SOLR/logs/*_access_*.txt",
             "blacklist": [],
@@ -806,13 +830,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/apache-tomcat-8.0.24-SOLR/logs/*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if File.exist?("/var/log/httpd/access_log") && node['dvo_user']['ALM_service'].upcase == 'PD' -%>
+        }
+        <% end %>
+        <% if File.exist?("/var/log/httpd/access_log") && node['dvo_user']['ALM_service'].upcase == 'PD' %>
         ,
         {
             "name": "Translations PD Apache Access Logs",
@@ -823,13 +848,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/var/log/httpd/access_log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if File.exist?("/var/log/httpd/error_log") && node['dvo_user']['ALM_service'].upcase == 'PD' -%>
+        }
+        <% end %>
+        <% if File.exist?("/var/log/httpd/error_log") && node['dvo_user']['ALM_service'].upcase == 'PD' %>
         ,
         {
             "name": "Translations PD Apache Error Logs",
@@ -840,13 +866,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/var/log/httpd/error_log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/standard/TSO/gtk") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/TSO/gtk") %>
         ,
         {
             "name": "Translations TSO App Logs",
@@ -857,13 +884,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/standard/TSO/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/premium/TSO/gtk") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/TSO/gtk") %>
         ,
         {
             "name": "Translations TSO App Logs",
@@ -874,13 +902,14 @@ end
             "useAutolineMatching": true,
             "forceTimeZone": false,
             "filters": [],
-            "cutoffTimestamp": 1487052000000,
+            "cutoffRelativeTime":"-1h",
             "encoding": "UTF-8",
             "pathExpression": "/premium/TSO/gtk/full-*.log",
             "blacklist": [],
             "sourceType": "LocalFile"
-        }<% end -%>
-        <% if File.exist?("/opt/sumologs/solr/solr.log") -%>
+        }
+        <% end %>
+        <% if File.exist?("/opt/sumologs/solr/solr.log") %>
         ,
         {
             "name":"Solr Log",
@@ -891,13 +920,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/solr/solr.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?("/opt/sumologs/solr/solr_gc.log") -%>
+        }
+        <% end %>
+        <% if File.exist?("/opt/sumologs/solr/solr_gc.log") %>
         ,
         {
             "name":"Solr GC Log",
@@ -908,13 +938,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/opt/sumologs/solr/solr_gc.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?("/standard/sumologs/freeGeoIP/freegeoip.log") -%>
+        }
+        <% end %>
+        <% if File.exist?("/standard/sumologs/freeGeoIP/freegeoip.log") %>
         ,
         {
             "name":"freeGeoIP log",
@@ -925,13 +956,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1519876093000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/standard/sumologs/freeGeoIP/freegeoip.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?("/premium/sumologs/freeGeoIP/freegeoip.log") -%>
+        }
+        <% end %>
+        <% if File.exist?("/premium/sumologs/freeGeoIP/freegeoip.log") %>
         ,
         {
             "name":"freeGeoIP log",
@@ -942,13 +974,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1519876093000,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/premium/sumologs/freeGeoIP/freegeoip.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/standard/vertex/oseries/log") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/vertex/oseries/log") %>
         ,
         {
             "name":"Vertex App Logs",
@@ -959,13 +992,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/standard/vertex/oseries/log/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/premium/vertex/oseries/log") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/vertex/oseries/log") %>
         ,
         {
             "name":"Vertex App Logs",
@@ -976,13 +1010,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/premium/vertex/oseries/log/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/standard/vertex/oseries/tomcat/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/vertex/oseries/tomcat/logs") %>
         ,
         {
             "name":"Vertex Tomcat Logs",
@@ -993,13 +1028,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/standard/vertex/oseries/tomcat/logs/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/premium/vertex/oseries/tomcat/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/vertex/oseries/tomcat/logs") %>
         ,
         {
             "name":"Vertex Tomcat Logs",
@@ -1010,13 +1046,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/premium/vertex/oseries/tomcat/logs/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?("/standard/vertex/oseries/tomcat/logs/catalina.out") -%>
+        }
+        <% end %>
+        <% if File.exist?("/standard/vertex/oseries/tomcat/logs/catalina.out") %>
         ,
         {
             "name":"Vertex Catalina.out",
@@ -1027,13 +1064,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/standard/vertex/oseries/tomcat/logs/catalina.out",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?("/premium/vertex/oseries/tomcat/logs/catalina.out") -%>
+        }
+        <% end %>
+        <% if File.exist?("/premium/vertex/oseries/tomcat/logs/catalina.out") %>
         ,
         {
             "name":"Vertex Catalina.out",
@@ -1044,13 +1082,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/premium/vertex/oseries/tomcat/logs/catalina.out",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if File.exist?("/var/log/jenkins/jenkins.log") -%>
+        }
+        <% end %>
+        <% if File.exist?("/var/log/jenkins/jenkins.log") %>
         ,
         {
             "name":"Jenkins Log",
@@ -1061,13 +1100,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/var/log/jenkins/jenkins.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/standard/sonarqube/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/standard/sonarqube/logs") %>
         ,
         {
             "name":"SonarQube Logs",
@@ -1078,13 +1118,14 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/standard/sonarqube/logs/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end -%>
-        <% if Dir.exist?("/premium/sonarqube/logs") -%>
+        }
+        <% end %>
+        <% if Dir.exist?("/premium/sonarqube/logs") %>
         ,
         {
             "name":"SonarQube Logs",
@@ -1095,11 +1136,12 @@ end
             "useAutolineMatching":true,
             "forceTimeZone":false,
             "filters":[],
-            "cutoffTimestamp":1518201742009,
+            "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
             "pathExpression":"/premium/sonarqube/logs/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
-        }<% end %>
+        }
+        <% end %>
     ]
 }
