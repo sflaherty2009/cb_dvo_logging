@@ -229,6 +229,8 @@ suites:
         translations:
           pd:
             storage_class: "standard"
+      cloud:
+        provider: "local"
     driver:
       network:
         - ['private_network', {ip: '192.168.56.20'}]

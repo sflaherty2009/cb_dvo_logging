@@ -1,3 +1,10 @@
+# 2.2.11
+**Date: 7/27/2018**
+
+* Updated sources.json to use cutoffRelativeTime instead of cutoffTimestamp pulling a maximum of one hour into the past. This goes by modified date of the log file, so log rotation needs to be configured appropriately as well.
+* Configure logrotate to run hourly rather than daily.
+* Cleaned up sources.json whitespace issues.
+
 # 2.2.2
 **Date: 3/26/2017**
 

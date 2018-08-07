@@ -1,0 +1,8 @@
+/opt/sumologic/web/*_log {
+  copytruncate
+  hourly
+  rotate 8760
+  missingok
+  notifempty
+  delaycompress
+}
