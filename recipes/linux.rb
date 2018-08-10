@@ -69,9 +69,6 @@ if node['hostname'].include? 'hyb'
 
   template '/etc/logrotate.d/tomcat_console' do
     source 'etc/logrotate.d/tomcat_console.erb'
-    variables(
-      storage_class: lazy { node['dvo_user']['sumologic']['storage_class'] }
-    )
   end
 end
 
