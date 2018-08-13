@@ -1,3 +1,8 @@
+# 2.2.12
+**Date: 8/12/2018**
+
+* Quick hotfix. There was an issue with the web node log rotation.
+
 # 2.2.11
 **Date: 7/27/2018**
 
