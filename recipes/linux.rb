@@ -46,6 +46,10 @@ link '/opt/sumologs' do
   not_if { ::Dir.exist?('/opt/sumologs') && !::File.symlink?('/opt/sumologs') }
 end
 
+template '/etc/logrotate.d/azure_logs' do
+  source 'etc/logrotate.d/azure_logs.erb'
+end
+
 if node['hostname'].include? 'web'
   directory '/<storageSelection>/sumologs/apache' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/apache" }

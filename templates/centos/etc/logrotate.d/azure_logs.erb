@@ -1,0 +1,9 @@
+/var/log/azure/*.log /var/log/azure/*/*.log /var/log/azure/*/*/*.log {
+  copytruncate
+  hourly
+  rotate 8760
+  missingok
+  notifempty
+  compress
+  delaycompress
+}
