@@ -1,3 +1,8 @@
+# 2.2.15
+**Date: 8/17/2018**
+
+* Added logrotation configuration for azure logs.
+
 # 2.2.12 - 2.2.14
 **Date: 8/12/2018**
 
