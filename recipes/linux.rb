@@ -5,8 +5,10 @@
 ## Copyright (c) 2017 Trek Bicycles, All Rights Reserved.
 
 # MDO 2018-03-22: Removed custom ruby converge time checks and allowed Chef idempotence to do its thing instead.
-
 node.run_state['developer_group'] = 'trekdevs'
+
+# Added font installation due to known issue with openjdk version 1.8.0_181 which will cause installation failure
+package 'dejavu-serif-fonts'
 
 ruby_block 'Check developer group existence' do
   block do
