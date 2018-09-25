@@ -1,0 +1,5 @@
+# Do not monitor system calls made by unknown users
+-d always,exit -F arch=b32 -S execve,execveat
+-d always,exit -F arch=b64 -S execve,execveat
+-a always,exit -F arch=b32 -F auid!=4294967295 -S execve,execveat
+-a always,exit -F arch=b64 -F auid!=4294967295 -S execve,execveat

@@ -1,3 +1,8 @@
+# 2.2.17
+**Date: 9/24/2018**
+
+* Fix for recent OMS/auditd system call logging.
+
 # 2.2.15
 **Date: 8/17/2018**
 
