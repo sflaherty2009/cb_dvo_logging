@@ -109,6 +109,19 @@ template '/opt/SumoCollector/config/sources.json' do
   )
 end
 
+service 'auditd' do
+  restart_command 'service auditd restart'
+end
+
+template '/etc/audit/rules.d/trek-security-audit.rules' do
+  source 'etc/audit/rules.d/trek-security-audit.rules.erb'
+  notifies :restart, 'service[auditd]', :immediately
+  only_if do
+    ::File.exist?('/etc/audit/rules.d/oms-security-audit.rules') &&
+      ::File.readlines('/etc/audit/rules.d/oms-security-audit.rules').grep(/-a always,exit -F arch=b\d{2} -S execve,execveat/).any?
+  end
+end
+
 sumologic_collector '/opt/SumoCollector/' do
   collector_name node['hostname']
   clobber true
