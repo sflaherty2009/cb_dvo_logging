@@ -1,3 +1,8 @@
+# 2.2.18
+**Date: 10/17/2018**
+
+* Reverting OMS/auditd logging changes.
+
 # 2.2.17
 **Date: 9/24/2018**
 
