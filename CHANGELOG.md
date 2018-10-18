@@ -1,3 +1,8 @@
+# 2.2.19
+**Date: 10/18/2018**
+
+* Cleaning up leftover OMS/auditd rules.
+
 # 2.2.18
 **Date: 10/17/2018**
 
