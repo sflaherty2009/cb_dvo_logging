@@ -109,15 +109,6 @@ template '/opt/SumoCollector/config/sources.json' do
   )
 end
 
-service 'auditd' do
-  restart_command 'service auditd restart'
-end
-
-file '/etc/audit/rules.d/trek-security-audit.rules' do
-  action :delete
-  notifies :restart, 'service[auditd]', :immediately
-end
-
 sumologic_collector '/opt/SumoCollector/' do
   collector_name node['hostname']
   clobber true

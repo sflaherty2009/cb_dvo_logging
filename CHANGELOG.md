@@ -1,3 +1,8 @@
+# 2.2.20
+**Date: 10/19/2018**
+
+* Removing OMS/auditd cleanup code.
+
 # 2.2.19
 **Date: 10/18/2018**
 
