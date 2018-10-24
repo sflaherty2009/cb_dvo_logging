@@ -118,3 +118,4 @@ Managed via feature branch pull requests.  Must pass all tests and include new t
 **Aurthor:** Trek DevOps (devops@trekbikes.com)
 
 **Copyright:** 2018, The Trek Bicycle Corporation, All Rights Reserved
+
