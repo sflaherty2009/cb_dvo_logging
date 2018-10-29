@@ -1,3 +1,8 @@
+# 2.2.21
+**Date: 10/28/2018**
+
+* Fixing ephemeral collector property.
+
 # 2.2.20
 **Date: 10/19/2018**
 

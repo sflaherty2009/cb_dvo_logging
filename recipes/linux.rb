@@ -109,9 +109,15 @@ template '/opt/SumoCollector/config/sources.json' do
   )
 end
 
+ephemeral_collector = false
+unless %w(development testing staging production delivery).include?(node.chef_environment)
+  ephemeral_collector = true
+end
+
 sumologic_collector '/opt/SumoCollector/' do
   collector_name node['hostname']
   clobber true
+  ephemeral ephemeral_collector
   sumo_access_id node['dvo_user']['sumologic']['accessID']
   sumo_access_key node['dvo_user']['sumologic']['accessKey']
   sources '/opt/SumoCollector/config/sources.json'
