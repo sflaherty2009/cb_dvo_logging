@@ -3,6 +3,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  encrypted_data_bag_secret_key_path: "secrets/logging_secret"
 
 verifier:
   name: inspec
@@ -147,7 +148,6 @@ platforms:
 suites:
   - name: default
     data_bags_path: "test/integration/data_bags"
-    encrypted_data_bag_secret_key_path: "test/integration/logging_secret"
     run_list:
       - recipe[cb_dvo_addStorage::default]
       - recipe[cb_dvo_adJoin::default]
@@ -185,7 +185,6 @@ suites:
         - ['private_network', {ip: '192.168.56.17'}]
   - name: slr
     data_bags_path: "test/integration/data_bags"
-    encrypted_data_bag_secret_key_path: "test/integration/logging_secret"
     run_list:
         - recipe[cb_dvo_addStorage::default]
         - recipe[cb_dvo_adJoin::default]

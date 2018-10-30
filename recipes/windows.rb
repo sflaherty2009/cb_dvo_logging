@@ -4,6 +4,8 @@
 #
 # Copyright (c) 2017 Trek Bicyles All Rights Reserved.
 
+sumologic_credentials = data_bag_item('logging', 'sumologic')
+
 directory node['sumologic']['sumo_json_path'] do
   recursive true
 end
@@ -18,7 +20,7 @@ sumologic_collector 'C:\sumo' do
   collector_name node['hostname']
   clobber true
   sources "#{node['sumologic']['sumo_json_path']}/windows.json"
-  sumo_access_id node['dvo_user']['sumologic']['accessID']
-  sumo_access_key node['dvo_user']['sumologic']['accessKey']
+  sumo_access_id sumologic_credentials['accessid']
+  sumo_access_key sumologic_credentials['accesskey']
   sensitive true
 end

@@ -2,6 +2,8 @@
 **Date: 10/28/2018**
 
 * Fixing ephemeral collector property.
+* Updated to use encrypted data bags.
+* Added functional test which uses the Sumologic API to verify the collector was added and is alive.
 
 # 2.2.20
 **Date: 10/19/2018**

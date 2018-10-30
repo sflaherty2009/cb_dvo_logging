@@ -5,6 +5,7 @@
 * Places use-specific sources.json files
 * Ensures logrotate is running hourly on Linux
 * Adds logrotate configuration files as appropriate on Linux
+* Creates ephemeral collectors in non-production environments.
 
 # Requirements
 
@@ -52,8 +53,8 @@ Utilizing the sumologic-collector community cookbook, `sources.json` is created 
 sumologic_collector '/opt/SumoCollector/' do
   collector_name node['hostname']
   clobber true 
-  sumo_access_id node['dvo_user']['sumologic']['accessID']
-  sumo_access_key node['dvo_user']['sumologic']['accessKey']
+  sumo_access_id sumologic_credentials['accessid']
+  sumo_access_key sumologic_credentials['accesskey']
   sources '/opt/SumoCollector/config/sources.json'
   sensitive true
 end
@@ -80,8 +81,8 @@ sumologic_collector 'C:\sumo' do
   collector_name node['hostname']
   clobber true
   sources "#{node['sumologic']['sumo_json_path']}/windows.json"
-  sumo_access_id node['dvo_user']['sumologic']['accessID']
-  sumo_access_key node['dvo_user']['sumologic']['accessKey']
+  sumo_access_id sumologic_credentials['accessid']
+  sumo_access_key sumologic_credentials['accesskey']
   sensitive true
 end
 ```
