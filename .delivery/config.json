@@ -22,8 +22,7 @@
     "deploy",
     "quality",
     "security",
-    "smoke",
-    "functional"
+    "smoke"
   ],
   "job_dispatch": {
     "version": "v2"
