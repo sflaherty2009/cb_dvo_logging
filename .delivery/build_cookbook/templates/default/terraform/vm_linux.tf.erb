@@ -53,6 +53,14 @@ resource "azurerm_virtual_machine" "lin_delivery" {
     create_option = "FromImage"
   }
 
+  storage_data_disk {
+    name          = "datadisk-0"
+    vhd_uri       = "${element(azurerm_storage_account.lin_delivery.*.primary_blob_endpoint, count.index)}${element(azurerm_storage_container.lin_delivery.*.name, count.index)}/datadisk-0.vhd"
+    disk_size_gb  = "79"
+    create_option = "Empty"
+    lun           = 0
+  }
+
   os_profile {
     computer_name  = "${var.lin_vm_name}-${format("%02d", count.index+1)}"
     admin_username = "${var.admin_user}"
