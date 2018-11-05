@@ -4,6 +4,8 @@
 #
 ## Copyright (c) 2017 Trek Bicycles, All Rights Reserved.
 
+sumologic_credentials = data_bag_item('logging', 'sumologic')
+
 # MDO 2018-03-22: Removed custom ruby converge time checks and allowed Chef idempotence to do its thing instead.
 node.run_state['developer_group'] = 'trekdevs'
 
@@ -109,11 +111,17 @@ template '/opt/SumoCollector/config/sources.json' do
   )
 end
 
+ephemeral_collector = false
+unless %w(development testing staging production delivery).include?(node.chef_environment)
+  ephemeral_collector = true
+end
+
 sumologic_collector '/opt/SumoCollector/' do
   collector_name node['hostname']
   clobber true
-  sumo_access_id node['dvo_user']['sumologic']['accessID']
-  sumo_access_key node['dvo_user']['sumologic']['accessKey']
+  ephemeral ephemeral_collector
+  sumo_access_id sumologic_credentials['accessid']
+  sumo_access_key sumologic_credentials['accesskey']
   sources '/opt/SumoCollector/config/sources.json'
   sensitive true
   not_if { File.exist?('/opt/SumoCollector/collector') }
