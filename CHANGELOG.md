@@ -1,3 +1,8 @@
+# 2.2.22
+**Date: 11/5/2018**
+
+* Updating cb_dvo_addStorage dependency.
+
 # 2.2.21
 **Date: 10/28/2018**
 
