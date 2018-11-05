@@ -176,4 +176,3 @@ There were many changes in this release.
 **Data: 7/7/2017**
 
 * Release version
-
