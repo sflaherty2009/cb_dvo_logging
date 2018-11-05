@@ -19,6 +19,7 @@
     }
   },
   "skip_phases": [
+    "unit",
     "deploy",
     "quality",
     "security",
