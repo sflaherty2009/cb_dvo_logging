@@ -1,3 +1,8 @@
+# 2.2.23
+**Date: 11/5/2018**
+
+* Rolled back change switching to encrypted data bags.
+
 # 2.2.22
 **Date: 11/5/2018**
 
