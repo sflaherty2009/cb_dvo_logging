@@ -150,7 +150,7 @@ suites:
     data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_addStorage::default]
-      - recipe[cb_dvo_adJoin::default]
+      - recipe[cb_dvo_adjoin::default]
       - recipe[cb_dvo_localAccounts::default]
       - recipe[cb_dvo_logging::default]
     verifier:
@@ -162,7 +162,7 @@ suites:
   - name: web
     run_list:
         - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_adjoin::default]
         - recipe[cb_dvo_localAccounts::default]
         - recipe[cb_dvo_logging::default]
     verifier:
@@ -174,7 +174,7 @@ suites:
   - name: hyb
     run_list:
         - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_adjoin::default]
         - recipe[cb_dvo_localAccounts::default]
         - recipe[cb_dvo_logging::default]
     verifier:
@@ -187,7 +187,7 @@ suites:
     data_bags_path: "test/integration/data_bags"
     run_list:
         - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_adjoin::default]
         - recipe[cb_dvo_localAccounts::default]
         - recipe[cb_dvo_logging::default]
     attributes:
@@ -202,7 +202,7 @@ suites:
   - name: ver
     run_list:
         - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_adjoin::default]
         - recipe[cb_dvo_localAccounts::default]
         - recipe[cb_dvo_logging::default]
     verifier:
@@ -217,7 +217,7 @@ suites:
   - name: PD
     run_list:
         - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adJoin::default]
+        - recipe[cb_dvo_adjoin::default]
         - recipe[cb_dvo_localAccounts::default]
         - recipe[cb_dvo_logging::default]
     verifier:

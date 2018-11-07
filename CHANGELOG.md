@@ -1,3 +1,9 @@
+# 2.2.24
+**Date: 11/7/2018**
+
+* Changed cookbook dependency names.
+* Fixed attribute issue.
+
 # 2.2.23
 **Date: 11/5/2018**
 

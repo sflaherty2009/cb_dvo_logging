@@ -21,9 +21,9 @@
 ## Dependent Cookbooks
 
 * sumologic-collector
-* cb_dvo_addStorage
+* cb_dvo_addstorage
 * cb_dvo_localAccounts
-* cb_dvo_adJoin
+* cb_dvo_adjoin
 
 ## Attributes (significant)
 
