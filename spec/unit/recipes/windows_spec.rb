@@ -7,7 +7,7 @@
 require 'spec_helper'
 
 describe 'cb_dvo_logging::windows' do
-  context 'When all attributes are default, on a Windows 2016' do
+  context 'When all attributes are default, on a Windows 2016 platform' do
     let(:chef_run) do
       # for a complete list of available platforms and versions see:
       # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md

@@ -1,3 +1,8 @@
+# 2.2.27
+**Date: 11/9/2018**
+
+* Just changing the wording related to platforms in the spec recipes.
+
 # 2.2.26
 **Date: 11/8/2018**
 
