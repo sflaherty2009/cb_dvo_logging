@@ -1,3 +1,8 @@
+# 2.2.26
+**Date: 11/8/2018**
+
+* Fixed windows spec test to specify a windows runner.
+
 # 2.2.25
 **Date: 11/8/2018**
 
