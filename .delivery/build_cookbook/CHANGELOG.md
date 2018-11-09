@@ -12,6 +12,18 @@ All notable changes to this project will be documented in this file.
 
 - Fixed a reference to the workflow cookbook name. It was conflicting with a built in reference.
 
+## [0.1.5] - 2018-11-5
+
+### Modified
+
+- Moved Terraform logic to cb_dvo_terraform.
+
+## [0.1.4] - 2018-11-2
+
+### Modified
+
+- Fixed a reference to the workflow cookbook name. It was conflicting with a built in reference.
+
 ## [0.1.3] - 2018-11-2
 
 ### Added

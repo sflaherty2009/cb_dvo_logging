@@ -1,3 +1,8 @@
+# 2.2.25
+**Date: 11/8/2018**
+
+* Added windows supports directive to metadata.
+
 # 2.2.24
 **Date: 11/7/2018**
 
