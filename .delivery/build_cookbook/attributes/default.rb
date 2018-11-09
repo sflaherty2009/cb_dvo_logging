@@ -1,1 +1,1 @@
-default['terraform']['acceptance']['run_list'] = 'cb_dvo_addstorage'
+default['terraform']['acceptance']['run_list'] = 'recipe[cb_dvo_addstorage]'
