@@ -9,7 +9,7 @@ vault_data = get_chef_vault_data
 ruby_block 'check_sumologic_collector' do
   block do
     response = JSON.parse(Chef::HTTP.new('https://api.us2.sumologic.com').get('/api/v1/collectors', 'AUTHORIZATION' => "Basic #{Base64.strict_encode64("#{vault_data['sumologic_accessid']}:#{vault_data['sumologic_accesskey']}")}", 'Accept' => 'application/json', 'Content-Type' => 'application/json'))
-    nodes = shell_out("knife search node 'environment:acceptance-trek-trek-bikes-#{workflow_change_project}-master' --attribute name | grep 'name:' | awk '{print $2}'").stdout.chomp.split(/\n/)
+    nodes = shell_out("knife search node 'chef_environment:acceptance-trek-trek-bikes-#{workflow_change_project}-master' --attribute name | grep 'name:' | awk '{print $2}'").stdout.chomp.split(/\n/)
     collectors = []
     found = false
 
