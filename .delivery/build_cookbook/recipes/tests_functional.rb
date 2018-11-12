@@ -17,7 +17,9 @@ ruby_block 'check_sumologic_collector' do
       collectors << collector['name'] if collector['alive']
     end
 
-    found = true if (nodes - collectors).empty?
+    Chef::Log.warn("Verifying logging on node(s) #{nodes.join(',')}")
+
+    found = true if nodes.any? && (nodes - collectors).empty?
 
     raise 'Sumologic collector is not working.' unless found
   end
