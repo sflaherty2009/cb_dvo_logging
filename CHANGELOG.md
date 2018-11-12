@@ -1,3 +1,8 @@
+# 2.2.28
+**Date: 11/11/2018**
+
+* Added a missed ephemeral property in the windows recipe.
+
 # 2.2.27
 **Date: 11/9/2018**
 

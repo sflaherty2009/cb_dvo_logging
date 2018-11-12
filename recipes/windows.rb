@@ -14,9 +14,15 @@ sumo_source_local_windows_event_log 'windows' do
   log_names %w(security,application)
 end
 
+ephemeral_collector = false
+unless %w(development testing staging production delivery).include?(node.chef_environment)
+  ephemeral_collector = true
+end
+
 sumologic_collector 'C:\sumo' do
   collector_name node['hostname']
   clobber true
+  ephemeral ephemeral_collector
   sources "#{node['sumologic']['sumo_json_path']}/windows.json"
   sumo_access_id node['dvo_user']['sumologic']['accessID']
   sumo_access_key node['dvo_user']['sumologic']['accessKey']
