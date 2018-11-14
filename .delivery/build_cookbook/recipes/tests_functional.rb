@@ -9,7 +9,7 @@ vault_data = get_chef_vault_data
 ruby_block 'load_sumologic_collectors' do
   block do
     response = JSON.parse(Chef::HTTP.new('https://api.us2.sumologic.com').get('/api/v1/collectors', 'AUTHORIZATION' => "Basic #{Base64.strict_encode64("#{vault_data['sumologic_accessid']}:#{vault_data['sumologic_accesskey']}")}", 'Accept' => 'application/json', 'Content-Type' => 'application/json'))
-    node.run_state['logging_nodes'] = shell_out("knife search node 'chef_environment:acceptance-trek-trek-bikes-#{workflow_change_project}-master' --attribute name | grep 'name:' | awk '{print $2}'").stdout.chomp.split(/\n/)
+    node.run_state['logging_nodes'] = shell_out("knife search node 'chef_environment:acceptance-trek-trek-bikes-#{workflow_change_project}-master' --attribute name -c #{automate_knife_rb} | grep 'name:' | awk '{print $2}'").stdout.chomp.split(/\n/)
     node.run_state['sumo_collectors'] = []
 
     response['collectors'].each do |collector|
@@ -28,9 +28,6 @@ ruby_block 'verify_sumologic_collectors' do
         nodes_diff.delete_at(i)
       end
     end
-    Chef::Log.warn(node.run_state['sumo_collectors'].to_s)
-    Chef::Log.warn(node.run_state['logging_nodes'].to_s)
-    Chef::Log.warn(nodes_diff.to_s)
     found = true if node.run_state['logging_nodes'].any? && nodes_diff.empty?
 
     node.run_state['error'] = 'Sumologic collector is not working.' unless found
