@@ -28,7 +28,9 @@ ruby_block 'verify_sumologic_collectors' do
         nodes_diff.delete_at(i)
       end
     end
-
+    Chef::Log.warn(node.run_state['sumo_collectors'].to_s)
+    Chef::Log.warn(node.run_state['logging_nodes'].to_s)
+    Chef::Log.warn(nodes_diff.to_s)
     found = true if node.run_state['logging_nodes'].any? && nodes_diff.empty?
 
     node.run_state['error'] = 'Sumologic collector is not working.' unless found
@@ -37,6 +39,7 @@ end
 
 Chef.event_handler do
   on :run_completed do
+    Chef::Log.warn(Chef.run_context.node.run_state['error']) if Chef.run_context.node.run_state['error']
     raise Chef.run_context.node.run_state['error'] if Chef.run_context.node.run_state['error']
   end
 end
