@@ -6,21 +6,37 @@
 
 vault_data = get_chef_vault_data
 
-ruby_block 'check_sumologic_collector' do
+ruby_block 'load_sumologic_collectors' do
   block do
     response = JSON.parse(Chef::HTTP.new('https://api.us2.sumologic.com').get('/api/v1/collectors', 'AUTHORIZATION' => "Basic #{Base64.strict_encode64("#{vault_data['sumologic_accessid']}:#{vault_data['sumologic_accesskey']}")}", 'Accept' => 'application/json', 'Content-Type' => 'application/json'))
-    nodes = shell_out("knife search node 'chef_environment:acceptance-trek-trek-bikes-#{workflow_change_project}-master' --attribute name | grep 'name:' | awk '{print $2}'").stdout.chomp.split(/\n/)
-    collectors = []
-    found = false
+    node.run_state['logging_nodes'] = shell_out("knife search node 'chef_environment:acceptance-trek-trek-bikes-#{workflow_change_project}-master' --attribute name | grep 'name:' | awk '{print $2}'").stdout.chomp.split(/\n/)
+    node.run_state['sumo_collectors'] = []
 
     response['collectors'].each do |collector|
-      collectors << collector['name'] if collector['alive']
+      node.run_state['sumo_collectors'] << collector['name'] if collector['alive']
+    end
+  end
+end
+
+ruby_block 'verify_sumologic_collectors' do
+  block do
+    found = false
+    nodes_diff = node.run_state['logging_nodes'].dup
+
+    node.run_state['sumo_collectors'].each do |collector|
+      if (i = nodes_diff.index("#{collector}-cb_dvo_logging"))
+        nodes_diff.delete_at(i)
+      end
     end
 
-    Chef::Log.warn("Verifying logging on node(s) #{nodes.join(',')}")
+    found = true if node.run_state['logging_nodes'].any? && nodes_diff.empty?
 
-    found = true if nodes.any? && (nodes - collectors).empty?
+    node.run_state['error'] = 'Sumologic collector is not working.' unless found
+  end
+end
 
-    raise 'Sumologic collector is not working.' unless found
+Chef.event_handler do
+  on :run_completed do
+    raise Chef.run_context.node.run_state['error'] if Chef.run_context.node.run_state['error']
   end
 end
