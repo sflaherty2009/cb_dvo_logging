@@ -1,0 +1,9 @@
+/opt/sumologs/solr/*.log {
+  hourly
+  rotate 8760
+  copytruncate
+  delaycompress
+  compress
+  notifempty
+  missingok
+}

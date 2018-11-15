@@ -48,51 +48,21 @@ link '/opt/sumologs' do
   not_if { ::Dir.exist?('/opt/sumologs') && !::File.symlink?('/opt/sumologs') }
 end
 
-template '/etc/logrotate.d/azure_logs' do
-  source 'etc/logrotate.d/azure_logs.erb'
+template '/etc/logrotate.d/azure' do
+  source 'etc/logrotate.d/azure.erb'
 end
 
-if node['hostname'].include? 'web'
-  directory '/<storageSelection>/sumologs/apache' do
-    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/apache" }
+if node['sumologic'].attribute?('server_type')
+  directory 'server type specific sumologs' do
+    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/#{node['sumologic']['server_type']}" }
     group lazy { node.run_state['developer_group'] }
     user 'root'
+    user node['authorization']['user_name'] if %w(freegeoip solr).include?(node['sumologic']['server_type'])
     mode '02755'
   end
 
-  template '/etc/logrotate.d/web_node' do
-    source 'etc/logrotate.d/web_node.erb'
-  end
-end
-
-if node['hostname'].include? 'hyb'
-  directory '/<storageSelection>/sumologs/hybris' do
-    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/hybris" }
-    group lazy { node.run_state['developer_group'] }
-    user 'root'
-    mode '02755'
-  end
-
-  template '/etc/logrotate.d/tomcat_console' do
-    source 'etc/logrotate.d/tomcat_console.erb'
-  end
-end
-
-if node['hostname'].include? 'slr'
-  directory '/<storageSelection>/sumologs/solr' do
-    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/solr" }
-    group lazy { node.run_state['developer_group'] }
-    user 'solr'
-    mode '02755'
-  end
-end
-
-if node['hostname'].include? 'geo'
-  directory '/<storageSelection>/sumologs/freeGeoIP' do
-    path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/freeGeoIP" }
-    group lazy { node.run_state['developer_group'] }
-    user 'freegeoip'
-    mode '02755'
+  template "/etc/logrotate.d/#{node['sumologic']['server_type']}" do
+    source "/etc/logrotate.d/#{node['sumologic']['server_type']}.erb"
   end
 end
 

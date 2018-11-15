@@ -1,3 +1,11 @@
+# 2.2.29
+**Date: 11/14/2018**
+
+* Added log rotations for solr and freegeoip
+* Added an attribute to create server specific log folders based on node['cookbooks']
+* Updated block to create server specific log folders and log rotation
+* Removed all translations references from sources.json.erb
+
 # 2.2.28
 **Date: 11/11/2018**
 
