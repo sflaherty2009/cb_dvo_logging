@@ -52,7 +52,7 @@ template '/etc/logrotate.d/azure' do
   source 'etc/logrotate.d/azure.erb'
 end
 
-unless node['sumologic']['server_type'].nil
+unless node['sumologic']['server_type'].nil?
   directory 'server type specific sumologs' do
     path lazy { "/#{node['dvo_user']['sumologic']['storage_class']}/sumologs/#{node['sumologic']['server_type']}" }
     group lazy { node.run_state['developer_group'] }
