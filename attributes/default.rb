@@ -10,4 +10,6 @@ default['sumologic']['server_type'] =
     'hybris'
   elsif node['cookbooks'].attribute?('cb_dvo_web')
     'apache'
+  else
+    nil
   end

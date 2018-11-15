@@ -1,3 +1,9 @@
+# 2.2.30
+**Date: 11/15/2018**
+
+* Set attribute to nil on else
+* Had recipe check to see if recipe is nil as opposed to set as it was always being set
+
 # 2.2.29
 **Date: 11/14/2018**
 
