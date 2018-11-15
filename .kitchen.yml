@@ -3,7 +3,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  encrypted_data_bag_secret_key_path: "secrets/logging_secret"
+  #encrypted_data_bag_secret_key_path: "secrets/logging_secret"
 
 verifier:
   name: inspec
@@ -14,7 +14,7 @@ verifier:
 
 # Make sure VPN is turned on before running azure kitchen or SSH connection will fail.
 platforms:
-  - name: centos-7.4-azure
+  - name: azure
     transport:
       ssh_key: ~/.ssh/id_rsa
     driver:
@@ -149,9 +149,8 @@ suites:
   - name: default
     data_bags_path: "test/integration/data_bags"
     run_list:
-      - recipe[cb_dvo_addStorage::default]
-      - recipe[cb_dvo_adjoin::default]
-      - recipe[cb_dvo_localAccounts::default]
+      - recipe[cb_dvo_addstorage::default]
+      - recipe[cb_dvo_authorization::default]
       - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
@@ -161,9 +160,8 @@ suites:
         - ['private_network', {ip: '192.168.56.15'}]
   - name: web
     run_list:
-        - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adjoin::default]
-        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_addstorage::default]
+        - recipe[cb_dvo_authorization::default]
         - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
@@ -173,9 +171,8 @@ suites:
         - ['private_network', {ip: '192.168.56.16'}]
   - name: hyb
     run_list:
-        - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adjoin::default]
-        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_addstorage::default]
+        - recipe[cb_dvo_authorization::default]
         - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
@@ -186,13 +183,9 @@ suites:
   - name: slr
     data_bags_path: "test/integration/data_bags"
     run_list:
-        - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adjoin::default]
-        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_addstorage::default]
+        - recipe[cb_dvo_authorization::default]
         - recipe[cb_dvo_logging::default]
-    attributes:
-      cloud:
-        provider: "local"
     verifier:
       inspec_tests:
         - test/smoke/solr
@@ -201,9 +194,8 @@ suites:
         - ['private_network', {ip: '192.168.56.18'}]
   - name: ver
     run_list:
-        - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adjoin::default]
-        - recipe[cb_dvo_localAccounts::default]
+        - recipe[cb_dvo_addstorage::default]
+        - recipe[cb_dvo_authorization::default]
         - recipe[cb_dvo_logging::default]
     verifier:
       inspec_tests:
@@ -214,22 +206,7 @@ suites:
     driver:
       network:
         - ['private_network', {ip: '192.168.56.18'}]
-  - name: PD
-    run_list:
-        - recipe[cb_dvo_addStorage::default]
-        - recipe[cb_dvo_adjoin::default]
-        - recipe[cb_dvo_localAccounts::default]
-        - recipe[cb_dvo_logging::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/translations
-    attributes:
-      dvo_user:
-        translations:
-          pd:
-            storage_class: "standard"
-      cloud:
-        provider: "local"
+
     driver:
       network:
         - ['private_network', {ip: '192.168.56.20'}]

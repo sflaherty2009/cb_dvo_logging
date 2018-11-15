@@ -41,6 +41,21 @@ A short representation of the environment used to configure the _sourceCategory 
 
 Define to use 'standard' or 'premium' storage. Generally this should always be 'standard' for this cookbook.
 
+### node['sumologic']['server_type']
+
+Defines the type of server this cookbook is being run on. Current list of possibilities:
+
+* solr
+* freegeoip
+* hybris
+* apache
+
+This attribute is set automatically when run with the respective cookbook tied to the server type from above. It will not be set for any other cookbooks. This can be tested by adding one of the cookbooks from above as a dependancy to metadata.rb and running test kitchen. For example:
+
+```
+depends 'cb_dvo_freegeoip'
+```
+
 # Recipes
 
 ## cb_dvo_logging::linux

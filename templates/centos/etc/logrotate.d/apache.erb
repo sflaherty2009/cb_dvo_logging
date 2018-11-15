@@ -1,9 +1,9 @@
 /opt/sumologs/apache/*_log {
-  copytruncate
   hourly
   rotate 8760
-  missingok
-  notifempty
-  compress
+  copytruncate
   delaycompress
+  compress
+  notifempty
+  missingok
 }
