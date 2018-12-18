@@ -1,1 +1,1 @@
-default['terraform']['acceptance']['run_list'] = 'recipe[cb_dvo_addstorage]'
+default['chef']['vault'] = { 'infrastructure-vaults' => 'sumologic' }
