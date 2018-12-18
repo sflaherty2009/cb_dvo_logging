@@ -1,3 +1,9 @@
+# 2.3.0
+**Date: 12/18/2018**
+
+* Moved from encrypted data bags to Chef Vault
+* Cleaned up kitchen.yml
+
 # 2.2.30
 **Date: 11/15/2018**
 

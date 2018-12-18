@@ -1,0 +1,17 @@
+{
+  "id": "sumologic",
+  "accessid": {
+    "encrypted_data": "gf8JcDgDDL8JSdaIprCrzarHdlXhLdWabitWWPL9OA+B\n",
+    "iv": "18nDEZ8tHNzOiGBi\n",
+    "auth_tag": "zAOGaOXEEXWXNfOFSyIgwQ==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  },
+  "accesskey": {
+    "encrypted_data": "+sYGfttEXFaBBq17bZZeS+fLrdi8nXZ8B8V7CwWtrunj+GaXuEmaz0uWNciE\n1lk0IxYdN6phO7sxHX4jgV76sPH1bbykH2dovWzfE3Qmp1Lvw0E=\n",
+    "iv": "4wUInMXeM6cas/ov\n",
+    "auth_tag": "ZmLIqvyNy8GNHSvNguQk8g==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

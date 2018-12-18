@@ -1,0 +1,16 @@
+{
+    "id": "sumologic_keys",
+    "admins": [
+      "deasland",
+      "moleksowicz",
+      "sflaherty"
+    ],
+    "clients": [
+
+    ],
+    "search_query": "*:*",
+    "mode": "default",
+    "deasland": "lq7eoCdlQZESfgNKdDTjddVSXWY28Rhx83tpXS3IELAEZJfGuOjNM4lj1iOz\n44h3w+4O2IhvVgOp9b+sXzy33/VOZVwzEucPv7in65yOdgTfdc1uCWISFejE\n2g1CeeSL27t0j4FP33fraxVrxmW3gb/F7jJsMjq4w83adLvtv1ToWrvdkw8p\nkH7WI45omthNfy3NyUUlgciya8nqOYC4WwyJiwHMa53w96N9TwDiCz4m4LHQ\nbjnQJqcaTfOQI5XVAvBi3UAHyuiVJmeYlyentYfXyCZDnM3hxz/hRX1xDAX9\ndcwnqFFOil/uCYF/NPZ2aW600bfjPo+8ARZ6BNdHhw==\n",
+    "moleksowicz": "iAgwF95DHI4btko6l5vNwgU6jqeBaEUQbo6xpPVrB5NfBGLhJ1XQ7kmAunq/\n4Q2FsCAdi5wbAPM4SL2XRLg3W7qizLeWCicu0RmnC9f2Xrba//JexaCQDx3R\nqf1/nQQuRV+0aJ/ZuW/TF3wiAynO7L6x5JXT8Tp4fBu2rQvPTR8DiW6Q3k/H\n1LaNOG21Zl0PJwZXAqDUJ1ZhF18AGswxwfXDqA8JeDsZ8kS9K25vUOhKQ0eB\niCNCUah9ZAqQ/JHh4pISFgEw8o5N+GsS5GNfOvSxTyovYDTeDwptlAjQiVtz\najegUAHyZv4MYrabzSG6226/52G41juT+2cKHhsxkw==\n",
+    "sflaherty": "MkRL861mzz6c1eCdeWF/n+Ft3WwOyHReCGqwxp8Ead0n1RE15alQGj7Rujzj\nTRhkic3RZ1Er59sMWZiNpsxbHewwHAn9mXuNrk02id/6eBawT77sx6Q6Pvmk\npvGHZz903x7hZYDtmuSKDP2K1/ezwp5nx7MK7nYSFkhjyAQTLjqCIpujdQ/L\n7K9DFI2r+i8GGp2IDRxDmsdZRfjlKR/N/I1JhavKCNn698Fpm+v9KKsL6sDM\n2jAdcmBlwikFxDR219xBgez4MQcfrWSWu61SQiLXXnVWblH9+eFv1vll9l2F\nCVVt/8jY76UnPPQ9FSMVF8tTeiHq4KzFyKgUja/cXw==\n"
+  }

@@ -3,24 +3,49 @@ driver:
 
 provisioner:
   name: chef_zero
-  #encrypted_data_bag_secret_key_path: "secrets/logging_secret"
+  client_rb:
+    environment: test-kitchen
+    node_name: "<%= ENV['USER'] %>"
+    client_key: "/tmp/kitchen/data/<%= ENV['USER'] %>.pem"
 
 verifier:
   name: inspec
 
-# To make Windows work, need to install vagrant windows plugin, first
-# vagrant plugin install vagrant-winrm
-# See: https://github.com/criteo/vagrant-winrm
-
-# Make sure VPN is turned on before running azure kitchen or SSH connection will fail.
 platforms:
-  - name: azure
+  - name: centos-7.4-local
+    transport:
+      ssh_key: ~/.ssh/id_rsa
+    driver:
+      box: bento/centos-7.4
+      customize:
+        createhd:
+          - filename: disk1.vdi
+            size: 1002496
+          - filename: disk2.vdi
+            size: 51200
+        storageattach:
+          - storagectl: SATA Controller
+            port: 1
+            device: 0
+            type: hdd
+            medium: disk1.vdi
+          - storagectl: SATA Controller
+            port: 2
+            device: 0
+            type: hdd
+            medium: disk2.vdi
+      memory: 1024
+      cpus: 1
+      network:
+        - ['private_network', {ip: '192.168.56.10'}]
+
+  - name: centos-7.4-azure
     transport:
       ssh_key: ~/.ssh/id_rsa
     driver:
       name: azurerm
     driver_config:
-      subscription_id: '9db13c96-62ad-4945-9579-74aeed296e48'
+      subscription_id: 9db13c96-62ad-4945-9579-74aeed296e48
       location: East US 2
       machine_size: Standard_D1
       image_urn: OpenLogic:CentOS:7.4:latest
@@ -29,28 +54,12 @@ platforms:
           disk_size_gb: 979
       vnet_id: /subscriptions/9db13c96-62ad-4945-9579-74aeed296e48/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-01
       subnet_id: AZ-SN-front
-      vm_name: azl-tst-kit-01
+      vm_name: azl-kit-log-01
 
-  - name: win-az
-    transport:
-      name: winrm
-      username: vagrant
-      password: vagrant
-    driver:
-      name: azurerm
-    driver_config:
-      subscription_id: '9db13c96-62ad-4945-9579-74aeed296e48'
-      location: East US 2
-      machine_size: Standard_D1
-      image_urn: MicrosoftSQLServer:SQL2016SP1-WS2016:SQLDEV:latest
-      data_disks:
-        - lun: 0
-          disk_size_gb: 979
-      vnet_id: /subscriptions/9db13c96-62ad-4945-9579-74aeed296e48/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-01
-      subnet_id: AZ-SN-back
-      vm_name: azw-tst-kit-01
-
-  - name: kitchen2012
+  - name: win12-local
+    provisioner:
+      client_rb:
+        client_key: "C:\\Users\\vagrant\\AppData\\Local\\Temp\\kitchen\\data\\<%= ENV['USER'] %>.pem"
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -81,9 +90,12 @@ platforms:
       memory: 2048
       cpus: 1
       network:
-        - ['private_network', {ip: '192.168.57.12'}]
+        - ['private_network', {ip: '192.168.57.11'}]
 
-  - name: kitchen2016
+  - name: win16-local
+    provisioner:
+      client_rb:
+        client_key: "C:\\Users\\vagrant\\AppData\\Local\\Temp\\kitchen\\data\\<%= ENV['USER'] %>.pem"
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -114,99 +126,39 @@ platforms:
       memory: 2048
       cpus: 2
       network:
-        - ['private_network', {ip: '192.168.57.11'}]
-
-  - name: centos-7.4-kitchen
+        - ['private_network', {ip: '192.168.57.12'}]
+  
+  - name: win16-az
+    provisioner:
+      client_rb:
+        client_key: "C:\\Users\\azure\\AppData\\Local\\Temp\\kitchen\\data\\<%= ENV['USER'] %>.pem"
     transport:
-      name: ssh
+      name: winrm
       username: vagrant
       password: vagrant
     driver:
-      box: bento/centos-7.4
-      customize:
-        createhd:
-          - filename: disk1.vdi
-            size: 1002496
-          - filename: disk2.vdi
-            size: 51200
-        storageattach:
-          - storagectl: SATA Controller
-            port: 1
-            device: 0
-            type: hdd
-            medium: disk1.vdi
-          - storagectl: SATA Controller
-            port: 2
-            device: 0
-            type: hdd
-            medium: disk2.vdi
-      memory: 1024
-      cpus: 1
-      network:
-        - ['private_network', {ip: '192.168.56.14'}]
+      name: azurerm
+    driver_config:
+      subscription_id: 9db13c96-62ad-4945-9579-74aeed296e48
+      location: East US 2
+      machine_size: Standard_DS1_v2
+      image_urn: MicrosoftWindowsServer:WindowsServer:2016-Datacenter:latest
+      data_disks:
+        - lun: 0
+          disk_size_gb: 979
+      vnet_id: /subscriptions/9db13c96-62ad-4945-9579-74aeed296e48/resourceGroups/AZ-RG-Network/providers/Microsoft.Network/virtualNetworks/AZ-VN-EastUS2-01
+      subnet_id: AZ-SN-back
+      vm_name: azw-kit-log-01
 
 suites:
   - name: default
-    data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[cb_dvo_addstorage::default]
       - recipe[cb_dvo_authorization::default]
       - recipe[cb_dvo_logging::default]
+    data_bags_path: test/integration/data_bags
+    environments_path: test/integration/environments
+    data_path: "/Users/<%= ENV['USER'] %>/.chef/kitchen"
     verifier:
       inspec_tests:
         - test/smoke/default
-    driver:
-      network:
-        - ['private_network', {ip: '192.168.56.15'}]
-  - name: web
-    run_list:
-        - recipe[cb_dvo_addstorage::default]
-        - recipe[cb_dvo_authorization::default]
-        - recipe[cb_dvo_logging::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/hybrisWebServer
-    driver:
-      network:
-        - ['private_network', {ip: '192.168.56.16'}]
-  - name: hyb
-    run_list:
-        - recipe[cb_dvo_addstorage::default]
-        - recipe[cb_dvo_authorization::default]
-        - recipe[cb_dvo_logging::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/hybris
-    driver:
-      network:
-        - ['private_network', {ip: '192.168.56.17'}]
-  - name: slr
-    data_bags_path: "test/integration/data_bags"
-    run_list:
-        - recipe[cb_dvo_addstorage::default]
-        - recipe[cb_dvo_authorization::default]
-        - recipe[cb_dvo_logging::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/solr
-    driver:
-      network:
-        - ['private_network', {ip: '192.168.56.18'}]
-  - name: ver
-    run_list:
-        - recipe[cb_dvo_addstorage::default]
-        - recipe[cb_dvo_authorization::default]
-        - recipe[cb_dvo_logging::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/vertex
-    attributes:
-        vertex:
-          storage_class: "standard"
-    driver:
-      network:
-        - ['private_network', {ip: '192.168.56.18'}]
-
-    driver:
-      network:
-        - ['private_network', {ip: '192.168.56.20'}]

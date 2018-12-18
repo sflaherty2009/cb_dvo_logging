@@ -4,6 +4,10 @@
 #
 # Copyright (c) 2017 Trek Bicyles All Rights Reserved.
 
+include_recipe 'chef-vault'
+
+creds = chef_vault_item('infrastructure-vaults', 'sumologic')
+
 directory node['sumologic']['sumo_json_path'] do
   recursive true
 end
@@ -24,7 +28,7 @@ sumologic_collector 'C:\sumo' do
   clobber true
   ephemeral ephemeral_collector
   sources "#{node['sumologic']['sumo_json_path']}/windows.json"
-  sumo_access_id node['dvo_user']['sumologic']['accessID']
-  sumo_access_key node['dvo_user']['sumologic']['accessKey']
+  sumo_access_id creds['accessid']
+  sumo_access_key creds['accesskey']
   sensitive true
 end
