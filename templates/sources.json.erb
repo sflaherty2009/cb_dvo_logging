@@ -495,7 +495,7 @@ rootCategory = 'www.trekbikes.com'
         <% if Dir.exist?('/opt/sumologs/hybris/tomcat') %>
         ,
         {
-            "name":"Hybris Tomcat Log",
+            "name":"Hybris Tomcat Application Log",
             "category":"<%= rootCategory %>/<%= @environment %>/tomcat/application",
             "hostName":"",
             "automaticDateParsing":true,
@@ -505,7 +505,37 @@ rootCategory = 'www.trekbikes.com'
             "filters":[],
             "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
-            "pathExpression":"/opt/sumologs/hybris/tomcat/*.log",
+            "pathExpression":"/opt/sumologs/hybris/tomcat/con*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Hybris Tomcat Access Log",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat/access",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffRelativeTime":"-1h",
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/tomcat/acc*.log",
+            "blacklist":[],
+            "sourceType":"LocalFile"
+        },
+        {
+            "name":"Hybris Tomcat Garbage Collection Log",
+            "category":"<%= rootCategory %>/<%= @environment %>/tomcat/gc",
+            "hostName":"",
+            "automaticDateParsing":true,
+            "multilineProcessingEnabled":true,
+            "useAutolineMatching":true,
+            "forceTimeZone":false,
+            "filters":[],
+            "cutoffRelativeTime":"-1h",
+            "encoding":"UTF-8",
+            "pathExpression":"/opt/sumologs/hybris/tomcat/hybris-gc*.log*",
             "blacklist":[],
             "sourceType":"LocalFile"
         }

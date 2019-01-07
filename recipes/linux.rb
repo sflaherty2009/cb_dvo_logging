@@ -70,6 +70,15 @@ unless node['sumologic']['server_type'].nil?
   end
 end
 
+if %w(hybris).include?(node['sumologic']['server_type'])
+  cron 'Clean up and compress old hybris logs' do
+    command 'cd /opt/sumologs/hybris/tomcat && find . -type f -mmin +525600 -delete && find . -type f -name \'*.log\' -mmin +120 -exec gzip {} \+'
+    minute '45'
+    user 'root'
+    action :create
+  end
+end
+
 directory '/opt/SumoCollector/config' do
   recursive true
   action :create

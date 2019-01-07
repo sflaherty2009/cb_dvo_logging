@@ -1,3 +1,9 @@
+# 2.3.1
+**Date: 1/7/2019**
+
+* Added cron job to clean up and compress old hybris logs that aren't otherwise dealt with (access).
+* Separated hybris logs into proper categories again (access, application and gc).
+
 # 2.3.0
 **Date: 12/18/2018**
 
