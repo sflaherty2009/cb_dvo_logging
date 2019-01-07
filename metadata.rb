@@ -4,7 +4,7 @@ maintainer_email 'ray_crawford@trekbikes.com'
 license 'All Rights Reserved'
 description 'Installs/Configures cb_dvo_logging'
 long_description 'Installs/Configures cb_dvo_logging'
-version '2.3.1'
+version '2.3.2'
 
 source_url 'https://bitbucket.org/trekbikes/cb_dvo_logging'
 issues_url 'https://bitbucket.org/trekbikes/cb_dvo_logging/issues?status=new&status=open'

@@ -79,17 +79,30 @@ if %w(hybris).include?(node['sumologic']['server_type'])
   end
 end
 
-directory '/opt/SumoCollector/config' do
-  recursive true
-  action :create
-end
-
 template '/opt/SumoCollector/config/sources.json' do
   source 'sources.json.erb'
   owner 'root'
   variables(
     environment: node['hostname'].split('-')[1]
   )
+  notifies :run, 'script[Uninstall SumoCollector]', :before
+  notifies :create, 'directory[/opt/SumoCollector/config]', :before
+  notifies :install_and_configure, 'sumologic_collector[/opt/SumoCollector/]', :delayed
+end
+
+directory '/opt/SumoCollector/config' do
+  recursive true
+  action :nothing
+end
+
+script 'Uninstall SumoCollector' do
+  interpreter 'bash'
+  code <<-EOH
+    /opt/SumoCollector/collector remove
+    rm -rf /opt/SumoCollector
+    EOH
+  only_if { ::File.exist?('/opt/SumoCollector/collector') }
+  action :nothing
 end
 
 ephemeral_collector = false
@@ -105,5 +118,5 @@ sumologic_collector '/opt/SumoCollector/' do
   sumo_access_key creds['accesskey']
   sources '/opt/SumoCollector/config/sources.json'
   sensitive true
-  not_if { File.exist?('/opt/SumoCollector/collector') }
+  action :nothing
 end

@@ -1,3 +1,8 @@
+# 2.3.2
+**Date: 1/7/2019**
+
+* Configured Sumologic installation to depend on sources.json and reinstall if sources.json changes.
+
 # 2.3.1
 **Date: 1/7/2019**
 
