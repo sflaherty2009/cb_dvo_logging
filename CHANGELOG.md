@@ -1,3 +1,8 @@
+# 2.3.3
+**Date: 1/17/2019**
+
+* Modified delivery to use cb_infra_acceptance instead of cb_dvo_terraform.
+
 # 2.3.2
 **Date: 1/7/2019**
 
