@@ -6,7 +6,7 @@ provisioner:
   client_rb:
     environment: test-kitchen
     node_name: "<%= ENV['USER'] %>"
-    client_key: "/tmp/kitchen/data/<%= ENV['USER'] %>.pem"
+    client_key: "#{ENV['TEMP'] ? ENV['TEMP'] : '/tmp'}/kitchen/data/<%= ENV['USER'] %>.pem"
 
 verifier:
   name: inspec
@@ -57,9 +57,6 @@ platforms:
       vm_name: azl-kit-log-01
 
   - name: win12-local
-    provisioner:
-      client_rb:
-        client_key: "C:\\Users\\vagrant\\AppData\\Local\\Temp\\kitchen\\data\\<%= ENV['USER'] %>.pem"
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -93,9 +90,6 @@ platforms:
         - ['private_network', {ip: '192.168.57.11'}]
 
   - name: win16-local
-    provisioner:
-      client_rb:
-        client_key: "C:\\Users\\vagrant\\AppData\\Local\\Temp\\kitchen\\data\\<%= ENV['USER'] %>.pem"
     os_type: windows
     shell_type: powershell
     communicator: winrm
@@ -129,9 +123,6 @@ platforms:
         - ['private_network', {ip: '192.168.57.12'}]
   
   - name: win16-az
-    provisioner:
-      client_rb:
-        client_key: "C:\\Users\\azure\\AppData\\Local\\Temp\\kitchen\\data\\<%= ENV['USER'] %>.pem"
     transport:
       name: winrm
       username: vagrant
