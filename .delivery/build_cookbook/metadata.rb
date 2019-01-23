@@ -10,4 +10,4 @@ issues_url 'https://bitbucket.org/trekbikes/build_cookbook/issues?status=new&sta
 supports 'ubuntu'
 
 depends 'delivery-truck'
-depends 'cb_dvo_terraform'
+depends 'cb_infra_acceptance'

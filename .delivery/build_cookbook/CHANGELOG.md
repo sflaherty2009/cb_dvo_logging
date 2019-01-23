@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Modified
 
-- Moved Terraform logic to cb_dvo_terraform.
+- Moved Terraform logic to cb_infra_acceptance.
 
 ## [0.1.4] - 2018-11-2
 
