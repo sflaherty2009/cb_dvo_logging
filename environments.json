@@ -1,7 +1,7 @@
 {
   "cb_dvo_logging": {
     "production": "2.3.2",
-    "staging": "2.3.2",
-    "testing": "2.3.2"
+    "staging": "2.3.3",
+    "testing": "2.3.3"
   }
 }
