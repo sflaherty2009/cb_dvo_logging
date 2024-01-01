@@ -1,5 +1,5 @@
 # License - build_cookbook
 
-Copyright (c) Trek Bicycle Corporation
+Copyright (c) Exmple Corporation
 
 All rights reserved.

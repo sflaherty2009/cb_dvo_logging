@@ -65,7 +65,7 @@ platforms:
       username: vagrant
       password: vagrant
     driver:
-      box: trek/windows2012r2
+      box: exmpl/windows2012r2
       box_url: https://aztrksaslh00public01.blob.core.windows.net/vagrant/windows/2012r2/windows2012r2min-virtualbox.box
       customize:
         createhd:
@@ -98,7 +98,7 @@ platforms:
       username: vagrant
       password: vagrant
     driver:
-      box: trek/Windows2016
+      box: exmpl/Windows2016
       box_url: https://aztrksaslh00public01.blob.core.windows.net/vagrant/windows/2016/windows2016min-virtualbox.box
       customize:
         createhd:

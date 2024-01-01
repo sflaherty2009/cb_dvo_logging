@@ -84,7 +84,7 @@ Utilizing the sumologic-collector community cookbook, `windows.json` is created 
 ```
 sumo_source_local_windows_event_log 'windows' do
   source_json_directory node['sumologic']['sumo_json_path']
-  category "www.trekbikes.com/#{node['hostname'].split('-')[1]}/windows"
+  category "www.examples.com/#{node['hostname'].split('-')[1]}/windows"
   log_names ['security', 'application']
 end
 ```
@@ -131,6 +131,6 @@ Managed via feature branch pull requests.  Must pass all tests and include new t
 
 # License & Authors
 
-**Aurthor:** Trek DevOps (devops@trekbikes.com)
+**Aurthor:** ExmpleDevOps (devops@examples.com)
 
-**Copyright:** 2018, The Trek Bicycle Corporation, All Rights Reserved
+**Copyright:** 2018, The Exmple Corporation, All Rights Reserved

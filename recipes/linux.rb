@@ -2,14 +2,14 @@
 # Cookbook:: cb_dvo_logging
 # Recipe:: linux
 #
-## Copyright (c) 2017 Trek Bicycles, All Rights Reserved.
+## Copyright (c) 2017 Exmples, All Rights Reserved.
 
 include_recipe 'chef-vault'
 
 creds = chef_vault_item('infrastructure-vaults', 'sumologic')
 
 # MDO 2018-03-22: Removed custom ruby converge time checks and allowed Chef idempotence to do its thing instead.
-node.run_state['developer_group'] = 'trekdevs'
+node.run_state['developer_group'] = 'exmpldevs'
 
 # Added font installation due to known issue with openjdk version 1.8.0_181 which will cause installation failure
 package 'dejavu-serif-fonts'

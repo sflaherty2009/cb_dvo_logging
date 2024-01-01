@@ -1,5 +1,5 @@
 <%
-rootCategory = 'www.trekbikes.com'
+rootCategory = 'www.examples.com'
 %>
 {
     "api.version": "v1",
@@ -366,7 +366,7 @@ rootCategory = 'www.trekbikes.com'
         {
             "name": "Back Office Access Log",
             "description": "Back Office Access Log",
-            "category": "backoffice.trekbikes.com/<%= @environment %>/apache/access",
+            "category": "backoffice.examples.com/<%= @environment %>/apache/access",
             "automaticDateParsing": true,
             "multilineProcessingEnabled": true,
             "useAutolineMatching":true,
@@ -384,7 +384,7 @@ rootCategory = 'www.trekbikes.com'
         {
             "name":"Back Office Error Log",
             "description":"Backoffice Error Log",
-            "category":"backoffice.trekbikes.com/<%= @environment %>/apache/error",
+            "category":"backoffice.examples.com/<%= @environment %>/apache/error",
             "automaticDateParsing":true,
             "multilineProcessingEnabled":true,
             "useAutolineMatching":true,
@@ -397,7 +397,7 @@ rootCategory = 'www.trekbikes.com'
             "sourceType":"LocalFile"
         }
         <% end %>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/biDataImport') %>
+        <% if Dir.exist?('/opt/sumologs/hybris/exmpl/biDataImport') %>
         ,
         {
             "name":"Hybris BiDataImport",
@@ -411,12 +411,12 @@ rootCategory = 'www.trekbikes.com'
             "filters":[],
             "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
-            "pathExpression":"/opt/sumologs/hybris/trek/biDataImport/*.log",
+            "pathExpression":"/opt/sumologs/hybris/exmpl/biDataImport/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
         }
         <% end %>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/sync') %>
+        <% if Dir.exist?('/opt/sumologs/hybris/exmpl/sync') %>
         ,
         {
             "name":"Hybris CustomContentSyncJob",
@@ -430,7 +430,7 @@ rootCategory = 'www.trekbikes.com'
             "filters":[],
             "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
-            "pathExpression":"/opt/sumologs/hybris/trek/sync/*.log",
+            "pathExpression":"/opt/sumologs/hybris/exmpl/sync/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
         }
@@ -454,7 +454,7 @@ rootCategory = 'www.trekbikes.com'
             "sourceType":"LocalFile"
         }
         <% end %>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/solr') %>
+        <% if Dir.exist?('/opt/sumologs/hybris/exmpl/solr') %>
         ,
         {
             "name":"Hybris SolrIndexJob",
@@ -468,12 +468,12 @@ rootCategory = 'www.trekbikes.com'
             "filters":[],
             "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
-            "pathExpression":"/opt/sumologs/hybris/trek/solr/*.log",
+            "pathExpression":"/opt/sumologs/hybris/exmpl/solr/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
         }
         <% end %>
-        <% if Dir.exist?('/opt/sumologs/hybris/trek/userLocales') %>
+        <% if Dir.exist?('/opt/sumologs/hybris/exmpl/userLocales') %>
         ,
         {
             "name":"Hybris UserLocales",
@@ -487,7 +487,7 @@ rootCategory = 'www.trekbikes.com'
             "filters":[],
             "cutoffRelativeTime":"-1h",
             "encoding":"UTF-8",
-            "pathExpression":"/opt/sumologs/hybris/trek/userLocales/*.log",
+            "pathExpression":"/opt/sumologs/hybris/exmpl/userLocales/*.log",
             "blacklist":[],
             "sourceType":"LocalFile"
         }

@@ -181,7 +181,7 @@ There were many changes in this release.
 # 2.0.7
 **Date: 12/13/2017**
 
-* Added logic to parameterize the root category based on 'use' attribute values. Uses www.trekbikes.com by default.
+* Added logic to parameterize the root category based on 'use' attribute values. Uses www.examples.com by default.
 
 # 2.0.6
 **Date: 12/12/2017**
@@ -207,7 +207,7 @@ There were many changes in this release.
 **Date: 12/02/2017**
 **Contributor: Matt Oleksowicz**
 
-* Added guard against 'trekdevs' group missing
+* Added guard against 'exmpldevs' group missing
 
 # 2.0.0
 **Date: 11/15/2017**
